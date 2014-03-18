@@ -1,8 +1,8 @@
 {
     "name": "sails-foundation",
     "private": true,
-    "version": "0.0.0",
-    "description": "a Sails application",
+    "version": "0.0.1",
+    "description": "a basic sails starter application",
     "dependencies": {
         "sails": "0.9.11",
         "grunt": "0.4.1",
@@ -16,6 +16,6 @@
     },
     "main": "app.js",
     "repository": "",
-    "author": "",
+    "author": "Zach Rose",
     "license": ""
 }

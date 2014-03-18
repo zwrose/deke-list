@@ -43,6 +43,8 @@ module.exports = function (grunt) {
 
   var jsFilesToInject = [
 
+    'linker/js/jquery.js',
+
     // Below, as a demonstration, you'll see the built-in dependencies 
     // linked in the proper order order
 
@@ -57,7 +59,7 @@ module.exports = function (grunt) {
     'linker/js/app.js',
 
     // *->    put other dependencies here   <-*
-
+    'linker/js/bootstrap.js',
     // All of the rest of your app scripts imported here
     'linker/**/*.js'
   ];
