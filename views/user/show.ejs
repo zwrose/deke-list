@@ -5,6 +5,19 @@
 		<div class="alert alert-success"><%- flash.successMsg[0].message %></div>
 	<% } %>
 
+	<% if(flash && flash.err) { %>
+		<% console.log(flash.err) %>
+		<div class="alert alert-danger">
+			<% Object.keys(flash.err).forEach(function(error) { %>
+				<% if(flash.err[error].length > 1) { _.each(flash.err[error], function(subError) {%>
+				<div><%- subError.message %></div>
+			<% })} else { %>
+				<div><%- flash.err[error].message %></div>
+			<% } %>
+		<% }) %>
+		</div>
+	<% } %>
+
 	<div>Email: <%= user.email %></div>
 	<div><a class="btn btn-primary" href="/user/edit/<%= user.id %>">Edit Info</a></div>
 </div>

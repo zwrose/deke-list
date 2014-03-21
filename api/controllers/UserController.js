@@ -70,6 +70,12 @@ module.exports = {
 
   show: function(req, res, next){
 
+  	if(!req.param('id')){
+  		return res.view({
+  			user: req.session.User
+  		});
+  	}
+
     User.findOne(req.param('id'), function foundUser(err, user){
 
       if(err) return next(err);
