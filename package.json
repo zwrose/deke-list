@@ -1,21 +1,22 @@
 {
-    "name": "sails-foundation",
-    "private": true,
-    "version": "0.0.1",
-    "description": "a basic sails starter application",
-    "dependencies": {
-        "sails": "0.9.11",
-        "grunt": "0.4.1",
-        "sails-disk": "~0.9.0",
-        "ejs": "0.8.4",
-        "optimist": "0.3.4"
-    },
-    "scripts": {
-        "start": "node app.js",
-        "debug": "node debug app.js"
-    },
-    "main": "app.js",
-    "repository": "",
-    "author": "Zach Rose",
-    "license": ""
+  "name": "sails-foundation",
+  "private": true,
+  "version": "0.0.1",
+  "description": "a basic sails starter application",
+  "dependencies": {
+    "sails": "0.9.13",
+    "grunt": "0.4.1",
+    "sails-disk": "0.9.x",
+    "ejs": "0.8.4",
+    "optimist": "0.3.4",
+    "bcrypt": "^0.7.7"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "debug": "node debug app.js"
+  },
+  "main": "app.js",
+  "repository": "",
+  "author": "Zach Rose",
+  "license": ""
 }
