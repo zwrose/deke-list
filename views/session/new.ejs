@@ -1,0 +1,21 @@
+<div class="container">
+	<form action="/session/create" method="POST" id="sign-up-form" class="form-signin">
+		<h2 class="form-signin-heading">Log In Here</h2>
+
+		<% if(flash && flash.err) { %>
+			<div class="alert alert-danger">
+		<% Object.keys(flash.err).forEach(function(error) { %>
+			<div><%- flash.err[error].message %></div>
+		<% }) %>
+		</div>
+		<% } %>
+		
+		<input type="text" class="form-control" placeholder="email address" name="email">
+		<br />
+		<input type="password" class="form-control" placeholder="password" name="password" id="password">
+		<br />
+
+		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Log In"/>
+		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+	</form>
+</div>

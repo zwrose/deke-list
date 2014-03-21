@@ -66,7 +66,12 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/login">Log In</a></li>
+            <% if(!req.session.User) { %>
+              <li><a href="/login">Log In</a></li>
+            <% } else { %>
+              <li><a href="/user/show/<%= req.session.User.id %>"> Currently logged in: <%= req.session.User.email %></a></li>
+              <li><a href="/logout">Log Out</a></li>
+            <% } %>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

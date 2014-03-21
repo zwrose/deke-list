@@ -1,0 +1,30 @@
+<div class="container">
+	<form action="/user/update/<%= user.id %>" method="POST" id="sign-up-form" class="form-signin">
+		<h2 class="form-signin-heading">Update your information</h2>
+
+		<% if(flash && flash.err) { %>
+			<% console.log(flash.err) %>
+			<div class="alert alert-danger">
+		<% Object.keys(flash.err).forEach(function(error) { %>
+			<% if(flash.err[error].length > 1) { _.each(flash.err[error], function(subError) {%>
+				<div><%- subError.message %></div>
+			<% })} else { %>
+				<div><%- flash.err[error].message %></div>
+			<% } %>
+		<% }) %>
+		</div>
+		<% } %>
+		
+		<input type="text" class="form-control" value="<%= user.email %>" name="email">
+		<br />
+		<input type="password" class="form-control" placeholder="old password" name="oldPassword">
+		<br />
+		<input type="password" class="form-control" placeholder="new password" name="newPassword">
+		<br />
+		<input type="password" class="form-control" placeholder="confirm new password" name="confirmation">
+		<br />
+
+		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Update"/>
+		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+	</form>
+</div>

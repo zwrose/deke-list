@@ -3,11 +3,16 @@
 		<h2 class="form-signin-heading">Create a User Account</h2>
 
 		<% if(flash && flash.err) { %>
-			<ul class="alert alert-success">
+			<% console.log(flash.err) %>
+			<div class="alert alert-danger">
 		<% Object.keys(flash.err).forEach(function(error) { %>
-			<li><%- JSON.stringify(flash.err[error]) %></li>
+			<% if(flash.err[error].length > 1) { _.each(flash.err[error], function(subError) {%>
+				<div><%- subError.message %></div>
+			<% })} else { %>
+				<div><%- flash.err[error].message %></div>
+			<% } %>
 		<% }) %>
-		</ul>
+		</div>
 		<% } %>
 		
 		<input type="text" class="form-control" placeholder="email address" name="email">
