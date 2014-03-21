@@ -1,8 +1,8 @@
 {
-  "name": "sails-foundation",
+  "name": "ASTADKE Secure",
   "private": true,
   "version": "0.0.1",
-  "description": "a basic sails starter application",
+  "description": "Deke List and more",
   "dependencies": {
     "sails": "0.9.13",
     "grunt": "0.4.1",
@@ -16,7 +16,7 @@
     "debug": "node debug app.js"
   },
   "main": "app.js",
-  "repository": "",
+  "repository": "https://github.com/zwrose/deke-list",
   "author": "Zach Rose",
   "license": ""
 }

@@ -1,3 +1,4 @@
-# sails-foundation
-Built as a template for things that tend to be written with many sails apps (maybe?)
-Eventually, this page will document what's here on top of a standard sails app.
+# ASTADKE Secure
+The secure, online place for Dekes to update their contact info, as well as look up contact info of their fellow brothers
+
+More features to follow!
