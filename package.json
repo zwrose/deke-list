@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "Deke List and more",
   "dependencies": {
-    "sails": "0.9.12",
+    "sails": "0.9.13",
     "grunt": "0.4.1",
     "sails-disk": "0.9.x",
     "ejs": "0.8.4",
