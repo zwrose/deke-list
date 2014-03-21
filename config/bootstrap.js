@@ -9,7 +9,7 @@
  */
 
  module.exports = {
-  appName: 'Set Your Title! - config/bootstrap.js:appName',
+  appName: 'ASTADKE Secure',
 };
 
 module.exports.bootstrap = function (cb) {
