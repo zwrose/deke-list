@@ -1,1 +1,5 @@
 /*Use this file to override bootstrap and apply custom CSS*/
+/*This body padding keeps the navbar from covering up content.*/
+body {
+  padding-top: 70px;
+}

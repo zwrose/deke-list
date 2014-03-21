@@ -38,6 +38,7 @@ module.exports = {
 
   beforeValidation: function (values, next) {
     // nothing here for the moment
+    next();
   },
 
   beforeCreate: function (values, next) {

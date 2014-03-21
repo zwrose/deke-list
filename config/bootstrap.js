@@ -9,7 +9,7 @@
  */
 
  module.exports = {
-  appName: 'Set Your Title!',
+  appName: 'Set Your Title! - config/bootstrap.js:appName',
 };
 
 module.exports.bootstrap = function (cb) {
