@@ -6,18 +6,25 @@
 	<% } %>
 
 	<% if(flash && flash.err) { %>
-		<% console.log(flash.err) %>
-		<div class="alert alert-danger">
-			<% Object.keys(flash.err).forEach(function(error) { %>
-				<% if(flash.err[error].length > 1) { _.each(flash.err[error], function(subError) {%>
-				<div><%- subError.message %></div>
-			<% })} else { %>
-				<div><%- flash.err[error].message %></div>
-			<% } %>
-		<% }) %>
-		</div>
-	<% } %>
+			<% console.log(flash.err) %>
+			<div class="alert alert-danger">
+				<% Object.keys(flash.err).forEach(function(error) { %>
+					<% if(flash.err[error].length > 1) { _.each(flash.err[error], function(subError) {%>
+						<div><%- subError.message %> - <%= error %></div>
+					<% })} else { %>
+						<div><%- flash.err[error][0].message %> - <%= error %></div>
+					<% } %>
+				<% }) %>
+			</div>
+		<% } %>
 
+	<div>First Name: <%= user.firstName %></div>
+	<br />
+	<div>Last Name: <%= user.lastName %></div>
+	<br />
 	<div>Email: <%= user.email %></div>
+	<br />
+	<div>Grad Year: <%= user.gradYear %></div>
+	<br />
 	<div><a class="btn btn-primary" href="/user/edit/<%= user.id %>">Edit Info</a></div>
 </div>

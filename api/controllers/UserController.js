@@ -6,6 +6,7 @@
  */
 
 var bcrypt = require('bcrypt');
+var request = require('request');
 
 module.exports = {
 	
@@ -17,7 +18,10 @@ module.exports = {
   	
     var userObj = {
         email: req.param('email'),
-        password: req.param('password')
+        password: req.param('password'),
+        firstName: req.param('firstName'),
+        lastName: req.param('lastName'),
+        gradYear: req.param('gradYear')
     }
 
     // Check to make sure the password and password confirmation match before creating record
@@ -33,7 +37,7 @@ module.exports = {
   	User.create(userObj, function userCreated(err, user){
   		
   		if(err){
-  			console.log(err.ValidationError);
+  			
   			req.session.flash = {
   				err: err.ValidationError
   			}
@@ -46,6 +50,29 @@ module.exports = {
       req.session.authenticated = true;
       req.session.User = user;
   		
+      // Poll insightly based on email
+      var insLookupEmailURI = 'https://api.insight.ly/v2.1/contacts?email=' + user.email;
+
+      request.get({
+        url: insLookupEmailURI, 
+        auth: {user: process.env.INSIGHTLY_KEY}
+      }, function(error, response, body){
+        var insContactsEmail = JSON.parse(body);
+      });
+
+      // If there's a unique insightly match, save the insightly id
+      // Then send the user to review/edit their info
+
+      if(insContactsEmail.length == 1){
+        
+        user.insightlyID = insContactsEmail[0].CONTACT_ID;
+        req.session.flash{
+          firstLogin: true
+        }
+        res.redirect('user/edit/' + user.id)
+      }
+
+
       res.redirect('/');
 
   	});
@@ -104,7 +131,10 @@ module.exports = {
 
     var userObj = {
       email: req.param('email'),
-      password: req.param('newPassword')
+      password: req.param('newPassword'),
+      firstName: req.param('firstName'),
+      lastName: req.param('lastName'),
+      gradYear: req.param('gradYear')
     }
 
     // Check to make sure the correct old password was entered

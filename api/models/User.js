@@ -27,6 +27,25 @@ module.exports = {
       defaultsTo: false
     },
 
+    insightlyID: {
+      type: 'string'
+    },
+
+    firstName: {
+      type: 'string',
+      required :true
+    },
+
+    lastName: {
+      type: 'string',
+      required :true
+    },
+
+    gradYear: {
+      type: 'string',
+      required :true
+    },
+
     toJSON: function() {
       var obj = this.toObject();
       delete obj.encryptedPassword;

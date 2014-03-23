@@ -5,14 +5,14 @@
 		<% if(flash && flash.err) { %>
 			<% console.log(flash.err) %>
 			<div class="alert alert-danger">
-		<% Object.keys(flash.err).forEach(function(error) { %>
-			<% if(flash.err[error].length > 1) { _.each(flash.err[error], function(subError) {%>
-				<div><%- subError.message %></div>
-			<% })} else { %>
-				<div><%- flash.err[error].message %></div>
-			<% } %>
-		<% }) %>
-		</div>
+				<% Object.keys(flash.err).forEach(function(error) { %>
+					<% if(flash.err[error].length > 1) { _.each(flash.err[error], function(subError) {%>
+						<div><%- subError.message %> - <%= error %></div>
+					<% })} else { %>
+						<div><%- flash.err[error][0].message %> - <%= error %></div>
+					<% } %>
+				<% }) %>
+			</div>
 		<% } %>
 		
 		<input type="text" class="form-control" placeholder="email address" name="email">
@@ -20,6 +20,12 @@
 		<input type="password" class="form-control" placeholder="password" name="password" id="password">
 		<br />
 		<input type="password" class="form-control" placeholder="password confirmation" name="confirmation">
+		<br />
+		<input type="text" class="form-control" placeholder="first name" name="firstName">
+		<br />
+		<input type="text" class="form-control" placeholder="last name" name="lastName">
+		<br />
+		<input type="text" class="form-control" placeholder="grad year" name="gradYear">
 		<br />
 
 		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account"/>
