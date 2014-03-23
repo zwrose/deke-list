@@ -1,8 +1,7 @@
 <div class="container">
 
 	<% if(flash && flash.successMsg) { %>
-		<% console.log(flash.successMsg); %>
-		<div class="alert alert-success"><%- flash.successMsg[0].message %></div>
+		<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><%- flash.successMsg[0].message %></div>
 	<% } %>
 
 	<% if(flash && flash.err) { %>
@@ -26,5 +25,9 @@
 	<br />
 	<div>Grad Year: <%= user.gradYear %></div>
 	<br />
+	<% if(insightly){ %>
+		<div><%= insightly.CONTACTINFOS[0].LABEL + '_' + insightly.CONTACTINFOS[0].TYPE + 0 %>: <%= insightly.CONTACTINFOS[0].DETAIL %></div>
+		<br />
+	<% } %>
 	<div><a class="btn btn-primary" href="/user/edit/<%= user.id %>">Edit Info</a></div>
 </div>

@@ -13,7 +13,7 @@ module.exports = function(req, res, next) {
   if (!req.session.User) {
     var UnAuth = [{name: 'UnAuth', message: 'Please log in.'}]
 		req.session.flash = {
-			err: UnAuth
+			err: {auth: UnAuth}
 		}
     return res.redirect('/session/new');
   }

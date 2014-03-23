@@ -15,7 +15,7 @@ module.exports = function(req, res, next) {
 	if (!(isUser || isAdmin)) {
 		var noRightsError = [{name: 'noRights', message: 'Sorry, you do not have permission to access that page.'}]
 		req.session.flash = {
-			err: noRightsError
+			err: {auth: noRightsError}
 		}
     return res.redirect('/user/show/' + req.session.User.id); 
 	}

@@ -23,6 +23,8 @@ module.exports.policies = {
   	'show': ["flash", "isAuthenticated", "privateView"],
   	'edit': ["flash", "isAuthenticated", "privateView"],
   	'update': ["flash", "isAuthenticated", "privateView"],
+  	'linkup': ["flash", "isAuthenticated", "privateView"],
+  	'join': ["flash", "isAuthenticated", "privateView"],
   	'*': ["flash", "isAuthenticated", "admin"]
   }
 

@@ -1,0 +1,19 @@
+<div class="container">
+	<h1>Thank you for registering!</h1>
+	<h3>We want to make sure we match you to the right record in our database - please select yourself from the list below by clicking the green button next to your name.</h3>
+
+	<% _.each(matches, function(person){ %>
+
+		<div>
+			<form class="col-md-1" action="/user/join/<%= user.id %>" method="POST">
+				<input type="hidden" name="insightlyID" value="<%= person.CONTACT_ID %>"/>
+				<input type="submit" class="btn btn-sm btn-success" value="This is me -->"/>
+				<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+			</form>
+			<span class="col-md-4"> <%= person.FIRST_NAME %> <%= person.LAST_NAME %> <%= person.CUSTOMFIELDS[1].FIELD_VALUE %></span>
+			<br /><br />
+		</div>
+
+	<% }) %>
+
+</div>

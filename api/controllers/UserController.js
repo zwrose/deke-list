@@ -28,7 +28,7 @@ module.exports = {
     if (userObj.password != req.param('confirmation')) {
       var pwMismatch = [{name: 'pwMismatch', message: 'Passwords did not match - please retry!'}]
       req.session.flash = {
-  				err: pwMismatch
+  				err: {login: pwMismatch}
   		}
   		return res.redirect('user/new');
     }
@@ -53,27 +53,41 @@ module.exports = {
       // Poll insightly based on email
       var insLookupEmailURI = 'https://api.insight.ly/v2.1/contacts?email=' + user.email;
 
-      request.get({
+      request({
         url: insLookupEmailURI, 
         auth: {user: process.env.INSIGHTLY_KEY}
       }, function(error, response, body){
-        var insContactsEmail = JSON.parse(body);
-      });
-
-      // If there's a unique insightly match, save the insightly id
-      // Then send the user to review/edit their info
-
-      if(insContactsEmail.length == 1){
+        insContactsEmail = JSON.parse(body);
         
-        user.insightlyID = insContactsEmail[0].CONTACT_ID;
-        req.session.flash{
-          firstLogin: true
+        // If there's a unique insightly match, save the insightly id
+        // Then send the user to review/edit their info
+        if(insContactsEmail.length === 1){
+        
+          user.insightlyID = insContactsEmail[0].CONTACT_ID;
+          user.save(function(err){
+            if(err) return next(err);
+
+            req.session.flash = {
+              firstLogin: true
+            }
+            return res.redirect('user/edit/' + user.id);
+          })
+
+        } else if(insContactsEmail.length === 0){
+          
+          return res.redirect('user/linkup/' + user.id);
+
+        } else {
+
+          var multEmails = [{name: 'multEmails', message: 'Multiple insightly users returned...looking into it'}];
+          req.session.flash = {
+            err: {duplEmail: multEmails}
+          }
+          return res.redirect('user/show/' + user.id)
+
         }
-        res.redirect('user/edit/' + user.id)
-      }
 
-
-      res.redirect('/');
+      });
 
   	});
   },
@@ -108,9 +122,28 @@ module.exports = {
       if(err) return next(err);
       if(!user) return next('User doesn\'t exist.');
 
-      res.view({
-        user: user
-      });
+      if(user.insightlyID){
+        var insLookupIDURI = 'https://api.insight.ly/v2.1/contacts/' + user.insightlyID;
+
+        request.get({
+          url: insLookupIDURI, 
+          auth: {user: process.env.INSIGHTLY_KEY}
+        }, function(error, response, body){
+          insContactEdit = JSON.parse(body);
+
+          res.view({
+            user: user,
+            insightly: insContactEdit
+          })
+        });
+
+      } else {
+        res.view({
+          user: user,
+          insightly: null
+        });
+      }
+
     });
   },
 
@@ -121,9 +154,28 @@ module.exports = {
       if(err) return next(err);
       if(!user) return next('User doesn\'t exist.');
 
-      res.view({
-        user: user
-      });
+      if(user.insightlyID){
+        var insLookupIDURI = 'https://api.insight.ly/v2.1/contacts/' + user.insightlyID;
+
+        request.get({
+          url: insLookupIDURI, 
+          auth: {user: process.env.INSIGHTLY_KEY}
+        }, function(error, response, body){
+          insContactEdit = JSON.parse(body);
+
+          res.view({
+            user: user,
+            insightly: insContactEdit
+          })
+        });
+
+      } else {
+        res.view({
+          user: user,
+          insightly: null
+        });
+      }
+
     });
   },
 
@@ -150,7 +202,7 @@ module.exports = {
       if(!user) {
       	var noUser = [{name: 'noUser', message: 'User does not exist.'}]
 				req.session.flash = {
-					err: noUser
+					err: {userError: noUser}
 				}
 				return res.redirect('/user/edit/'+req.param('id'));
       }
@@ -159,7 +211,7 @@ module.exports = {
 
 				var badOldPass = [{name: 'badOldPass', message: 'Old password was incorrect - password not updated'}]
 				req.session.flash = {
-					err: badOldPass
+					err: {login: badOldPass}
 				}
 				return res.redirect('/user/edit/'+req.param('id'));
 
@@ -169,7 +221,7 @@ module.exports = {
 	    if (userObj.password != req.param('confirmation')) {
 	      var pwMismatch = [{name: 'pwMismatch', message: 'Passwords did not match - please retry!'}]
 	      req.session.flash = {
-	  			err: pwMismatch
+	  			err: {login: pwMismatch}
 	  		}
 	  		return res.redirect('/user/edit/'+req.param('id'));
 	    }
@@ -193,5 +245,74 @@ module.exports = {
 
     
   },
+
+  linkup: function(req, res, next){
+
+    // Get all living contacts
+    var insLookupLivingURI = 'https://api.insight.ly/v2.1/contacts?tag=Living';
+
+    request.get({
+      url: insLookupLivingURI, 
+      auth: {user: process.env.INSIGHTLY_KEY}
+    }, function(error, response, body){
+      insContactsLiving = JSON.parse(body);
+
+      User.findOne(req.param('id'), function foundUser(err, user){
+
+        if(err) return next(err);
+        if(!user) return next('User doesn\'t exist.');
+
+        var insLastNameMatch = insContactsLiving.filter(function(obj){
+
+          return obj.LAST_NAME === user.lastName;
+
+        });
+
+        if(insLastNameMatch.length === 1){
+          
+          user.insightlyID = insContactsEmail[0].CONTACT_ID;
+          user.save(function(err){
+            if(err) return next(err);
+            req.session.flash = {
+              firstLogin: true
+            }
+            return res.redirect('user/edit/' + user.id)
+          })
+          
+
+        } else if(insLastNameMatch.length === 0){
+          // not in insightly!
+          return res.send("Havent built this yet!");
+
+        } else {
+          // Display matches for user to choose
+          return res.view({
+            matches: insLastNameMatch,
+            user: user
+          })
+        }
+
+      });
+
+    });
+
+    
+
+  },
+
+  join: function(req, res, next){
+
+    User.update(req.param('id'), {insightlyID: req.param('insightlyID')}, function(err){
+      if(err) return next(err);
+
+      req.session.flash = {
+        firstLogin: true
+      }
+      return res.redirect('user/edit/' + req.param('id'));
+
+    });
+
+  },
+
 
 };

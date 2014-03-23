@@ -2,6 +2,12 @@
 	<form action="/user/update/<%= user.id %>" method="POST" id="sign-up-form" class="form-signin">
 		<h2 class="form-signin-heading">Update your information</h2>
 
+		<% if(flash && flash.firstLogin) { %>
+			<div class="alert alert-info">
+				Thanks for registering on ASTADKE Secure! Since this is your first time here, please take a moment to review the information we currently have on file for you below, and add/change as necessary. When you are finished (even if you didn't make any changes), please click the "Update" button to continue!
+			</div>
+		<% } %>
+
 		<% if(flash && flash.err) { %>
 			<% console.log(flash.err) %>
 			<div class="alert alert-danger">
@@ -29,7 +35,10 @@
 		<br />
 		<input type="text" class="form-control" value="<%= user.gradYear %>" name="gradYear">
 		<br />
-
+		<% if(insightly){ %>
+			<input type="text" class="form-control" value="<%= insightly.CONTACTINFOS[0].DETAIL %>" name="<%= insightly.CONTACTINFOS[0].LABEL + '_' + insightly.CONTACTINFOS[0].TYPE + 0 %>">
+			<br />
+		<% } %>
 		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Update"/>
 		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
 	</form>
