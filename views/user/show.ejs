@@ -26,7 +26,28 @@
 	<div>Grad Year: <%= user.gradYear %></div>
 	<br />
 	<% if(insightly){ %>
-		<div><%= insightly.CONTACTINFOS[0].LABEL + '_' + insightly.CONTACTINFOS[0].TYPE + 0 %>: <%= insightly.CONTACTINFOS[0].DETAIL %></div>
+		<div>Full name: <%= insightly.salutation %> <%= insightly.firstName %> <%= insightly.lastName %></div>
+		<br />
+		<div>Preferred first name: <%= user.firstName %></div>
+		<br />
+		<div>Graduation year: <%= insightly.gradYear %></div>
+		<br />
+		<div>Address: <%= insightly.addrStreet %>, <%= insightly.addrCity %>, <%= insightly.addrState %> <%= insightly.addrZip %>, <%= insightly.addrCountry %></div>
+		<br />
+		<div>Preferred phone number: <%= insightly.phoneOne %></div>
+		<br />
+		<div>Other phone number 1: <%= insightly.phoneTwo %></div>
+		<br />
+		<div>Other phone number 2: <%= insightly.phoneThree %></div>
+		<br />
+		<div>Preferred email address: <%= insightly.emailOne %></div>
+		<br />
+		<div>Other email address 1: <%= insightly.emailTwo %></div>
+		<br />
+		<div>Other email address 2: <%= insightly.emailThree %></div>
+		<br />
+	<% } else { %>
+		<div>Hmm...There seems to be a problem reaching back to our database. If you're seeing this message, please let us know by emailing us at <a href="mailto:astadke@gmail.com">astadke@gmail.com</a>.</div>
 		<br />
 	<% } %>
 	<div><a class="btn btn-primary" href="/user/edit/<%= user.id %>">Edit Info</a></div>

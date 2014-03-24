@@ -73,17 +73,9 @@ module.exports = {
             return res.redirect('user/edit/' + user.id);
           })
 
-        } else if(insContactsEmail.length === 0){
+        } else {
           
           return res.redirect('user/linkup/' + user.id);
-
-        } else {
-
-          var multEmails = [{name: 'multEmails', message: 'Multiple insightly users returned...looking into it'}];
-          req.session.flash = {
-            err: {duplEmail: multEmails}
-          }
-          return res.redirect('user/show/' + user.id)
 
         }
 
@@ -130,10 +122,85 @@ module.exports = {
           auth: {user: process.env.INSIGHTLY_KEY}
         }, function(error, response, body){
           insContactEdit = JSON.parse(body);
+          console.log(insContactEdit)
+          // make insightly obj ready for use in view
+          var insUserObj = {
+            salutation: insContactEdit.SALUTATION,
+            firstName: insContactEdit.FIRST_NAME,
+            lastName: insContactEdit.LAST_NAME,
+            gradYear: 'none listed',
+            addrStreet: 'none listed',
+            addrCity: 'none listed',
+            addrState: 'none listed',
+            addrZip: 'none listed',
+            addrCountry: 'none listed',
+            phoneOne: 'none listed',
+            phoneTwo: 'none listed',
+            phoneThree: 'none listed',
+            emailOne: 'none listed',
+            emailTwo: 'none listed',
+            emailThree: 'none listed'
+          }
+
+          if(insContactEdit.CUSTOMFIELDS.length > 0){
+            insUserObj.gradYear = insContactEdit.CUSTOMFIELDS[1].FIELD_VALUE;
+          }
+          if(insContactEdit.ADDRESSES.length > 0){
+            insUserObj.addrStreet = insContactEdit.ADDRESSES[0].STREET;
+            insUserObj.addrCity = insContactEdit.ADDRESSES[0].CITY;
+            insUserObj.addrState = insContactEdit.ADDRESSES[0].STATE;
+            insUserObj.addrZip = insContactEdit.ADDRESSES[0].POSTCODE;
+            insUserObj.addrCountry = insContactEdit.ADDRESSES[0].COUNTRY;
+          }
+
+          // get just the phones
+          var insPhones = insContactEdit.CONTACTINFOS.filter(function(obj){
+            return obj.TYPE === 'PHONE';
+          });
+          
+          // assuming there is at least 1 phone, process and put into insUserObj
+          if(insPhones.length > 0){
+            var phonesSorted = [];
+            for(var i=0; i<insPhones.length; i++){          
+              if(insPhones[i].LABEL === 'HOME'){
+                phonesSorted.splice(0,0,insPhones[i].DETAIL);
+              } else if(insPhones[i].LABEL === 'WORK'){
+                phonesSorted.splice(1,0,insPhones[i].DETAIL);
+              } else {
+                phonesSorted.splice(2,0,insPhones[i].DETAIL);
+              }
+            }
+            
+            insUserObj.phoneOne = phonesSorted[0];
+            if(phonesSorted.length >= 2){insUserObj.phoneTwo = phonesSorted[1];};
+            if(phonesSorted.length === 3){insUserObj.phoneThree = phonesSorted[2];};
+          }
+
+          // get just the emails
+          var insEmails = insContactEdit.CONTACTINFOS.filter(function(obj){
+            return obj.TYPE === 'EMAIL';
+          });
+
+          // assuming there is at least 1 email, process and put into insUserObj
+          if(insEmails.length > 0){
+            var emailsSorted = [];
+            for(var i=0; i<insEmails.length; i++){
+              if(insEmails[i].LABEL ==='PERSONAL'){
+                emailsSorted.splice(0,0,insEmails[i].DETAIL);
+              } else if(insEmails[i].LABEL ==='WORK'){
+                emailsSorted.splice(1,0,insEmails[i].DETAIL);
+              } else {
+                emailsSorted.splice(2,0,insEmails[i].DETAIL);
+              }
+            }
+            insUserObj.emailOne = emailsSorted[0];
+            if(emailsSorted.length >= 2){insUserObj.emailTwo = emailsSorted[1];};
+            if(emailsSorted.length === 3){insUserObj.emailThree = emailsSorted[2];};
+          }
 
           res.view({
             user: user,
-            insightly: insContactEdit
+            insightly: insUserObj
           })
         });
 
@@ -270,7 +337,7 @@ module.exports = {
 
         if(insLastNameMatch.length === 1){
           
-          user.insightlyID = insContactsEmail[0].CONTACT_ID;
+          user.insightlyID = insLastNameMatch[0].CONTACT_ID;
           user.save(function(err){
             if(err) return next(err);
             req.session.flash = {
