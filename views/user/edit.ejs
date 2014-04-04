@@ -29,14 +29,40 @@
 		<br />
 		<input type="password" class="form-control" placeholder="confirm new password" name="confirmation">
 		<br />
-		<input type="text" class="form-control" value="<%= user.firstName %>" name="firstName">
-		<br />
-		<input type="text" class="form-control" value="<%= user.lastName %>" name="lastName">
-		<br />
-		<input type="text" class="form-control" value="<%= user.gradYear %>" name="gradYear">
-		<br />
+		<% if(!insightly){ %>
+			<input type="text" class="form-control" value="<%= user.firstName %>" name="firstName">
+			<br />
+			<input type="text" class="form-control" value="<%= user.lastName %>" name="lastName">
+			<br />
+			<input type="text" class="form-control" value="<%= user.gradYear %>" name="gradYear">
+			<br />
+		<% } %>
 		<% if(insightly){ %>
-			<input type="text" class="form-control" value="<%= insightly.CONTACTINFOS[0].DETAIL %>" name="<%= insightly.CONTACTINFOS[0].LABEL + '_' + insightly.CONTACTINFOS[0].TYPE + 0 %>">
+			<input type="text" class="form-control" placeholder="Salut." value="<%= insightly.salutation %>" name="salutation">
+			<input type="text" class="form-control" placeholder="Full First Name" value="<%= insightly.firstName %>" name="firstName">
+			<input type="text" class="form-control" placeholder="Last Name" value="<%= insightly.lastName %>" name="lastName">
+			<br />
+			<input type="text" class="form-control" placeholder="Preferred First Name" value="<%= user.firstName %>" name="prefFirstName">
+			<br />
+			<input type="text" class="form-control" placeholder="Graduation Year" value="<%= insightly.gradYear %>" name="gradYear">
+			<br />
+			<input type="text" class="form-control" placeholder="Street Address" value="<%= insightly.addrStreet %>" name="addrStreet">
+			<input type="text" class="form-control" placeholder="City" value="<%= insightly.addrCity %>" name="addrStreet">
+			<input type="text" class="form-control" placeholder="State" value="<%= insightly.addrState %>" name="addrStreet">
+			<input type="text" class="form-control" placeholder="Zip Code" value="<%= insightly.addrZip %>" name="addrStreet">
+			<input type="text" class="form-control" placeholder="Country" value="<%= insightly.addrCountry %>" name="addrStreet">
+			<br />
+			<input type="text" class="form-control" placeholder="Preferred Phone Number" value="<%= insightly.phoneOne %>" name="phoneOne">
+			<br />
+			<input type="text" class="form-control" placeholder="Other Phone Number 1" value="<%= insightly.phoneTwo %>" name="phoneTwo">
+			<br />
+			<input type="text" class="form-control" placeholder="Other Phone Number 2" value="<%= insightly.phoneThree %>" name="phoneThree">
+			<br />
+			<input type="text" class="form-control" placeholder="Preferred Email Address" value="<%= insightly.emailOne %>" name="emailOne">
+			<br />
+			<input type="text" class="form-control" placeholder="Other Email 1" value="<%= insightly.emailTwo %>" name="emailTwo">
+			<br />
+			<input type="text" class="form-control" placeholder="Other Email 2" value="<%= insightly.emailThree %>" name="emailThree">
 			<br />
 		<% } %>
 		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Update"/>
