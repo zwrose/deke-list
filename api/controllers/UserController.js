@@ -122,7 +122,7 @@ module.exports = {
           auth: {user: process.env.INSIGHTLY_KEY}
         }, function(error, response, body){
           insContactEdit = JSON.parse(body);
-          console.log(insContactEdit)
+          // console.log(insContactEdit)
           // make insightly obj ready for use in view
           var insUserObj = {
             salutation: insContactEdit.SALUTATION,
@@ -229,7 +229,7 @@ module.exports = {
           auth: {user: process.env.INSIGHTLY_KEY}
         }, function(error, response, body){
           insContactEdit = JSON.parse(body);
-          console.log(insContactEdit)
+          // console.log(insContactEdit)
           // make insightly obj ready for use in view
           var insUserObj = {
             salutation: insContactEdit.SALUTATION,
@@ -324,13 +324,33 @@ module.exports = {
   update: function(req, res, next){
 
     var userObj = {
-      email: req.param('email'),
+      email: req.param('loginEmail'),
       password: req.param('newPassword'),
       firstName: req.param('firstName'),
       lastName: req.param('lastName'),
       gradYear: req.param('gradYear')
     }
 
+    if(req.param('salutation')){
+      var insUpdateObj = {
+        salutation: req.param('salutation'),
+        firstName: req.param('firstName'),
+        lastName: req.param('lastName'),
+        gradYear: req.param('gradYear'),
+        addrStreet: req.param('addrStreet'),
+        addrCity: req.param('addrCity'),
+        addrState: req.param('addrState'),
+        addrZip: req.param('addrZip'),
+        addrCountry: req.param('addrCountry'),
+        phoneOne: req.param('phoneOne'),
+        phoneTwo: req.param('phoneTwo'),
+        phoneThree: req.param('phoneThree'),
+        emailOne: req.param('emailOne'),
+        emailTwo: req.param('emailTwo'),
+        emailThree: req.param('emailThree')
+      }
+    }
+    console.log(insUpdateObj)
     // Check to make sure the correct old password was entered
     User.findOne(req.param('id'),function foundUser(err, user){
 
@@ -368,21 +388,171 @@ module.exports = {
 	  		return res.redirect('/user/edit/'+req.param('id'));
 	    }
 
-	    User.update(req.param('id'), userObj, function userUpdated(err){
-	      if(err){
-	      	req.session.flash = {
-						err: err
-					}
-	        return res.redirect('/user/edit/'+req.param('id'));
-	      }
+      if(user.insightlyID){
+        var insLookupIDURI = 'https://api.insight.ly/v2.1/contacts/' + user.insightlyID;
 
-	      var goodUpdate = [{name: 'goodUpdate', message: 'Information updated successfully.'}]
-	      req.session.flash = {
-					successMsg: goodUpdate
-				}
-	      res.redirect('/user/show/'+req.param('id'));
-	    });
-      
+        request.get({
+          url: insLookupIDURI, 
+          auth: {user: process.env.INSIGHTLY_KEY}
+          }, function(error, response, body){
+          insContactEdit = JSON.parse(body);
+          // console.log(insContactEdit)
+          
+          insContactEdit.SALUTATION = insUpdateObj.salutation;
+          insContactEdit.FIRST_NAME = insUpdateObj.firstName;
+          insContactEdit.LAST_NAME = insUpdateObj.lastName;
+          insContactEdit.CUSTOMFIELDS[1].FIELD_VALUE = insUpdateObj.gradYear;
+          if(insContactEdit.ADDRESSES[0]){
+            insContactEdit.ADDRESSES[0].STREET = insUpdateObj.addrStreet;
+            insContactEdit.ADDRESSES[0].CITY = insUpdateObj.addrCity;
+            insContactEdit.ADDRESSES[0].STATE = insUpdateObj.addrState;
+            insContactEdit.ADDRESSES[0].POSTCODE = insUpdateObj.addrZip;
+            insContactEdit.ADDRESSES[0].COUNTRY = insUpdateObj.addrCountry;
+          } else {
+            insContactEdit.ADDRESSES[0] = {
+              ADDRESS_TYPE: 'HOME',
+              STREET: insUpdateObj.addrStreet,
+              CITY: insUpdateObj.addrCity,
+              STATE: insUpdateObj.addrState,
+              POSTCODE: insUpdateObj.addrZip,
+              COUNTRY: insUpdateObj.addrCountry
+            }
+          }
+
+          // tracking array for all contact infos
+          infosArr = ['phone-home', 'phone-work', 'phone-mobile', 'email-personal', 'email-work', 'email-other'];
+
+          // loop through already existing contact infos
+          for(var i=0; i<insContactEdit.CONTACTINFOS.length; i++){
+            var conObj = insContactEdit.CONTACTINFOS[i];
+            if(conObj.TYPE === 'PHONE' && conObj.LABEL === 'HOME' && _.contains(infosArr, 'phone-home')){
+              insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.phoneOne;
+              var j = infosArr.indexOf('phone-home');
+              infosArr.splice(j,1);
+            } else if(conObj.TYPE === 'PHONE' && conObj.LABEL === 'WORK' && _.contains(infosArr, 'phone-work')){
+              insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.phoneTwo;
+              var j = infosArr.indexOf('phone-work');
+              infosArr.splice(j,1);
+            } else if(conObj.TYPE === 'PHONE' && conObj.LABEL === 'MOBILE' && _.contains(infosArr, 'phone-mobile')){
+              insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.phoneThree;
+              var j = infosArr.indexOf('phone-mobile');
+              infosArr.splice(j,1);
+            } else if(conObj.TYPE === 'EMAIL' && conObj.LABEL === 'PERSONAL' && _.contains(infosArr, 'email-personal')){
+              insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.emailOne;
+              var j = infosArr.indexOf('email-personal');
+              infosArr.splice(j,1);
+            } else if(conObj.TYPE === 'EMAIL' && conObj.LABEL === 'WORK' && _.contains(infosArr, 'email-work')){
+              insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.emailTwo;
+              var j = infosArr.indexOf('email-work');
+              infosArr.splice(j,1);
+            } else if(conObj.TYPE === 'EMAIL' && conObj.LABEL === 'OTHER' && _.contains(infosArr, 'email-other')){
+              insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.emailThree;
+              var j = infosArr.indexOf('email-other');
+              infosArr.splice(j,1);
+            }
+          }
+
+          console.log(infosArr);
+
+          // create any new contact info objects to get to the standard 6
+          for(var i=0; i<infosArr.length; i++){
+            var conType = infosArr[i];
+            if(conType === 'phone-home'){
+              insContactEdit.CONTACTINFOS.push({
+                TYPE: 'PHONE',
+                LABEL: 'HOME',
+                DETAIL: insUpdateObj.phoneOne
+              })
+            } else if(conType === 'phone-work'){
+              insContactEdit.CONTACTINFOS.push({
+                TYPE: 'PHONE',
+                LABEL: 'WORK',
+                DETAIL: insUpdateObj.phoneTwo
+              })
+            } else if(conType === 'phone-mobile'){
+              insContactEdit.CONTACTINFOS.push({
+                TYPE: 'PHONE',
+                LABEL: 'MOBILE',
+                DETAIL: insUpdateObj.phoneThree
+              })
+            } else if(conType === 'email-personal'){
+              insContactEdit.CONTACTINFOS.push({
+                TYPE: 'EMAIL',
+                LABEL: 'PERSONAL',
+                DETAIL: insUpdateObj.emailOne
+              })
+            } else if(conType === 'email-work'){
+              insContactEdit.CONTACTINFOS.push({
+                TYPE: 'EMAIL',
+                LABEL: 'WORK',
+                DETAIL: insUpdateObj.emailTwo
+              })
+            } else if(conType === 'email-other'){
+              insContactEdit.CONTACTINFOS.push({
+                TYPE: 'EMAIL',
+                LABEL: 'OTHER',
+                DETAIL: insUpdateObj.emailThree
+              })
+            }
+          }
+
+          console.log(insContactEdit);
+
+          request.put({
+            url: 'https://api.insight.ly/v2.1/contacts', 
+            auth: {user: process.env.INSIGHTLY_KEY},
+            json: true,
+            body: insContactEdit
+          }, function(error, response, body){
+            if(response.statusCode === (400 || 403 || 404)){
+              var updateError = [{name: 'updateError', message: 'Something went wrong with saving your data - we are looking into it!'}]
+              req.session.flash = {
+                err: {updageMsg: updateError}
+              }
+              console.log(response.statusCode);
+              // console.log(response);
+              console.log(body);
+              return res.redirect('/user/edit/'+req.param('id'));
+            }
+
+            User.update(req.param('id'), userObj, function userUpdated(err){
+              if(err){
+                req.session.flash = {
+                  err: err
+                }
+                return res.redirect('/user/edit/'+req.param('id'));
+              }
+
+              var goodUpdate = [{name: 'goodUpdate', message: 'Information updated successfully.'}]
+              req.session.flash = {
+                successMsg: goodUpdate
+              }
+              res.redirect('/user/show/'+req.param('id'));
+            });
+            
+          });
+
+        });
+
+      } else {
+
+        User.update(req.param('id'), userObj, function userUpdated(err){
+          if(err){
+            req.session.flash = {
+              err: err
+            }
+            return res.redirect('/user/edit/'+req.param('id'));
+          }
+
+          var warnUpdate = [{name: 'warnUpdate', message: 'Your local information was updated successfully, but it seems as if you are not fully linked to our database - we are looking into it.'}]
+          req.session.flash = {
+            successMsg: warnUpdate
+          }
+          res.redirect('/user/show/'+req.param('id'));
+        });
+
+      }
+
     });
 
     
