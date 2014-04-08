@@ -198,6 +198,17 @@ module.exports = {
             if(emailsSorted.length === 3){insUserObj.emailThree = emailsSorted[2];};
           }
 
+          // show more user-friendly "none listed" email line
+          if(insUserObj.emailOne && insUserObj.emailOne === 'no.email.listed@donotsend.com'){
+            insUserObj.emailOne = 'none listed';
+          }
+          if(insUserObj.emailTwo && insUserObj.emailTwo === 'no.email.listed@donotsend.com'){
+            insUserObj.emailTwo = 'none listed';
+          }
+          if(insUserObj.emailThree && insUserObj.emailThree === 'no.email.listed@donotsend.com'){
+            insUserObj.emailThree = 'none listed';
+          }
+
           res.view({
             user: user,
             insightly: insUserObj
@@ -305,6 +316,17 @@ module.exports = {
             if(emailsSorted.length === 3){insUserObj.emailThree = emailsSorted[2];};
           }
 
+          // show more user-friendly "none listed" email line
+          if(insUserObj.emailOne && insUserObj.emailOne === 'no.email.listed@donotsend.com'){
+            insUserObj.emailOne = 'none listed';
+          }
+          if(insUserObj.emailTwo && insUserObj.emailTwo === 'no.email.listed@donotsend.com'){
+            insUserObj.emailTwo = 'none listed';
+          }
+          if(insUserObj.emailThree && insUserObj.emailThree === 'no.email.listed@donotsend.com'){
+            insUserObj.emailThree = 'none listed';
+          }
+
           res.view({
             user: user,
             insightly: insUserObj
@@ -331,6 +353,21 @@ module.exports = {
       gradYear: req.param('gradYear')
     }
 
+    // translate blank entries to "none-listed" except for password reset fields
+    var emailCheck = /\b(email).*/;
+    for (var formParam in req.body) {
+      if (req.body.hasOwnProperty(formParam)) {
+        if(req.body[formParam] === '' && !(formParam === 'oldPassword' || formParam === 'newPassword' || formParam === 'confirmation')){
+          if(emailCheck.test(formParam)){
+            console.log(formParam);
+            req.body[formParam] = 'no.email.listed@donotsend.com';
+          } else{
+            req.body[formParam] = 'none listed';
+          }
+        }
+      }
+    }
+
     if(req.param('salutation')){
       var insUpdateObj = {
         salutation: req.param('salutation'),
@@ -350,7 +387,6 @@ module.exports = {
         emailThree: req.param('emailThree')
       }
     }
-    console.log(insUpdateObj)
     // Check to make sure the correct old password was entered
     User.findOne(req.param('id'),function foundUser(err, user){
 
@@ -428,27 +464,51 @@ module.exports = {
             if(conObj.TYPE === 'PHONE' && conObj.LABEL === 'HOME' && _.contains(infosArr, 'phone-home')){
               insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.phoneOne;
               var j = infosArr.indexOf('phone-home');
-              infosArr.splice(j,1);
+              if(infosArr.length === 1){
+                infosArr = [];
+              } else {
+                infosArr.splice(j,1);
+              }
             } else if(conObj.TYPE === 'PHONE' && conObj.LABEL === 'WORK' && _.contains(infosArr, 'phone-work')){
               insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.phoneTwo;
               var j = infosArr.indexOf('phone-work');
-              infosArr.splice(j,1);
+              if(infosArr.length === 1){
+                infosArr = [];
+              } else {
+                infosArr.splice(j,1);
+              }
             } else if(conObj.TYPE === 'PHONE' && conObj.LABEL === 'MOBILE' && _.contains(infosArr, 'phone-mobile')){
               insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.phoneThree;
               var j = infosArr.indexOf('phone-mobile');
-              infosArr.splice(j,1);
+              if(infosArr.length === 1){
+                infosArr = [];
+              } else {
+                infosArr.splice(j,1);
+              }
             } else if(conObj.TYPE === 'EMAIL' && conObj.LABEL === 'PERSONAL' && _.contains(infosArr, 'email-personal')){
               insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.emailOne;
               var j = infosArr.indexOf('email-personal');
-              infosArr.splice(j,1);
+             if(infosArr.length === 1){
+                infosArr = [];
+              } else {
+                infosArr.splice(j,1);
+              }
             } else if(conObj.TYPE === 'EMAIL' && conObj.LABEL === 'WORK' && _.contains(infosArr, 'email-work')){
               insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.emailTwo;
               var j = infosArr.indexOf('email-work');
-              infosArr.splice(j,1);
+              if(infosArr.length === 1){
+                infosArr = [];
+              } else {
+                infosArr.splice(j,1);
+              }
             } else if(conObj.TYPE === 'EMAIL' && conObj.LABEL === 'OTHER' && _.contains(infosArr, 'email-other')){
               insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.emailThree;
               var j = infosArr.indexOf('email-other');
-              infosArr.splice(j,1);
+              if(infosArr.length === 1){
+                infosArr = [];
+              } else {
+                infosArr.splice(j,1);
+              }
             }
           }
 
