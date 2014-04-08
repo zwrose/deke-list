@@ -142,6 +142,36 @@ module.exports = {
             emailThree: 'none listed'
           }
 
+          // need to normalize capitalization of labels and put to insightly
+          for(var i=0; i<insContactEdit.CONTACTINFOS.length; i++){
+            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Personal'){
+              insContactEdit.CONTACTINFOS[i].LABEL = 'PERSONAL';
+            }
+            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Home'){
+              insContactEdit.CONTACTINFOS[i].LABEL = 'HOME';
+            }
+            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Work'){
+              insContactEdit.CONTACTINFOS[i].LABEL = 'WORK';
+            }
+            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Mobile'){
+              insContactEdit.CONTACTINFOS[i].LABEL = 'MOBILE';
+            }
+            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Other'){
+              insContactEdit.CONTACTINFOS[i].LABEL = 'OTHER';
+            }
+          }
+
+          // this makes sure the label updates are pushed to insightly
+          request.put({
+            url: 'https://api.insight.ly/v2.1/contacts', 
+            auth: {user: process.env.INSIGHTLY_KEY},
+            json: true,
+            body: insContactEdit
+          }, function(error, response, body){
+            console.log(response.statusCode);
+            console.log(body);
+          });
+
           if(insContactEdit.CUSTOMFIELDS.length > 0){
             insUserObj.gradYear = insContactEdit.CUSTOMFIELDS[1].FIELD_VALUE;
           }
@@ -259,6 +289,36 @@ module.exports = {
             emailTwo: 'none listed',
             emailThree: 'none listed'
           }
+
+          // need to normalize capitalization of labels and put to insightly
+          for(var i=0; i<insContactEdit.CONTACTINFOS.length; i++){
+            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Personal'){
+              insContactEdit.CONTACTINFOS[i].LABEL = 'PERSONAL';
+            }
+            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Home'){
+              insContactEdit.CONTACTINFOS[i].LABEL = 'HOME';
+            }
+            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Work'){
+              insContactEdit.CONTACTINFOS[i].LABEL = 'WORK';
+            }
+            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Mobile'){
+              insContactEdit.CONTACTINFOS[i].LABEL = 'MOBILE';
+            }
+            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Other'){
+              insContactEdit.CONTACTINFOS[i].LABEL = 'OTHER';
+            }
+          }
+
+          // this makes sure the label updates are pushed to insightly
+          request.put({
+            url: 'https://api.insight.ly/v2.1/contacts', 
+            auth: {user: process.env.INSIGHTLY_KEY},
+            json: true,
+            body: insContactEdit
+          }, function(error, response, body){
+            console.log(response.statusCode);
+            console.log(body);
+          });
 
           if(insContactEdit.CUSTOMFIELDS.length > 0){
             insUserObj.gradYear = insContactEdit.CUSTOMFIELDS[1].FIELD_VALUE;
