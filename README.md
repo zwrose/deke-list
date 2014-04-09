@@ -12,3 +12,4 @@ Work list (in no particular order):
 Completed
 + basic user model
 + insightly email lookup
++ user editing of info

@@ -21,12 +21,17 @@
 			</div>
 		<% } %>
 		
+		<div>Username:</div>
 		<input type="text" class="form-control" value="<%= user.email %>" name="loginEmail">
 		<br />
+		<div>Only use the next 3 fields if you want to change your password:</div>
+		<div>Current Password:</div>
 		<input type="password" class="form-control" placeholder="old password" name="oldPassword">
 		<br />
+		<div>New Password:</div>
 		<input type="password" class="form-control" placeholder="new password" name="newPassword">
 		<br />
+		<div>Confirm New Password:</div>
 		<input type="password" class="form-control" placeholder="confirm new password" name="confirmation">
 		<br />
 		<% if(!insightly){ %>
@@ -38,30 +43,40 @@
 			<br />
 		<% } %>
 		<% if(insightly){ %>
+			<div>Salutation, Full First and Last Names:</div>
 			<input type="text" class="form-control" placeholder="Salut." value="<%= insightly.salutation %>" name="salutation">
 			<input type="text" class="form-control" placeholder="Full First Name" value="<%= insightly.firstName %>" name="firstName">
 			<input type="text" class="form-control" placeholder="Last Name" value="<%= insightly.lastName %>" name="lastName">
 			<br />
+			<div>Preferred Name</div>
 			<input type="text" class="form-control" placeholder="Preferred First Name" value="<%= user.firstName %>" name="prefFirstName">
 			<br />
+			<div>Grad Year:</div>
 			<input type="text" class="form-control" placeholder="Graduation Year" value="<%= insightly.gradYear %>" name="gradYear">
 			<br />
+			<div>Street Address, City, State, and Country:</div>
 			<input type="text" class="form-control" placeholder="Street Address" value="<%= insightly.addrStreet %>" name="addrStreet">
 			<input type="text" class="form-control" placeholder="City" value="<%= insightly.addrCity %>" name="addrCity">
 			<input type="text" class="form-control" placeholder="State" value="<%= insightly.addrState %>" name="addrState">
 			<input type="text" class="form-control" placeholder="Zip Code" value="<%= insightly.addrZip %>" name="addrZip">
 			<input type="text" class="form-control" placeholder="Country" value="<%= insightly.addrCountry %>" name="addrCountry">
 			<br />
+			<div>Preffered Phone Number:</div>
 			<input type="text" class="form-control" placeholder="Preferred Phone Number" value="<%= insightly.phoneOne %>" name="phoneOne">
 			<br />
+			<div>Other Phone Number 1:</div>
 			<input type="text" class="form-control" placeholder="Other Phone Number 1" value="<%= insightly.phoneTwo %>" name="phoneTwo">
 			<br />
+			<div>Other Phone Number 2:</div>
 			<input type="text" class="form-control" placeholder="Other Phone Number 2" value="<%= insightly.phoneThree %>" name="phoneThree">
 			<br />
+			<div>Preferred Email Address</div>
 			<input type="text" class="form-control" placeholder="Preferred Email Address" value="<%= insightly.emailOne %>" name="emailOne">
 			<br />
+			<div>Other Email Address 1:</div>
 			<input type="text" class="form-control" placeholder="Other Email 1" value="<%= insightly.emailTwo %>" name="emailTwo">
 			<br />
+			<div>Other Email Address 2:</div>
 			<input type="text" class="form-control" placeholder="Other Email 2" value="<%= insightly.emailThree %>" name="emailThree">
 			<br />
 		<% } %>
