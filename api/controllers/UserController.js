@@ -64,14 +64,46 @@ module.exports = {
         if(insContactsEmail.length === 1){
         
           user.insightlyID = insContactsEmail[0].CONTACT_ID;
-          user.save(function(err){
-            if(err) return next(err);
 
-            req.session.flash = {
-              firstLogin: true
+          // need to normalize capitalization of labels and put to insightly
+          for(var i=0; i<insContactsEmail[0].CONTACTINFOS.length; i++){
+            if(insContactsEmail[0].CONTACTINFOS[i].LABEL === 'Personal'){
+              insContactsEmail[0].CONTACTINFOS[i].LABEL = 'PERSONAL';
             }
-            return res.redirect('user/edit/' + user.id);
-          })
+            if(insContactsEmail[0].CONTACTINFOS[i].LABEL === 'Home'){
+              insContactsEmail[0].CONTACTINFOS[i].LABEL = 'HOME';
+            }
+            if(insContactsEmail[0].CONTACTINFOS[i].LABEL === 'Work'){
+              insContactsEmail[0].CONTACTINFOS[i].LABEL = 'WORK';
+            }
+            if(insContactsEmail[0].CONTACTINFOS[i].LABEL === 'Mobile'){
+              insContactsEmail[0].CONTACTINFOS[i].LABEL = 'MOBILE';
+            }
+            if(insContactsEmail[0].CONTACTINFOS[i].LABEL === 'Other'){
+              insContactsEmail[0].CONTACTINFOS[i].LABEL = 'OTHER';
+            }
+          }
+
+          // this makes sure the label updates are pushed to insightly
+          request.put({
+            url: 'https://api.insight.ly/v2.1/contacts', 
+            auth: {user: process.env.INSIGHTLY_KEY},
+            json: true,
+            body: insContactsEmail[0]
+          }, function(error, response, body){
+            console.log(response.statusCode);
+            console.log(body);
+
+            user.save(function(err){
+              if(err) return next(err);
+
+              req.session.flash = {
+                firstLogin: true
+              }
+              return res.redirect('user/edit/' + user.id);
+            });
+
+          });
 
         } else {
           
@@ -141,36 +173,6 @@ module.exports = {
             emailTwo: 'none listed',
             emailThree: 'none listed'
           }
-
-          // need to normalize capitalization of labels and put to insightly
-          for(var i=0; i<insContactEdit.CONTACTINFOS.length; i++){
-            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Personal'){
-              insContactEdit.CONTACTINFOS[i].LABEL = 'PERSONAL';
-            }
-            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Home'){
-              insContactEdit.CONTACTINFOS[i].LABEL = 'HOME';
-            }
-            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Work'){
-              insContactEdit.CONTACTINFOS[i].LABEL = 'WORK';
-            }
-            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Mobile'){
-              insContactEdit.CONTACTINFOS[i].LABEL = 'MOBILE';
-            }
-            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Other'){
-              insContactEdit.CONTACTINFOS[i].LABEL = 'OTHER';
-            }
-          }
-
-          // this makes sure the label updates are pushed to insightly
-          request.put({
-            url: 'https://api.insight.ly/v2.1/contacts', 
-            auth: {user: process.env.INSIGHTLY_KEY},
-            json: true,
-            body: insContactEdit
-          }, function(error, response, body){
-            console.log(response.statusCode);
-            console.log(body);
-          });
 
           if(insContactEdit.CUSTOMFIELDS.length > 0){
             insUserObj.gradYear = insContactEdit.CUSTOMFIELDS[1].FIELD_VALUE;
@@ -289,36 +291,6 @@ module.exports = {
             emailTwo: 'none listed',
             emailThree: 'none listed'
           }
-
-          // need to normalize capitalization of labels and put to insightly
-          for(var i=0; i<insContactEdit.CONTACTINFOS.length; i++){
-            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Personal'){
-              insContactEdit.CONTACTINFOS[i].LABEL = 'PERSONAL';
-            }
-            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Home'){
-              insContactEdit.CONTACTINFOS[i].LABEL = 'HOME';
-            }
-            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Work'){
-              insContactEdit.CONTACTINFOS[i].LABEL = 'WORK';
-            }
-            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Mobile'){
-              insContactEdit.CONTACTINFOS[i].LABEL = 'MOBILE';
-            }
-            if(insContactEdit.CONTACTINFOS[i].LABEL === 'Other'){
-              insContactEdit.CONTACTINFOS[i].LABEL = 'OTHER';
-            }
-          }
-
-          // this makes sure the label updates are pushed to insightly
-          request.put({
-            url: 'https://api.insight.ly/v2.1/contacts', 
-            auth: {user: process.env.INSIGHTLY_KEY},
-            json: true,
-            body: insContactEdit
-          }, function(error, response, body){
-            console.log(response.statusCode);
-            console.log(body);
-          });
 
           if(insContactEdit.CUSTOMFIELDS.length > 0){
             insUserObj.gradYear = insContactEdit.CUSTOMFIELDS[1].FIELD_VALUE;
@@ -703,14 +675,46 @@ module.exports = {
         if(insLastNameMatch.length === 1){
           
           user.insightlyID = insLastNameMatch[0].CONTACT_ID;
-          user.save(function(err){
-            if(err) return next(err);
-            req.session.flash = {
-              firstLogin: true
+
+          // need to normalize capitalization of labels and put to insightly
+          for(var i=0; i<insLastNameMatch[0].CONTACTINFOS.length; i++){
+            if(insLastNameMatch[0].CONTACTINFOS[i].LABEL === 'Personal'){
+              insLastNameMatch[0].CONTACTINFOS[i].LABEL = 'PERSONAL';
             }
-            return res.redirect('user/edit/' + user.id)
-          })
-          
+            if(insLastNameMatch[0].CONTACTINFOS[i].LABEL === 'Home'){
+              insLastNameMatch[0].CONTACTINFOS[i].LABEL = 'HOME';
+            }
+            if(insLastNameMatch[0].CONTACTINFOS[i].LABEL === 'Work'){
+              insLastNameMatch[0].CONTACTINFOS[i].LABEL = 'WORK';
+            }
+            if(insLastNameMatch[0].CONTACTINFOS[i].LABEL === 'Mobile'){
+              insLastNameMatch[0].CONTACTINFOS[i].LABEL = 'MOBILE';
+            }
+            if(insLastNameMatch[0].CONTACTINFOS[i].LABEL === 'Other'){
+              insLastNameMatch[0].CONTACTINFOS[i].LABEL = 'OTHER';
+            }
+          }
+
+          // this makes sure the label updates are pushed to insightly
+          request.put({
+            url: 'https://api.insight.ly/v2.1/contacts', 
+            auth: {user: process.env.INSIGHTLY_KEY},
+            json: true,
+            body: insLastNameMatch[0]
+          }, function(error, response, body){
+            console.log(response.statusCode);
+            console.log(body);
+
+            user.save(function(err){
+              if(err) return next(err);
+
+              req.session.flash = {
+                firstLogin: true
+              }
+              return res.redirect('user/edit/' + user.id);
+            });
+
+          });
 
         } else if(insLastNameMatch.length === 0){
           // not in insightly!
@@ -735,16 +739,56 @@ module.exports = {
   join: function(req, res, next){
 
     User.update(req.param('id'), {insightlyID: req.param('insightlyID')}, function(err){
-      if(err) return next(err);
 
-      req.session.flash = {
-        firstLogin: true
-      }
-      return res.redirect('user/edit/' + req.param('id'));
+      if(err) return next(err);
+      
+      var insLookupContactURI = 'https://api.insight.ly/v2.1/contacts/' + req.param('insightlyID');
+      request.get({
+        url: insLookupContactURI, 
+        auth: {user: process.env.INSIGHTLY_KEY}
+      }, function(error, response, body){
+        insContactJoin = JSON.parse(body);
+
+        // need to normalize capitalization of labels and put to insightly
+        for(var i=0; i<insContactJoin.CONTACTINFOS.length; i++){
+          if(insContactJoin.CONTACTINFOS[i].LABEL === 'Personal'){
+            insContactJoin.CONTACTINFOS[i].LABEL = 'PERSONAL';
+          }
+          if(insContactJoin.CONTACTINFOS[i].LABEL === 'Home'){
+            insContactJoin.CONTACTINFOS[i].LABEL = 'HOME';
+          }
+          if(insContactJoin.CONTACTINFOS[i].LABEL === 'Work'){
+            insContactJoin.CONTACTINFOS[i].LABEL = 'WORK';
+          }
+          if(insContactJoin.CONTACTINFOS[i].LABEL === 'Mobile'){
+            insContactJoin.CONTACTINFOS[i].LABEL = 'MOBILE';
+          }
+          if(insContactJoin.CONTACTINFOS[i].LABEL === 'Other'){
+            insContactJoin.CONTACTINFOS[i].LABEL = 'OTHER';
+          }
+        }
+
+        // this makes sure the label updates are pushed to insightly
+        request.put({
+          url: 'https://api.insight.ly/v2.1/contacts', 
+          auth: {user: process.env.INSIGHTLY_KEY},
+          json: true,
+          body: insLastNameMatch[0]
+        }, function(error, response, body){
+          console.log(response.statusCode);
+          console.log(body);
+
+          req.session.flash = {
+            firstLogin: true
+          }
+          return res.redirect('user/edit/' + req.param('id'));
+
+        });
+
+      });
 
     });
 
   },
-
 
 };
