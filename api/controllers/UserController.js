@@ -99,6 +99,11 @@ module.exports = {
             })
           }
 
+          // marks in insightly that this user has linked
+          insContactsEmail[0].TAGS.push({
+            TAG_NAME: 'SecureLinked'
+          });
+
           // this makes sure the label and email updates are pushed to insightly
           request.put({
             url: 'https://api.insight.ly/v2.1/contacts', 
@@ -719,13 +724,18 @@ module.exports = {
           }
 
           if(noPersonal){
-          console.log('Adding Personal')
-          insLastNameMatch[0].CONTACTINFOS.push({
-            TYPE: 'EMAIL',
-            LABEL: 'PERSONAL',
-            DETAIL: user.email
-          })
-        }
+            console.log('Adding Personal')
+            insLastNameMatch[0].CONTACTINFOS.push({
+              TYPE: 'EMAIL',
+              LABEL: 'PERSONAL',
+              DETAIL: user.email
+            })
+          }
+
+          // marks in insightly that this user has linked
+          insLastNameMatch[0].TAGS.push({
+            TAG_NAME: 'SecureLinked'
+          });
 
           // this makes sure the label updates are pushed to insightly
           request.put({
@@ -816,12 +826,17 @@ module.exports = {
           })
         }
 
+        // marks in insightly that this user has linked
+        insContactJoin.TAGS.push({
+          TAG_NAME: 'SecureLinked'
+        });
+
         // this makes sure the label updates are pushed to insightly
         request.put({
           url: 'https://api.insight.ly/v2.1/contacts', 
           auth: {user: process.env.INSIGHTLY_KEY},
           json: true,
-          body: insLastNameMatch[0]
+          body: insContactJoin
         }, function(error, response, body){
           console.log(response.statusCode);
           console.log(body);

@@ -17,14 +17,6 @@
 			</div>
 		<% } %>
 
-	<div>First Name: <%= user.firstName %></div>
-	<br />
-	<div>Last Name: <%= user.lastName %></div>
-	<br />
-	<div>Email: <%= user.email %></div>
-	<br />
-	<div>Grad Year: <%= user.gradYear %></div>
-	<br />
 	<% if(insightly){ %>
 		<div>Full name: <%= insightly.salutation %> <%= insightly.firstName %> <%= insightly.lastName %></div>
 		<br />
@@ -32,7 +24,7 @@
 		<br />
 		<div>Graduation year: <%= insightly.gradYear %></div>
 		<br />
-		<div>Address: <%= insightly.addrStreet %>, <%= insightly.addrCity %>, <%= insightly.addrState %> <%= insightly.addrZip %>, <%= insightly.addrCountry %></div>
+		<div>Address: <%= insightly.addrStreet %>, <%= insightly.addrCity %>, <%= insightly.addrState %> <%= insightly.addrZip %><% if(insightly.addrCountry){ %>, <%= insightly.addrCountry %><% } %></div>
 		<br />
 		<div>Preferred phone number: <%= insightly.phoneOne %></div>
 		<br />
@@ -48,6 +40,14 @@
 		<br />
 	<% } else { %>
 		<div>Hmm...There seems to be a problem reaching back to our database. If you're seeing this message, please let us know by emailing us at <a href="mailto:astadke@gmail.com">astadke@gmail.com</a>.</div>
+		<br />
+		<div>First Name: <%= user.firstName %></div>
+		<br />
+		<div>Last Name: <%= user.lastName %></div>
+		<br />
+		<div>Email: <%= user.email %></div>
+		<br />
+		<div>Grad Year: <%= user.gradYear %></div>
 		<br />
 	<% } %>
 	<div><a class="btn btn-primary" href="/user/edit/<%= user.id %>">Edit Info</a></div>
