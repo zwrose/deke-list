@@ -65,10 +65,16 @@ module.exports = {
         
           user.insightlyID = insContactsEmail[0].CONTACT_ID;
 
-          // need to normalize capitalization of labels and put to insightly
+          var noPersonal = true;
+
+          // need to normalize capitalization of labels and put to insightly. Also set username to preferred email
           for(var i=0; i<insContactsEmail[0].CONTACTINFOS.length; i++){
             if(insContactsEmail[0].CONTACTINFOS[i].LABEL === 'Personal'){
               insContactsEmail[0].CONTACTINFOS[i].LABEL = 'PERSONAL';
+            }
+            if(insContactsEmail[0].CONTACTINFOS[i].LABEL === 'PERSONAL'){
+              insContactsEmail[0].CONTACTINFOS[i].DETAIL = user.email;
+              noPersonal = false;
             }
             if(insContactsEmail[0].CONTACTINFOS[i].LABEL === 'Home'){
               insContactsEmail[0].CONTACTINFOS[i].LABEL = 'HOME';
@@ -84,7 +90,16 @@ module.exports = {
             }
           }
 
-          // this makes sure the label updates are pushed to insightly
+          if(noPersonal){
+            console.log('Adding Personal')
+            insContactsEmail[0].CONTACTINFOS.push({
+              TYPE: 'EMAIL',
+              LABEL: 'PERSONAL',
+              DETAIL: user.email
+            })
+          }
+
+          // this makes sure the label and email updates are pushed to insightly
           request.put({
             url: 'https://api.insight.ly/v2.1/contacts', 
             auth: {user: process.env.INSIGHTLY_KEY},
@@ -382,7 +397,7 @@ module.exports = {
     var userObj = {
       email: req.param('loginEmail'),
       password: req.param('newPassword'),
-      firstName: req.param('firstName'),
+      firstName: req.param('prefFirstName'),
       lastName: req.param('lastName'),
       gradYear: req.param('gradYear')
     }
@@ -678,10 +693,16 @@ module.exports = {
           
           user.insightlyID = insLastNameMatch[0].CONTACT_ID;
 
+          var noPersonal = true;
+
           // need to normalize capitalization of labels and put to insightly
           for(var i=0; i<insLastNameMatch[0].CONTACTINFOS.length; i++){
             if(insLastNameMatch[0].CONTACTINFOS[i].LABEL === 'Personal'){
               insLastNameMatch[0].CONTACTINFOS[i].LABEL = 'PERSONAL';
+            }
+            if(insLastNameMatch[0].CONTACTINFOS[i].LABEL === 'PERSONAL'){
+              insLastNameMatch[0].CONTACTINFOS[i].DETAIL = user.email;
+              noPersonal = false;
             }
             if(insLastNameMatch[0].CONTACTINFOS[i].LABEL === 'Home'){
               insLastNameMatch[0].CONTACTINFOS[i].LABEL = 'HOME';
@@ -696,6 +717,15 @@ module.exports = {
               insLastNameMatch[0].CONTACTINFOS[i].LABEL = 'OTHER';
             }
           }
+
+          if(noPersonal){
+          console.log('Adding Personal')
+          insLastNameMatch[0].CONTACTINFOS.push({
+            TYPE: 'EMAIL',
+            LABEL: 'PERSONAL',
+            DETAIL: user.email
+          })
+        }
 
           // this makes sure the label updates are pushed to insightly
           request.put({
@@ -741,7 +771,7 @@ module.exports = {
   join: function(req, res, next){
 
     // Update local user with selected insightly ID
-    User.update(req.param('id'), {insightlyID: req.param('insightlyID')}, function(err){
+    User.update(req.param('id'), {insightlyID: req.param('insightlyID')}, function(err, users){
 
       if(err) return next(err);
       
@@ -752,10 +782,16 @@ module.exports = {
       }, function(error, response, body){
         insContactJoin = JSON.parse(body);
 
+        var noPersonal = true;
+
         // need to normalize capitalization of labels and put to insightly
         for(var i=0; i<insContactJoin.CONTACTINFOS.length; i++){
           if(insContactJoin.CONTACTINFOS[i].LABEL === 'Personal'){
             insContactJoin.CONTACTINFOS[i].LABEL = 'PERSONAL';
+          }
+          if(insContactJoin.CONTACTINFOS[i].LABEL === 'PERSONAL'){
+            insContactJoin.CONTACTINFOS[i].DETAIL = users[0].email;
+            noPersonal = false;
           }
           if(insContactJoin.CONTACTINFOS[i].LABEL === 'Home'){
             insContactJoin.CONTACTINFOS[i].LABEL = 'HOME';
@@ -769,6 +805,15 @@ module.exports = {
           if(insContactJoin.CONTACTINFOS[i].LABEL === 'Other'){
             insContactJoin.CONTACTINFOS[i].LABEL = 'OTHER';
           }
+        }
+
+        if(noPersonal){
+          console.log('Adding Personal')
+          insContactJoin.CONTACTINFOS.push({
+            TYPE: 'EMAIL',
+            LABEL: 'PERSONAL',
+            DETAIL: users[0].email
+          })
         }
 
         // this makes sure the label updates are pushed to insightly

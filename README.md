@@ -8,6 +8,7 @@ Work list (in no particular order):
 + All the front end work
 + Auto email if there are api call errors
 + custom 404 etc. handlers
++ add loading wheels where needed
 
 Completed
 + basic user model
