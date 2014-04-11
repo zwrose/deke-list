@@ -361,14 +361,16 @@ module.exports = {
 
           res.view({
             user: user,
-            insightly: insUserObj
+            insightly: insUserObj,
+            countries: sails.config.insCountries
           })
         });
 
       } else {
         res.view({
           user: user,
-          insightly: null
+          insightly: null,
+          countries: sails.config.insCountries
         });
       }
 
@@ -738,6 +740,7 @@ module.exports = {
 
   join: function(req, res, next){
 
+    // Update local user with selected insightly ID
     User.update(req.param('id'), {insightlyID: req.param('insightlyID')}, function(err){
 
       if(err) return next(err);

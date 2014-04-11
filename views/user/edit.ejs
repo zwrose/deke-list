@@ -59,7 +59,12 @@
 			<input type="text" class="form-control" placeholder="City" value="<%= insightly.addrCity %>" name="addrCity">
 			<input type="text" class="form-control" placeholder="State" value="<%= insightly.addrState %>" name="addrState">
 			<input type="text" class="form-control" placeholder="Zip Code" value="<%= insightly.addrZip %>" name="addrZip">
-			<input type="text" class="form-control" placeholder="Country" value="<%= insightly.addrCountry %>" name="addrCountry">
+			<select class="form-control" name="addrCountry">
+				<option value="noChoice" <% if(insightly.addrCountry === null){ %>selected="selected"<% } %>>Choose a Country</option>
+				<% for(var i=0; i<countries.length; i++){ %>
+				<option <% if(insightly.addrCountry === countries[i]){ %>selected="selected"<% } %> value="<%= countries[i] %>"><%= countries[i] %></option>
+				<% } %>
+			</select>
 			<br />
 			<div>Preffered Phone Number:</div>
 			<input type="text" class="form-control" placeholder="Preferred Phone Number" value="<%= insightly.phoneOne %>" name="phoneOne">
