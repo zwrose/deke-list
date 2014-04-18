@@ -29,6 +29,7 @@
 
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <!-- End Fonts -->
     <!--STYLES-->
     <link rel="stylesheet" href="/linker/styles/bootstrap.css">
@@ -52,26 +53,28 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#">The Blog</a></li>
+            <li><a href="#donate">Donate</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connect <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
+                <li><a href="#list">Digital Deke List</a></li>
+                <li><a href="#map">Brothers Map</a></li>
+                <li><a href="#network">Networking Portal</a></li>
               </ul>
             </li>
             <% if(!req.session.User) { %>
               <li><a href="/login">Log In</a></li>
             <% } else { %>
-              <li><a href="/user/show/<%= req.session.User.id %>"> Currently logged in: <%= req.session.User.email %></a></li>
-              <li><a href="/logout">Log Out</a></li>
+              <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">You <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">Hi, <%= req.session.User.firstName %>!</li>
+                <li><a href="/user/show/<%= req.session.User.id %>">View Profile</a></li>
+                <li><a href="/user/edit/<%= req.session.User.id %>">Edit Profile</a></li>
+                <li><a href="/logout">Log Out</a></li>
+              </ul>
+            </li>
             <% } %>
           </ul>
         </div><!--/.nav-collapse -->

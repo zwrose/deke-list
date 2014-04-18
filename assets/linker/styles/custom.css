@@ -2,18 +2,18 @@
 /*This body padding keeps the navbar from covering up content.*/
 body {
   min-height: 4000px;
-  background-color: #f5f5f5;
+  background: url(/images/vichy-yellow.jpg);
 }
 .navbar {
 /*	font-family: 'Droid Serif', serif;*/
 	height: 90px;
 	border: none;
-	background: -moz-linear-gradient(top, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.7) 100%), url(/images/dekeHouse.jpg) no-repeat center top/cover; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.7)), color-stop(100%,rgba(255,255,255,0.7))), url(/images/dekeHouse.jpg) no-repeat center top/cover; /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0.7) 100%), url(/images/dekeHouse.jpg) no-repeat center top/cover; /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0.7) 100%), url(/images/dekeHouse.jpg) no-repeat center top/cover; /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0.7) 100%), url(/images/dekeHouse.jpg) no-repeat center top/cover; /* IE10+ */
-	background: linear-gradient(to bottom, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0.7) 100%), url(/images/dekeHouse.jpg) no-repeat center top/cover; /* W3C */
+	background: -moz-linear-gradient(top, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.6) 100%), url(/images/dekeHouse.jpg) no-repeat center top/cover; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.6)), color-stop(100%,rgba(255,255,255,0.6))), url(/images/dekeHouse.jpg) no-repeat center top/cover; /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.6) 100%), url(/images/dekeHouse.jpg) no-repeat center top/cover; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.6) 100%), url(/images/dekeHouse.jpg) no-repeat center top/cover; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,0.6) 0%,rgba(255,255,255,0.6) 100%), url(/images/dekeHouse.jpg) no-repeat center top/cover; /* IE10+ */
+	background: linear-gradient(to bottom, rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.5) 100%), url(/images/dekeHouse.jpg) no-repeat center top/cover; /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
 
 }
@@ -34,23 +34,44 @@ a.navbar-brand {
 	line-height: 50px;
 	padding: 20px 15px;
 	color: #26282b;
-	font-size: 22px;
+	font-size: 28px;
 	font-style: italic;
-	font-family: "Trebuchet MS", sans-serif;
+	font-family: "Lato", "Trebuchet MS", sans-serif;
 }
 @media(max-width: 991px){
 	.navbar-brand > img {
 		height: 40px;
 	}
+	a.navbar-brand {
+	padding: 25px 15px;
+}
 }
 .navbar-toggle {
-	margin-top: 12px;
-	margin-bottom: 12px;
+	margin-top: 22px;
+	margin-bottom: 22px;
 	padding: 11px 12px;
+	background: url(/images/vichy-yellow.jpg) no-repeat center center/cover;
 }
 .navbar-toggle .icon-bar {
 	width: 28px;
 }
 .navbar-toggle .icon-bar + .icon-bar {
 	margin-top: 8px;
+}
+.jumbotron {
+	background: -moz-linear-gradient(top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.8)), color-stop(100%,rgba(255,255,255,0.8))), url(/images/Crest.png) no-repeat center top/contain; /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* IE10+ */
+	background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+}
+.dropdown-header {
+	font-size: 14px;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: underline;
+  background-color: #26282b;
 }
