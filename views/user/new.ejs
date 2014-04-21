@@ -1,6 +1,6 @@
 <div class="container">
-	<form action="/user/create" method="POST" id="sign-up-form" class="form-signin">
-		<h2 class="form-signin-heading">Create a User Account</h2>
+	<form action="/user/create" method="POST" id="sign-up-form" class="form-narrow">
+		<h2 class="form-narrow-heading">Create Your Account</h2>
 
 		<% if(flash && flash.err) { %>
 			<% console.log(flash.err) %>
@@ -15,17 +15,20 @@
 			</div>
 		<% } %>
 		
-		<input type="text" class="form-control" placeholder="email address" name="email">
+		<input type="text" class="form-control" placeholder="enter your email address" name="email">
 		<br />
-		<input type="password" class="form-control" placeholder="password" name="password" id="password">
+		<input type="password" class="form-control" placeholder="enter a password" name="password" id="password">
 		<br />
-		<input type="password" class="form-control" placeholder="password confirmation" name="confirmation">
+		<input type="password" class="form-control" placeholder="confirm your password" name="confirmation">
 		<br />
-		<input type="text" class="form-control" placeholder="first name" name="firstName">
+		<input type="text" class="form-control" placeholder="enter your first name" name="firstName">
 		<br />
-		<input type="text" class="form-control" placeholder="last name" name="lastName">
+		<input type="text" class="form-control" placeholder="enter your last name" name="lastName">
 		<br />
-		<input type="text" class="form-control" placeholder="grad year" name="gradYear">
+		<input type="text" class="form-control" placeholder="enter your graduation year" name="gradYear">
+		<br />
+		<input type="text" class="form-control" placeholder="enter the sigma tau passphrase" name="passphrase">
+		<div class="passinfo">what's this?</div>
 		<br />
 
 		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account"/>

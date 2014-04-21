@@ -29,6 +29,7 @@ module.exports = function (grunt) {
    */
 
   var cssFilesToInject = [
+    '/linker/styles/jquery.qtip.css',
     'linker/**/*.css'
   ];
 
@@ -44,6 +45,7 @@ module.exports = function (grunt) {
   var jsFilesToInject = [
 
     'linker/js/jquery.js',
+    '/linker/js/jquery.qtip.js',
 
     // Below, as a demonstration, you'll see the built-in dependencies 
     // linked in the proper order order

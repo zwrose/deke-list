@@ -271,7 +271,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Lato, Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
@@ -472,7 +472,7 @@ p {
   font-weight: 200;
   line-height: 1.4;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .lead {
     font-size: 21px;
   }
@@ -737,7 +737,7 @@ pre code {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .container {
     width: 750px;
   }
@@ -924,7 +924,7 @@ pre code {
 .col-xs-offset-0 {
   margin-left: 0%;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
     float: left;
   }
@@ -1580,7 +1580,7 @@ table th[class*="col-"] {
 .table-hover > tbody > tr.danger:hover > th {
   background-color: #ebcccc;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .table-responsive {
     width: 100%;
     margin-bottom: 15px;
@@ -1924,7 +1924,7 @@ select[multiple].input-lg {
   margin-bottom: 10px;
   color: #737373;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-inline .form-group {
     display: inline-block;
     margin-bottom: 0;
@@ -1979,7 +1979,7 @@ select[multiple].input-lg {
 .form-horizontal .form-control-static {
   padding-top: 7px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .form-horizontal .control-label {
     text-align: right;
   }
@@ -3527,7 +3527,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   top: auto;
   left: auto;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .nav-tabs.nav-justified > li {
     display: table-cell;
     width: 1%;
@@ -3545,7 +3545,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs.nav-justified > .active > a:focus {
   border: 1px solid #dddddd;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .nav-tabs.nav-justified > li > a {
     border-bottom: 1px solid #dddddd;
     border-radius: 4px 4px 0 0;
@@ -3592,7 +3592,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   top: auto;
   left: auto;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .nav-justified > li {
     display: table-cell;
     width: 1%;
@@ -3613,7 +3613,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs-justified > .active > a:focus {
   border: 1px solid #dddddd;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .nav-tabs-justified > li > a {
     border-bottom: 1px solid #dddddd;
     border-radius: 4px 4px 0 0;
@@ -3843,7 +3843,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-top: 8px;
   margin-bottom: 8px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-form .form-group {
     display: inline-block;
     margin-bottom: 0;
@@ -4381,7 +4381,7 @@ a.list-group-item.active > .badge,
 .jumbotron .container {
   max-width: 100%;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .jumbotron {
     padding-top: 48px;
     padding-bottom: 48px;
@@ -5172,7 +5172,7 @@ button.close {
 .modal-footer .btn-block + .btn-block {
   margin-left: 0;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .modal-dialog {
     width: 600px;
     margin: 30px auto;
@@ -5565,7 +5565,7 @@ button.close {
 .carousel-caption .btn {
   text-shadow: none;
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 992px) {
   .carousel-control .glyphicon-chevron-left,
   .carousel-control .glyphicon-chevron-right,
   .carousel-control .icon-prev,
@@ -5675,7 +5675,7 @@ button.close {
 .visible-lg {
   display: none !important;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .visible-xs {
     display: block !important;
   }
@@ -5690,7 +5690,7 @@ button.close {
     display: table-cell !important;
   }
 }
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 992px) and (max-width: 991px) {
   .visible-sm {
     display: block !important;
   }
@@ -5735,12 +5735,12 @@ button.close {
     display: table-cell !important;
   }
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .hidden-xs {
     display: none !important;
   }
 }
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 992px) and (max-width: 991px) {
   .hidden-sm {
     display: none !important;
   }

@@ -4,7 +4,7 @@ The secure, online place for Dekes to update their contact info, as well as look
 Work list (in no particular order):
 + email account verification
 + handling 'not in insightly' corner case
-+ All the front end work
++ Individual feature front end
 + Auto email if there are api call errors
 + custom 404 etc. handlers
 + add loading wheels where needed
@@ -16,6 +16,7 @@ Work list (in no particular order):
 
 
 Completed
++ site-wide front end
 + basic user model
 + insightly email lookup
 + user editing of info
