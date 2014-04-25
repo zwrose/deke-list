@@ -7,6 +7,7 @@
 
 var bcrypt = require('bcrypt');
 var request = require('request');
+var moment = require('moment');
 
 module.exports = {
 	
@@ -16,6 +17,14 @@ module.exports = {
 
   create: function(req, res, next){
   	
+    if (req.param('passphrase') !== process.env.SIGMATAU_PASSPHRASE){
+      var wrongPassphrase = [{name: 'wrongPassphrase', message: 'Please enter the correct passphrase!'}]
+      req.session.flash = {
+          err: {login: wrongPassphrase}
+      }
+      return res.redirect('user/new');
+    }
+
     var userObj = {
         email: req.param('email'),
         password: req.param('password'),
@@ -191,11 +200,15 @@ module.exports = {
             phoneThree: 'none listed',
             emailOne: 'none listed',
             emailTwo: 'none listed',
-            emailThree: 'none listed'
+            emailThree: 'none listed',
+            updated: 'never'
           }
 
           if(insContactEdit.CUSTOMFIELDS.length > 0){
             insUserObj.gradYear = insContactEdit.CUSTOMFIELDS[1].FIELD_VALUE;
+          }
+          if(insContactEdit.CUSTOMFIELDS.length === 3){
+            insUserObj.updated = insContactEdit.CUSTOMFIELDS[2].FIELD_VALUE;
           }
           if(insContactEdit.ADDRESSES.length > 0){
             insUserObj.addrStreet = insContactEdit.ADDRESSES[0].STREET;
@@ -411,7 +424,7 @@ module.exports = {
     var emailCheck = /\b(email).*/;
     for (var formParam in req.body) {
       if (req.body.hasOwnProperty(formParam)) {
-        if(req.body[formParam] === '' && !(formParam === 'oldPassword' || formParam === 'newPassword' || formParam === 'confirmation')){
+        if((req.body[formParam] === '' || req.body[formParam] === 'none listed') && !(formParam === 'oldPassword' || formParam === 'newPassword' || formParam === 'confirmation')){
           if(emailCheck.test(formParam)){
             console.log(formParam);
             req.body[formParam] = 'no.email.listed@donotsend.com';
@@ -487,6 +500,15 @@ module.exports = {
           }, function(error, response, body){
           insContactEdit = JSON.parse(body);
           // console.log(insContactEdit)
+
+          if(insContactEdit.CUSTOMFIELDS.length === 3){
+            insContactEdit.CUSTOMFIELDS[2].FIELD_VALUE = moment().format("MMMM Do YYYY");
+          } else {
+            insContactEdit.CUSTOMFIELDS.push({
+              CUSTOM_FIELD_ID: 'CONTACT_FIELD_3',
+              FIELD_VALUE: moment().format("MMMM Do YYYY")
+            });
+          }
           
           insContactEdit.SALUTATION = insUpdateObj.salutation;
           insContactEdit.FIRST_NAME = insUpdateObj.firstName;
@@ -515,6 +537,9 @@ module.exports = {
           // loop through already existing contact infos
           for(var i=0; i<insContactEdit.CONTACTINFOS.length; i++){
             var conObj = insContactEdit.CONTACTINFOS[i];
+            // if(conObj.DETAIL === 'no.email.listed@donotsend.com'){
+            //   insContactEdit.CONTACTINFOS[i].TYPE = 'DELETED'; 
+            // }
             if(conObj.TYPE === 'PHONE' && conObj.LABEL === 'HOME' && _.contains(infosArr, 'phone-home')){
               insContactEdit.CONTACTINFOS[i].DETAIL = insUpdateObj.phoneOne;
               var j = infosArr.indexOf('phone-home');
@@ -610,6 +635,7 @@ module.exports = {
             }
           }
 
+          console.log('Object to put:')
           console.log(insContactEdit);
 
           request.put({
@@ -628,6 +654,9 @@ module.exports = {
               console.log(body);
               return res.redirect('/user/edit/'+req.param('id'));
             }
+
+            console.log('Body of put:');
+            console.log(body);
 
             User.update(req.param('id'), userObj, function userUpdated(err){
               if(err){

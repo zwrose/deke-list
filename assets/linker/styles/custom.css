@@ -194,10 +194,15 @@ a.navbar-brand {
 }
 a.passinfo, a.passinfo:hover {
 	color: #999999;
-	padding-top: 2px;
-	padding-left: 5px;
+	line-height: 30px;
+	margin-left: 5px;
 	text-decoration: none;
 }
 a.passinfo:focus {
+	color: #999999;
 	text-decoration: underline;
+}
+.no-account-yet {
+	margin-top: 5px;
+	color: #999999;
 }

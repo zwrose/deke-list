@@ -22,3 +22,4 @@ Completed
 + user editing of info
 + Looking up user by last name if email fails
 + insightly tag to note which accounts have linked
++ passphrase for new signups for account control
