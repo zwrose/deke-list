@@ -8,6 +8,7 @@
 var bcrypt = require('bcrypt');
 var request = require('request');
 var moment = require('moment');
+var nodemailer = require("nodemailer");
 
 module.exports = {
 	
@@ -67,6 +68,42 @@ module.exports = {
         auth: {user: process.env.INSIGHTLY_KEY}
       }, function(error, response, body){
         insContactsEmail = JSON.parse(body);
+
+
+        console.log(process.env.ASTADKE_GMAIL);
+        // create reusable transport method (opens pool of SMTP connections)
+        var smtpTransport = nodemailer.createTransport("SMTP",{
+            service: "Gmail",
+            auth: {
+                user: "astadke@gmail.com",
+                pass: process.env.ASTADKE_GMAIL
+            }
+        });
+
+        // setup e-mail data with unicode symbols
+        var mailOptions = {
+            from: "ASTADKE Webmaster <astadke@gmail.com>", // sender address
+            to: user.firstName + ' ' + user.lastName + ' <' + user.email + '>', // list of receivers
+            bcc: "astadke@gmail.com",
+            subject: "Welcome to ASTADKE Online!", // Subject line
+            text: "Hi " + user.firstName + ",\n\n" +
+                  "Thank you for registering with ASTADKE Online! We hope you'll find the site useful for keeping up " +
+                  "with everything that is happening with both the active and alumni chapters of Sigma Tau DKE. If you have any questions, " + 
+                  "or run into any issues with the site, please dont hesitate to shoot us an email: astadke@gmail.com.\n\n" + 
+                  "ITB,\n\n" + "Zach Rose '10\n" + "ASTADKE Online Webmaster"
+        }
+
+        // send mail with defined transport object
+        smtpTransport.sendMail(mailOptions, function(error, response){
+            if(error){
+                console.log(error);
+            }else{
+                console.log("Message sent: " + response.message);
+            }
+
+            // if you don't want to use this transport object anymore, uncomment following line
+            smtpTransport.close(); // shut down the connection pool, no more messages
+        });
         
         // If there's a unique insightly match, save the insightly id
         // Then send the user to review/edit their info

@@ -1,8 +1,7 @@
-# ASTADKE Secure
+# ASTADKE Online
 The secure, online place for Dekes to update their contact info, as well as look up contact info of their fellow brothers
 
 Work list (in no particular order):
-+ email account verification
 + handling 'not in insightly' corner case
 + Individual feature front end
 + Auto email if there are api call errors
@@ -23,3 +22,4 @@ Completed
 + Looking up user by last name if email fails
 + insightly tag to note which accounts have linked
 + passphrase for new signups for account control
++ welcome email
