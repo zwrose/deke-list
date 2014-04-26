@@ -25,6 +25,8 @@ module.exports.policies = {
   	'update': ["flash", "isAuthenticated", "privateView"],
   	'linkup': ["flash", "isAuthenticated", "privateView"],
   	'join': ["flash", "isAuthenticated", "privateView"],
+  	'newinsightly': ["flash", "isAuthenticated", "privateView"],
+  	'createinsightly': ["flash", "isAuthenticated", "privateView"],
   	'*': ["flash", "isAuthenticated", "admin"]
   }
 

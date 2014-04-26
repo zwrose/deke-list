@@ -826,7 +826,7 @@ module.exports = {
 
         } else if(insLastNameMatch.length === 0){
           // not in insightly!
-          return res.send("Havent built this yet!");
+          return res.redirect('/user/newinsightly/' + user.id);
 
         } else {
           // Display matches for user to choose
@@ -912,6 +912,162 @@ module.exports = {
           }
           return res.redirect('user/edit/' + req.param('id'));
 
+        });
+
+      });
+
+    });
+
+  },
+
+  newinsightly: function(req, res, next){
+
+    User.findOne(req.param('id'), function foundUser(err, user){
+
+      if(err){
+        return next(err);
+      }
+
+      res.view({
+        user: user,
+        countries: sails.config.insCountries
+      });
+
+    });
+
+  },
+
+  createinsightly: function(req, res, next){
+
+    User.findOne(req.param('id'), function foundUser(err, user){
+
+      if(err){
+        return next(err);
+      }
+
+      // translate blank entries to "none-listed" except for password reset fields
+      var emailCheck = /\b(email).*/;
+      for (var formParam in req.body) {
+        if (req.body.hasOwnProperty(formParam)) {
+          if((req.body[formParam] === '' || req.body[formParam] === 'none listed') && !(formParam === 'oldPassword' || formParam === 'newPassword' || formParam === 'confirmation')){
+            if(emailCheck.test(formParam)){
+              console.log(formParam);
+              req.body[formParam] = 'no.email.listed@donotsend.com';
+            } else{
+              req.body[formParam] = 'none listed';
+            }
+          }
+        }
+      }
+
+      var userObj = {
+        email: req.param('loginEmail'),
+        password: req.param('newPassword'),
+        firstName: req.param('prefFirstName'),
+        lastName: req.param('lastName'),
+        gradYear: req.param('gradYear')
+      };
+
+      var insUpdateObj = {
+        salutation: req.param('salutation'),
+        firstName: req.param('firstName'),
+        lastName: req.param('lastName'),
+        gradYear: req.param('gradYear'),
+        addrStreet: req.param('addrStreet'),
+        addrCity: req.param('addrCity'),
+        addrState: req.param('addrState'),
+        addrZip: req.param('addrZip'),
+        addrCountry: req.param('addrCountry'),
+        phoneOne: req.param('phoneOne'),
+        phoneTwo: req.param('phoneTwo'),
+        phoneThree: req.param('phoneThree'),
+        emailOne: req.param('emailOne'),
+        emailTwo: req.param('emailTwo'),
+        emailThree: req.param('emailThree')
+      };
+
+      newIns = {
+        SALUTATION: insUpdateObj.salutation,
+        FIRST_NAME: insUpdateObj.firstName,
+        LAST_NAME: insUpdateObj.lastName,
+        CUSTOMFIELDS: [
+          {
+            CUSTOM_FIELD_ID: "CONTACT_FIELD_1",
+            FIELD_VALUE: "A"
+          },
+          {
+            CUSTOM_FIELD_ID: "CONTACT_FIELD_2",
+            FIELD_VALUE: insUpdateObj.gradYear
+          },
+          {
+            CUSTOM_FIELD_ID: "CONTACT_FIELD_3",
+            FIELD_VALUE: moment().format("MMMM Do YYYY")
+          }
+        ],
+        ADDRESSES: [
+          {
+            ADDRESS_TYPE: "HOME",
+            STREET: insUpdateObj.addrStreet,
+            CITY: insUpdateObj.addrCity,
+            STATE: insUpdateObj.addrState,
+            POSTCODE: insUpdateObj.addrZip,
+            COUNTRY: insUpdateObj.addrCountry
+          }
+        ],
+        CONTACTINFOS: [
+          {
+            TYPE: "PHONE",
+            LABEL: "HOME",
+            DETAIL: insUpdateObj.phoneOne
+          },
+          {
+            TYPE: "PHONE",
+            LABEL: "WORK",
+            DETAIL: insUpdateObj.phoneTwo
+          },
+          {
+            TYPE: "PHONE",
+            LABEL: "MOBILE",
+            DETAIL: insUpdateObj.phoneThree
+          },
+          {
+            TYPE: "EMAIL",
+            LABEL: "PERSONAL",
+            DETAIL: insUpdateObj.emailOne
+          },
+          {
+            TYPE: "EMAIL",
+            LABEL: "WORK",
+            DETAIL: insUpdateObj.emailTwo
+          },
+          {
+            TYPE: "EMAIL",
+            LABEL: "OTHER",
+            DETAIL: insUpdateObj.emailThree
+          },
+        ],
+        TAGS: [
+          {
+            TAG_NAME: "Living"
+          }
+        ]
+      };
+
+      request.post({
+        url: 'https://api.insight.ly/v2.1/contacts', 
+        auth: {user: process.env.INSIGHTLY_KEY},
+        json: true,
+        body: newIns
+      }, function(error, response, body){
+        console.log(response.statusCode);
+        console.log(body);
+
+        user.insightlyID = body.CONTACT_ID;
+
+        user.save(function(err){
+          if(err) return next(err);
+
+          return res.redirect('user/show/' + user.id);
         });
 
       });

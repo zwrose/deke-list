@@ -2,7 +2,6 @@
 The secure, online place for Dekes to update their contact info, as well as look up contact info of their fellow brothers
 
 Work list (in no particular order):
-+ handling 'not in insightly' corner case
 + Individual feature front end
 + Auto email if there are api call errors
 + custom 404 etc. handlers
@@ -23,3 +22,4 @@ Completed
 + insightly tag to note which accounts have linked
 + passphrase for new signups for account control
 + welcome email
++ handling 'not in insightly' corner case
