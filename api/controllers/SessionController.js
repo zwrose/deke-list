@@ -49,6 +49,9 @@ module.exports = {
 		User.findOneByEmail(req.param('email'), function foundUser (err, user) {
 			if (err) return next(err);
 
+			console.log(err);
+			console.log(user);
+
 			// If no user is found...
 			if (!user) {
 				var noAccountError = [{name: 'noAccount', message: 'The email address ' + req.param('email') + ' was not found.'}]
