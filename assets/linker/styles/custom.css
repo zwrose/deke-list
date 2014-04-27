@@ -187,7 +187,7 @@ a.navbar-brand {
 	margin: 0 auto 20px;
 	border-radius: 10px;
 }
-.form-narrow-heading {
+.form-heading {
 	margin-top: 0px;
 	margin-bottom: 15px;
 	text-shadow: 0px 0px 15px rgba(255, 255, 255, 1), 0px 0px 30px rgba(255,255,255,1), 0px 0px 50px rgba(255,255,255,1), 0px 0px 180px rgba(255,255,255,1);
@@ -205,4 +205,36 @@ a.passinfo:focus {
 .no-account-yet {
 	margin-top: 5px;
 	color: #999999;
+}
+.form-wide {
+	background: -moz-linear-gradient(top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.8) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.8)), color-stop(100%,rgba(255,255,255,0.8))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+	max-width: 100%;
+	min-width: 340px;
+	padding: 20px 30px 30px;
+	margin: 0 auto 20px;
+	border-radius: 10px;
+}
+.form-subheading {
+	margin-top: 0px;
+	margin-bottom: 5px;
+	text-shadow: 0px 0px 15px rgba(255, 255, 255, 1), 0px 0px 30px rgba(255,255,255,1), 0px 0px 50px rgba(255,255,255,1), 0px 0px 180px rgba(255,255,255,1);
+}
+.form-description {
+	margin-bottom: 15px;
+}
+.no-pad {
+	padding: 0px;
+}
+.form-group {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.form-sep {
+	margin-top: 5px
 }

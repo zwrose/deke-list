@@ -1,56 +1,92 @@
 <div class="container">
-	<form action="/user/createinsightly/<%= user.id %>" method="POST">
-		<h2 class="form-signin-heading">Update your information</h2>
+	<form action="/user/update/<%= user.id %>" method="POST" id="sign-up-form" class="form-wide">
+		<h1 class="form-heading">Update your Information</h1>
 
 		<div class="alert alert-info">
-			Thanks for registering with ASTADKE Online! We actually don't have any information on you to date - since this is your first time here, please take a moment to enter your contact information below. When you are finished, please click the "Update" button to continue!
+			Thanks for registering with ASTADKE Online! We actually don't have any information for you yet. Since this is your first time here, please take a moment to enter your contact information below. When you are finished, please click the "Update" button to continue! This is the information ASTADKE can use to stay in touch with you - primarily through the deke-alumni email list and the yearly Hottentot mailings. You are NOT required to complete every field.
 		</div>
-		
-		<div>Username:</div>
-		<input type="text" class="form-control" value="<%= user.email %>" name="loginEmail">
-		<br />
 
-		<div>Salutation, Full First and Last Names:</div>
-		<input type="text" class="form-control" placeholder="Salut." name="salutation">
-		<input type="text" class="form-control" placeholder="Full First Name" value="<%= user.firstName %>" name="firstName">
-		<input type="text" class="form-control" placeholder="Last Name" value="<%= user.lastName %>" name="lastName">
-		<br />
-		<div>Preferred Name</div>
-		<input type="text" class="form-control" placeholder="Preferred First Name" name="prefFirstName">
-		<br />
-		<div>Grad Year:</div>
-		<input type="text" class="form-control" placeholder="Graduation Year" value="<%= user.gradYear %>" name="gradYear">
-		<br />
-		<div>Street Address, City, State, and Country:</div>
-		<input type="text" class="form-control" placeholder="Street Address" name="addrStreet">
-		<input type="text" class="form-control" placeholder="City" name="addrCity">
-		<input type="text" class="form-control" placeholder="State" name="addrState">
-		<input type="text" class="form-control" placeholder="Zip Code" name="addrZip">
-		<select class="form-control" name="addrCountry">
-			<option value="noChoice" selected="selected">Choose a Country</option>
-			<% for(var i=0; i<countries.length; i++){ %>
-				<option value="<%= countries[i] %>"><%= countries[i] %></option>
-			<% } %>
-		</select>
-		<br />
-		<div>Preferred Phone Number:</div>
-		<input type="text" class="form-control" placeholder="Preferred Phone Number" name="phoneOne">
-		<br />
-		<div>Other Phone Number 1:</div>
-		<input type="text" class="form-control" placeholder="Other Phone Number 1" name="phoneTwo">
-		<br />
-		<div>Other Phone Number 2:</div>
-		<input type="text" class="form-control" placeholder="Other Phone Number 2" name="phoneThree">
-		<br />
-		<div>Preferred Email Address</div>
-		<input type="text" class="form-control" placeholder="Preferred Email Address" name="emailOne">
-		<br />
-		<div>Other Email Address 1:</div>
-		<input type="text" class="form-control" placeholder="Other Email 1" name="emailTwo">
-		<br />
-		<div>Other Email Address 2:</div>
-		<input type="text" class="form-control" placeholder="Other Email 2" name="emailThree">
-		<br />
+		<div class="col-md-6 no-pad">
+			<div class="form-group col-md-2">
+				<label for="salutation">Salutation:</label>
+				<select class="form-control" id="salutation" name="salutation">
+				<option value="Mr." selected="selected">Mr.</option>
+				<option value="Dr.">Dr.</option>
+				</select>
+			</div>
+			<div class="form-group col-md-5">
+				<label for="firstName">First Name:</label>
+				<input type="text" id="firstName" class="form-control" placeholder="First Name" value="<%= user.firstName %>" name="firstName">
+			</div>
+			<div class="form-group col-md-5">
+				<label for="lastName">Last Name:</label>
+				<input type="text" id="lastName" class="form-control" placeholder="Last Name" value="<%= user.lastName %>" name="lastName">
+			</div>
+			<div class="form-group col-md-2">
+				<label for="gradYear">Grad Year:</label>
+				<input type="text" id="gradYear" class="form-control" placeholder="Grad Year" value="<%= user.gradYear %>" name="gradYear">
+			</div>
+			<div class="form-group col-md-5">
+				<label for="prefFirstName">Preferred Name:</label>
+				<input type="text" id="prefFirstName" class="form-control" placeholder="Preferred First Name" name="prefFirstName">
+			</div>
+			<div class="col-md-12"><hr class="form-sep" /></div>
+			<div class="form-group col-md-4">
+				<label for="emailOne">Preferred Email:</label>
+				<input type="text" id="emailOne" class="form-control" placeholder="Preferred Email" value="<%= user.email %>" name="emailOne">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="emailTwo">Other Email 1:</label>
+				<input type="text" id="emailTwo" class="form-control" placeholder="Other Email 1" name="emailTwo">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="emailThree">Other Email 2:</label>
+				<input type="text" id="emailThree" class="form-control" placeholder="Other Email 2" name="emailThree">
+			</div>		
+		</div>
+
+		<div class="col-md-6 no-pad">
+			<div class="form-group col-md-12">
+				<label for="addrStreet">Street Address:</label>
+				<input type="text" id="addrStreet" class="form-control" placeholder="Street Address" name="addrStreet">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="addrCity">City:</label>
+				<input type="text" id="addrCity" class="form-control" placeholder="City" name="addrCity">
+			</div>
+			<div class="form-group col-md-2">
+				<label for="addrState">State:</label>
+				<input type="text" id="addrState" class="form-control" placeholder="State" name="addrState">
+			</div>
+			<div class="form-group col-md-2">
+				<label for="addrZip">Zip:</label>
+				<input type="text" id="addrZip" class="form-control" placeholder="Zip" name="addrZip">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="addrCountry">Country:</label>
+				<select id="addrCountry" class="form-control" name="addrCountry">
+					<option value="noChoice" selected="selected">Choose a Country</option>
+					<% for(var i=0; i<countries.length; i++){ %>
+						<option value="<%= countries[i] %>"><%= countries[i] %></option>
+					<% } %>
+				</select>
+			</div>
+			<div class="col-md-12"><hr class="form-sep" /></div>
+			<div class="form-group col-md-4">
+				<label for="phoneOne">Preferred Phone:</label>
+				<input type="text" id="phoneOne" class="form-control" placeholder="Preferred Phone" name="phoneOne">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="phoneTwo">Other Phone 1:</label>
+				<input type="text" id="phoneTwo" class="form-control" placeholder="Other Phone 1" name="phoneTwo">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="phoneThree">Other Phone 2:</label>
+				<input type="text" class="form-control" placeholder="Other Phone 2" name="phoneThree">
+			</div>
+		</div>
+		<div class="col-md-12"><hr class="form-sep" /></div>
+
 		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Update"/>
 		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
 	</form>
