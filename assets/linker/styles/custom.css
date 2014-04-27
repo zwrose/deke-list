@@ -238,3 +238,12 @@ a.passinfo:focus {
 .form-sep {
 	margin-top: 5px
 }
+.profile-item {
+	font-size: 18px;
+}
+.profile-item-title {
+	font-weight: bold;
+}
+.under-button {
+	margin-top: 5px;
+}
