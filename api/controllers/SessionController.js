@@ -27,6 +27,7 @@ module.exports = {
 
 		console.log(req.param('email'));
 		console.log(req.param('password'));
+		emailSub = req.param('email').replace(/(^\s+|\s+$)/g, '');
 
 		// Check for email and password in params sent via the form, if none
 		// redirect the browser back to the sign-in form.
@@ -46,7 +47,7 @@ module.exports = {
 
 		// Try to find the user by their email. 
 		// findOneByEmail() is a dynamic finder in that it searches the model by a particular attribute.
-		User.findOneByEmail(req.param('email'), function foundUser (err, user) {
+		User.findOneByEmail(emailSub, function foundUser (err, user) {
 			if (err) return next(err);
 
 			console.log(err);
@@ -54,7 +55,7 @@ module.exports = {
 
 			// If no user is found...
 			if (!user) {
-				var noAccountError = [{name: 'noAccount', message: 'The email address ' + req.param('email') + ' was not found.'}]
+				var noAccountError = [{name: 'noAccount', message: 'The email address ' + emailSub + ' was not found.'}]
 				req.session.flash = {
 					err: noAccountError	
 				}
