@@ -25,8 +25,7 @@ module.exports = {
 
 	create: function(req, res, next){
 
-		console.log(req.param('email'));
-		console.log(req.param('password'));
+		// ensure login has no whitespace at beginning or end
 		emailSub = req.param('email').replace(/(^\s+|\s+$)/g, '');
 
 		// Check for email and password in params sent via the form, if none
@@ -49,9 +48,6 @@ module.exports = {
 		// findOneByEmail() is a dynamic finder in that it searches the model by a particular attribute.
 		User.findOneByEmail(emailSub, function foundUser (err, user) {
 			if (err) return next(err);
-
-			console.log(err);
-			console.log(user);
 
 			// If no user is found...
 			if (!user) {
