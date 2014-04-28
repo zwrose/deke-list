@@ -243,6 +243,7 @@ a.passinfo:focus {
 }
 .profile-item-title {
 	font-weight: bold;
+	padding-right: 5px;
 }
 .under-button {
 	margin-top: 5px;
