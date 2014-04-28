@@ -1,5 +1,5 @@
-<div class="container">
-	<form action="/user/update/<%= user.id %>" method="POST" id="sign-up-form" class="form-wide">
+<div class="container form-wide">
+	<form action="/user/createinsightly/<%= user.id %>" method="POST" id="sign-up-form">
 		<h1 class="form-heading">Update your Information</h1>
 
 		<div class="alert alert-info">
@@ -87,7 +87,7 @@
 		</div>
 		<div class="col-md-12"><hr class="form-sep" /></div>
 
-		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Update"/>
+		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit"/>
 		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
 	</form>
 </div>

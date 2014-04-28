@@ -155,7 +155,7 @@ module.exports = {
             body: insContactsEmail[0]
           }, function(error, response, body){
             console.log(response.statusCode);
-            console.log(body);
+            // console.log(body);
 
             user.save(function(err){
               if(err) return next(err);
@@ -208,6 +208,8 @@ module.exports = {
 
       if(err) return next(err);
       if(!user) return next('User doesn\'t exist.');
+
+      req.session.User = user;
 
       if(user.insightlyID){
         var insLookupIDURI = 'https://api.insight.ly/v2.1/contacts/' + user.insightlyID;
@@ -460,7 +462,7 @@ module.exports = {
       if (req.body.hasOwnProperty(formParam)) {
         if((req.body[formParam] === '' || req.body[formParam] === 'none listed') && !(formParam === 'oldPassword' || formParam === 'newPassword' || formParam === 'confirmation')){
           if(emailCheck.test(formParam)){
-            console.log(formParam);
+            // console.log(formParam);
             req.body[formParam] = 'no.email.listed@donotsend.com';
           } else{
             req.body[formParam] = 'none listed';
@@ -625,7 +627,7 @@ module.exports = {
             }
           }
 
-          console.log(infosArr);
+          // console.log(infosArr);
 
           // create any new contact info objects to get to the standard 6
           for(var i=0; i<infosArr.length; i++){
@@ -669,8 +671,8 @@ module.exports = {
             }
           }
 
-          console.log('Object to put:')
-          console.log(insContactEdit);
+          // console.log('Object to put:')
+          // console.log(insContactEdit);
 
           request.put({
             url: 'https://api.insight.ly/v2.1/contacts', 
@@ -685,12 +687,12 @@ module.exports = {
               }
               console.log(response.statusCode);
               // console.log(response);
-              console.log(body);
+              // console.log(body);
               return res.redirect('/user/edit/'+req.param('id'));
             }
 
-            console.log('Body of put:');
-            console.log(body);
+            // console.log('Body of put:');
+            // console.log(body);
 
             User.update(req.param('id'), userObj, function userUpdated(err){
               if(err){
@@ -808,7 +810,7 @@ module.exports = {
             body: insLastNameMatch[0]
           }, function(error, response, body){
             console.log(response.statusCode);
-            console.log(body);
+            // console.log(body);
 
             user.save(function(err){
               if(err) return next(err);
@@ -902,7 +904,7 @@ module.exports = {
           body: insContactJoin
         }, function(error, response, body){
           console.log(response.statusCode);
-          console.log(body);
+          // console.log(body);
 
           req.session.flash = {
             firstLogin: true
@@ -948,7 +950,7 @@ module.exports = {
         if (req.body.hasOwnProperty(formParam)) {
           if((req.body[formParam] === '' || req.body[formParam] === 'none listed') && !(formParam === 'oldPassword' || formParam === 'newPassword' || formParam === 'confirmation')){
             if(emailCheck.test(formParam)){
-              console.log(formParam);
+              // console.log(formParam);
               req.body[formParam] = 'no.email.listed@donotsend.com';
             } else{
               req.body[formParam] = 'none listed';
@@ -956,14 +958,6 @@ module.exports = {
           }
         }
       }
-
-      var userObj = {
-        email: req.param('loginEmail'),
-        password: req.param('newPassword'),
-        firstName: req.param('prefFirstName'),
-        lastName: req.param('lastName'),
-        gradYear: req.param('gradYear')
-      };
 
       var insUpdateObj = {
         salutation: req.param('salutation'),
@@ -1057,9 +1051,12 @@ module.exports = {
         body: newIns
       }, function(error, response, body){
         console.log(response.statusCode);
-        console.log(body);
+        // console.log(body);
 
         user.insightlyID = body.CONTACT_ID;
+        user.firstName = req.param('prefFirstName');
+
+        req.session.User = user;
 
         user.save(function(err){
           if(err) return next(err);
