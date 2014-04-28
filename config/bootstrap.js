@@ -37,9 +37,9 @@ module.exports.bootstrap = function (cb) {
 	// create reusable transport method (opens pool of SMTP connections)
 	var nodemailer = require('nodemailer');
   sails.config.smtpTransport = nodemailer.createTransport("SMTP",{
-      service: "Gmail",
+      service: "Mailgun",
       auth: {
-          user: "astadke@gmail.com",
+          user: "webmaster@mg.astadke.org",
           pass: process.env.ASTADKE_GMAIL
       }
   });
