@@ -1,78 +1,59 @@
-<div class="container">
-	<div class="form-wide">
+<div class="container form-wide">
 
-		<% if(flash && flash.successMsg) { %>
-			<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><%- flash.successMsg[0].message %></div>
+	<% if(flash && flash.successMsg) { %>
+		<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><%- flash.successMsg[0].message %></div>
+	<% } %>
+
+	<% if(flash && flash.err) { %>
+			<% console.log(flash.err) %>
+			<div class="alert alert-danger">
+				<% Object.keys(flash.err).forEach(function(error) { %>
+					<% if(flash.err[error].length > 1) { _.each(flash.err[error], function(subError) {%>
+						<div><%- subError.message %> - <%= error %></div>
+					<% })} else { %>
+						<div><%- flash.err[error][0].message %> - <%= error %></div>
+					<% } %>
+				<% }) %>
+			</div>
 		<% } %>
 
-		<% if(flash && flash.err) { %>
-				<% console.log(flash.err) %>
-				<div class="alert alert-danger">
-					<% Object.keys(flash.err).forEach(function(error) { %>
-						<% if(flash.err[error].length > 1) { _.each(flash.err[error], function(subError) {%>
-							<div><%- subError.message %> - <%= error %></div>
-						<% })} else { %>
-							<div><%- flash.err[error][0].message %> - <%= error %></div>
-						<% } %>
-					<% }) %>
-				</div>
-			<% } %>
+	<% if(insightly){ %>
 
-		<% if(insightly){ %>
-
-			<h1 class="form-heading"><%= user.firstName %> <%= user.lastName %>'s Profile</h1>
-			<div class="col-md-12"><hr class="form-sep" /></div>
-			<div class="no-pad col-md-12">
-				<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Full name:</span> <%= insightly.salutation %> <%= insightly.firstName %> <%= insightly.lastName %></div>
-				<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Preferred name:</span> <%= user.firstName %></div>
-				<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Graduation year:</span> <%= insightly.gradYear %></div>
-			</div>
-			<div class="col-md-12"><hr /></div>
-			<div class="no-pad col-md-12">
-				<div class="no-pad profile-item col-md-12"><span class="profile-item-title">Address:</span> <%= insightly.addrStreet %>, <%= insightly.addrCity %>, <%= insightly.addrState %> <%= insightly.addrZip %><% if(insightly.addrCountry){ %>, <%= insightly.addrCountry %><% } %></div>
-			</div>
-			<div class="col-md-12"><hr /></div>
-			<div class="no-pad col-md-12">
-				<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Preferred phone:</span> <%= insightly.phoneOne %></div>
-				<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Other phone 1:</span> <%= insightly.phoneTwo %></div>
-				<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Other phone 2:</span> <%= insightly.phoneThree %></div>
-			</div>
-			<div class="col-md-12"><hr /></div>
-			<div class="no-pad col-md-12">
-				<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Preferred email:</span> <% if(insightly.emailOne === 'none listed'){ %><%= insightly.emailOne %><% } else{ %><a target="_blank" href="mailto:<%= insightly.emailOne %>"><%= insightly.emailOne %></a><% } %></div>
-				<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Other email 1:</span> <% if(insightly.emailTwo === 'none listed'){ %><%= insightly.emailTwo %><% } else{ %><a target="_blank" href="mailto:<%= insightly.emailTwo %>"><%= insightly.emailTwo %></a><% } %></div>
-				<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Other email 2:</span> <% if(insightly.emailThree === 'none listed'){ %><%= insightly.emailThree %><% } else{ %><a target="_blank" href="mailto:<%= insightly.emailThree %>"><%= insightly.emailThree %></a><% } %></div>
-			</div>
-			<div class="col-md-12"><hr /></div>
-		<% } else { %>
-			<div>Hmm...There seems to be a problem reaching back to our database. If you're seeing this message, please let us know by emailing us at <a href="mailto:astadke@gmail.com">astadke@gmail.com</a>.</div>
-			<br />
-			<div>First Name: <%= user.firstName %></div>
-			<br />
-			<div>Last Name: <%= user.lastName %></div>
-			<br />
-			<div>Email: <%= user.email %></div>
-			<br />
-			<div>Grad Year: <%= user.gradYear %></div>
-			<br />
-		<% } %>
-		<% if(req.session.User.admin || req.session.User.id === user.id){ %><a class="btn btn-primary" href="/user/edit/<%= user.id %>">Edit Info</a><div class="under-button">Last updated: <%= insightly.updated %></div><% } %>
+		<h1 class="form-heading"><%= user.firstName %> <%= user.lastName %>'s Profile</h1>
+		<div class="col-md-12"><hr class="form-sep" /></div>
+		<div class="no-pad col-md-12">
+			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Full name:</span> <%= insightly.salutation %> <%= insightly.firstName %> <%= insightly.lastName %></div>
+			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Preferred name:</span> <%= user.firstName %></div>
+			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Graduation year:</span> <%= insightly.gradYear %></div>
+		</div>
 		<div class="col-md-12"><hr /></div>
-		<h3 class="form-heading">Leave a comment for <%= user.firstName %>:</h3>
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'astadkeonline'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    
-	</div>
+		<div class="no-pad col-md-12">
+			<div class="no-pad profile-item col-md-12"><span class="profile-item-title">Address:</span> <%= insightly.addrStreet %>, <%= insightly.addrCity %>, <%= insightly.addrState %> <%= insightly.addrZip %><% if(insightly.addrCountry){ %>, <%= insightly.addrCountry %><% } %></div>
+		</div>
+		<div class="col-md-12"><hr /></div>
+		<div class="no-pad col-md-12">
+			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Preferred phone:</span> <%= insightly.phoneOne %></div>
+			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Other phone 1:</span> <%= insightly.phoneTwo %></div>
+			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Other phone 2:</span> <%= insightly.phoneThree %></div>
+		</div>
+		<div class="col-md-12"><hr /></div>
+		<div class="no-pad col-md-12">
+			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Preferred email:</span> <% if(insightly.emailOne === 'none listed'){ %><%= insightly.emailOne %><% } else{ %><a target="_blank" href="mailto:<%= insightly.emailOne %>"><%= insightly.emailOne %></a><% } %></div>
+			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Other email 1:</span> <% if(insightly.emailTwo === 'none listed'){ %><%= insightly.emailTwo %><% } else{ %><a target="_blank" href="mailto:<%= insightly.emailTwo %>"><%= insightly.emailTwo %></a><% } %></div>
+			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Other email 2:</span> <% if(insightly.emailThree === 'none listed'){ %><%= insightly.emailThree %><% } else{ %><a target="_blank" href="mailto:<%= insightly.emailThree %>"><%= insightly.emailThree %></a><% } %></div>
+		</div>
+		<div class="col-md-12"><hr /></div>
+	<% } else { %>
+		<div>Hmm...There seems to be a problem reaching back to our database. If you're seeing this message, please let us know by emailing us at <a href="mailto:astadke@gmail.com">astadke@gmail.com</a>.</div>
+		<br />
+		<div>First Name: <%= user.firstName %></div>
+		<br />
+		<div>Last Name: <%= user.lastName %></div>
+		<br />
+		<div>Email: <%= user.email %></div>
+		<br />
+		<div>Grad Year: <%= user.gradYear %></div>
+		<br />
+	<% } %>
+	<% if(req.session.User.admin || req.session.User.id === user.id){ %><a class="btn btn-lg btn-primary" href="/user/edit/<%= user.id %>">Edit Info</a><div class="under-button">Last updated: <%= insightly.updated %></div><% } %>
 </div>

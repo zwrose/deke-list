@@ -273,3 +273,13 @@ a.passinfo:focus {
 .under-button {
 	margin-top: 5px;
 }
+.linkup-label {
+	padding-left: 30px;
+	font-size: 18px;
+}
+.linkup-item {
+	padding-top: 20px;
+}
+.linkup-desc {
+	margin-bottom: 5px;
+}
