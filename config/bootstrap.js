@@ -33,6 +33,16 @@ module.exports.bootstrap = function (cb) {
 	  sails.config.insCountries = insCountries;
 
 	});
+
+	// create reusable transport method (opens pool of SMTP connections)
+	var nodemailer = require('nodemailer');
+  sails.config.smtpTransport = nodemailer.createTransport("SMTP",{
+      service: "Gmail",
+      auth: {
+          user: "astadke@gmail.com",
+          pass: process.env.ASTADKE_GMAIL
+      }
+  });
   // It's very important to trigger this callack method when you are finished 
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   cb();

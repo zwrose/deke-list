@@ -69,16 +69,15 @@ module.exports = {
       }, function(error, response, body){
         insContactsEmail = JSON.parse(body);
 
-
-        console.log(process.env.ASTADKE_GMAIL);
         // create reusable transport method (opens pool of SMTP connections)
-        var smtpTransport = nodemailer.createTransport("SMTP",{
-            service: "Gmail",
-            auth: {
-                user: "astadke@gmail.com",
-                pass: process.env.ASTADKE_GMAIL
-            }
-        });
+        // moved to bootstrap config, left open continuously
+        // var smtpTransport = nodemailer.createTransport("SMTP",{
+        //     service: "Gmail",
+        //     auth: {
+        //         user: "astadke@gmail.com",
+        //         pass: process.env.ASTADKE_GMAIL
+        //     }
+        // });
 
         // setup e-mail data with unicode symbols
         var mailOptions = {
@@ -94,15 +93,13 @@ module.exports = {
         }
 
         // send mail with defined transport object
-        smtpTransport.sendMail(mailOptions, function(error, response){
+        sails.config.smtpTransport.sendMail(mailOptions, function(error, response){
             if(error){
                 console.log(error);
             }else{
                 console.log("Message sent: " + response.message);
             }
 
-            // if you don't want to use this transport object anymore, uncomment following line
-            smtpTransport.close(); // shut down the connection pool, no more messages
         });
         
         // If there's a unique insightly match, save the insightly id
