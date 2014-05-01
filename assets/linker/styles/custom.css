@@ -283,3 +283,16 @@ a.passinfo:focus {
 .linkup-desc {
 	margin-bottom: 5px;
 }
+.form-cancel-div {
+	height: 45px;
+}
+.form-cancel {
+	font-size: 16px;
+	position: absolute;
+	bottom: 0;
+	color: #d9534f;
+}
+.form-cancel-div > a:hover, 
+.form-cancel-div > a:focus {
+	color: #d9534f !important;
+}
