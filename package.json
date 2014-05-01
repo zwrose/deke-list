@@ -13,7 +13,8 @@
     "sails-mongo": "^0.9.7",
     "request": "^2.34.0",
     "moment": "^2.6.0",
-    "nodemailer": "^0.6.3"
+    "nodemailer": "^0.6.3",
+    "newrelic": "^1.5.2"
   },
   "engines": {
     "node": "0.10.x",
