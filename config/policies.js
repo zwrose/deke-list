@@ -28,6 +28,9 @@ module.exports.policies = {
   	'newinsightly': ["flash", "isAuthenticated", "privateView"],
   	'createinsightly': ["flash", "isAuthenticated", "privateView"],
   	'*': ["flash", "isAuthenticated", "admin"]
+  },
+  dekelist: {
+  	'show': ["flash", "isAuthenticated"]
   }
 
   /*

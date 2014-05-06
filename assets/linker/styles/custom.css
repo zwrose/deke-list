@@ -296,3 +296,6 @@ a.passinfo:focus {
 .form-cancel-div > a:focus {
 	color: #d9534f !important;
 }
+.name-drop {
+	font-size: 10px;
+}

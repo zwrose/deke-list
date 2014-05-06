@@ -1,0 +1,26 @@
+<div class="container form-wide">
+
+	<h1 class="form-heading">Digital Deke List</h1>
+	<table class='table'>
+		<tr>
+			<th><% if(req.query.sort === 'firstName' && req.query.sortDir === 'asc') { %><a href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=desc">First Name</a><% } else { %><a href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=asc">First Name</a><% } %></th>
+			<th><% if(req.query.sort === 'lastName' && req.query.sortDir === 'asc') { %><a href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=desc">Last Name</a><% } else { %><a href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=asc">Last Name</a><% } %></th>
+			<th><% if(req.query.sort === 'gradYear' && req.query.sortDir === 'asc') { %><a href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=desc">Grad Year</a><% } else { %><a href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=asc">Grad Year</a><% } %></th>
+			<th><% if(req.query.sort === 'addrCity' && req.query.sortDir === 'asc') { %><a href="<%= req._parsedUrl.pathname %>?sort=addrCity&sortDir=desc">Current City</a><% } else { %><a href="<%= req._parsedUrl.pathname %>?sort=addrCity&sortDir=asc">Current City</a><% } %></th>
+			<th><% if(req.query.sort === 'addrState' && req.query.sortDir === 'asc') { %><a href="<%= req._parsedUrl.pathname %>?sort=addrState&sortDir=desc">Current State</a><% } else { %><a href="<%= req._parsedUrl.pathname %>?sort=addrState&sortDir=asc">Current State</a><% } %></th>
+		</tr>
+
+
+		<% _.each(brothers, function(brother) { %>
+		<tr>
+			<td><%= brother.FIRST_NAME %></td>
+			<td><%= brother.LAST_NAME %></td>
+			<td><% if(brother.CUSTOMFIELDS[1]) { %><%= brother.CUSTOMFIELDS[1].FIELD_VALUE %><% } else { %>none listed <% } %></td>
+			<td><% if(brother.ADDRESSES[0]) { %><%= brother.ADDRESSES[0].CITY %><% } else { %>none listed <% } %></td>
+			<td><% if(brother.ADDRESSES[0]) { %><%= brother.ADDRESSES[0].STATE %><% } else { %>none listed <% } %></td>
+		</tr> 
+
+		<% }) %>
+	</table>
+
+</div>
