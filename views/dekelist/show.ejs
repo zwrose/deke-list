@@ -1,6 +1,34 @@
 <div class="container form-wide">
 
-	<h1 class="form-heading">Digital Deke List</h1>
+	<div class="list-head"><h1 class="form-heading">Digital Deke List</h1></div>
+	<ul class="pagination pull-right list-top-pag">
+	  <li <% if(!req.param('id')) { %>class="disabled"<% } %>>
+	  	<% if(req.param('id')) { %><a <% if(req.param('id') === '2') { %>href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= req.param('id') - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&laquo;</a><% } else { %><a>&laquo;</a><% } %>
+	  </li>
+	  <li <% if(!req.param('id')) { %>class="active"<% } %>>
+	  	<a href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">1</a></li>
+	  <% if(req.param('id') > 3) { %><li class="disabled"><a>...</a></li><% } %>
+	  <li <% if(req.param('id') === '2') { %>class="active"<% } %>>
+	  	<% if(!req.param('id') || req.param('id') < 4) { %><a href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">2</a><% } else if(req.param('id') > totalPages - 2) { %>
+	  	<a href="/dekelist/show/<%= totalPages - 3 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 3 %></a><% } else { %>
+	  	<a href="/dekelist/show/<%= req.param('id') - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= req.param('id') - 1 %></a><% } %>
+	  </li>
+	  <li  <% if(req.param('id') && req.param('id') >= 3 && req.param('id') <= totalPages - 2) { %>class="active"<% } %>>
+	  	<% if(!req.param('id') || req.param('id') < 4) { %><a href="/dekelist/show/3<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">3</a><% } else if(req.param('id') > totalPages - 2) { %>
+	  	<a href="/dekelist/show/<%= totalPages - 2 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 2 %></a><% } else { %>
+	  	<a href="/dekelist/show/<%= req.param('id') %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= req.param('id') %></a><% } %>
+	  </li>
+	  <li <% if(req.param('id') == totalPages - 1) { %>class="active"<% } %>>
+	  	<% if(!req.param('id') || req.param('id') < 4) { %><a href="/dekelist/show/4<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">4</a><% } else if(req.param('id') > totalPages - 2) { %>
+	  	<a href="/dekelist/show/<%= totalPages - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 1 %></a><% } else { %>
+	  	<a href="/dekelist/show/<%= parseInt(req.param('id'), 10) + 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= parseInt(req.param('id'), 10) + 1 %></a><% } %>
+	  </li>
+	  <% if(!req.param('id') || req.param('id') < totalPages - 2) { %><li class="disabled"><a>...</a></li><% } %>
+	  <li <% if(req.param('id') == totalPages) { %>class="active"<% } %>>
+	  	<a href="/dekelist/show/<%= totalPages %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages %></a></li>
+	  <li <% if(req.param('id') == totalPages) { %>class="disabled"<% } %>>
+	  	<% if(!(req.param('id') == totalPages)) { %><a <% if(!req.param('id')) { %>href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= parseInt(req.param('id'), 10) + 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&raquo;</a><% } else { %><a>&raquo;</a><% } %></li>
+	</ul>
 	<table class='table'>
 		<tr>
 			<th><% if(req.query.sort === 'firstName' && req.query.sortDir === 'asc') { %><a href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=desc">First Name</a><% } else { %><a href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=asc">First Name</a><% } %></th>

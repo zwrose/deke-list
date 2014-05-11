@@ -297,5 +297,13 @@ a.passinfo:focus {
 	color: #d9534f !important;
 }
 .name-drop {
-	font-size: 10px;
+	font-size: 12px;
+	line-height: 20px;
+}
+.list-head {
+	display: inline-block;
+}
+.list-top-pag {
+	margin-top: 5px;
+	margin-bottom: 15px;
 }

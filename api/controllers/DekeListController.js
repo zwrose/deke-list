@@ -27,73 +27,191 @@ module.exports = {
 
   	if (sort === 'firstName'){
 
-  		if(sortDir === 'desc'){
-
-  			var insLookupURI = 'https://api.insight.ly/v2.1/contacts?$orderby=FIRST_NAME desc&$top=10'
-
-  		} else {
-
-  			// default to asc
-  			var insLookupURI = 'https://api.insight.ly/v2.1/contacts?$orderby=FIRST_NAME asc&$top=10'
-
-  		}
-
-  		if(req.param('id')){
-
-  			var page = parseInt(req.param('id'), 10);
-  			insLookupURI += "&$skip=" + 10*(page - 1);
-
-  		}
+  		var insLookupURI = 'https://api.insight.ly/v2.1/contacts';
 
   		request.get({
 	      url: insLookupURI, 
 	      auth: {user: process.env.INSIGHTLY_KEY}
 	    }, function(error, response, body){
 	    	// make array of all contacts
-	      sortedContacts = JSON.parse(body);
+	      insAllContacts = JSON.parse(body);
+
+	      var totpages = Math.ceil(insAllContacts.length/30);
+
+	      if(sortDir === 'desc'){
+	      	sortedAllContacts = sorter.sortDESCbyKey(insAllContacts, "FIRST_NAME");
+	      } else {
+	      	sortedAllContacts = sorter.sortASCbyKey(insAllContacts, "FIRST_NAME");
+	      };
+
+	      if(req.param('id')){
+
+  			var page = parseInt(req.param('id'), 10);
+
+	  			sortedAllContacts = sortedAllContacts.slice(30*(page - 1), 30*page);
+
+	  		} else {
+
+	  			sortedAllContacts = sortedAllContacts.slice(0, 30);
+
+	  		}
 
 	      return res.view({
-	      	brothers: sortedContacts
+	      	brothers: sortedAllContacts,
+	      	totalPages: totpages
 	      })
 
 	    });
 
   	} else if(sort === 'gradYear'){
 
-  	} else if(sort === 'addrCity'){
-
-  	} else if(sort === 'addrState'){
-
-  	} else {
-
-  		// default to sort by last name
-  		if(sortDir === 'desc'){
-
-  			var insLookupURI = 'https://api.insight.ly/v2.1/contacts?$orderby=LAST_NAME desc&$top=10'
-
-  		} else {
-
-  			// default to asc
-  			var insLookupURI = 'https://api.insight.ly/v2.1/contacts?$orderby=LAST_NAME asc&$top=10'
-
-  		}
-
-  		if(req.param('id')){
-
-  			var page = parseInt(req.param('id'), 10);
-  			insLookupURI += "&$skip=" + 10*(page - 1);
-
-  		}
+  		var insLookupURI = 'https://api.insight.ly/v2.1/contacts';
 
   		request.get({
 	      url: insLookupURI, 
 	      auth: {user: process.env.INSIGHTLY_KEY}
 	    }, function(error, response, body){
 	    	// make array of all contacts
-	      sortedContacts = JSON.parse(body);
+	      insAllContacts = JSON.parse(body);
+
+	      var totpages = Math.ceil(insAllContacts.length/30);
+
+	      if(sortDir === 'desc'){
+	      	sortedAllContacts = sorter.sortDESCbyGrad(insAllContacts);
+	      } else {
+	      	sortedAllContacts = sorter.sortASCbyGrad(insAllContacts);
+	      };
+
+	      if(req.param('id')){
+
+  			var page = parseInt(req.param('id'), 10);
+
+	  			sortedAllContacts = sortedAllContacts.slice(30*(page - 1), 30*page);
+
+	  		} else {
+
+	  			sortedAllContacts = sortedAllContacts.slice(0, 30);
+
+	  		}
 
 	      return res.view({
-	      	brothers: sortedContacts
+	      	brothers: sortedAllContacts,
+	      	totalPages: totpages
+	      })
+
+	    });
+
+  	} else if(sort === 'addrCity'){
+
+  		var insLookupURI = 'https://api.insight.ly/v2.1/contacts';
+
+  		request.get({
+	      url: insLookupURI, 
+	      auth: {user: process.env.INSIGHTLY_KEY}
+	    }, function(error, response, body){
+	    	// make array of all contacts
+	      insAllContacts = JSON.parse(body);
+
+	      var totpages = Math.ceil(insAllContacts.length/30);
+
+	      if(sortDir === 'desc'){
+	      	sortedAllContacts = sorter.sortDESCbyCity(insAllContacts);
+	      } else {
+	      	sortedAllContacts = sorter.sortASCbyCity(insAllContacts);
+	      };
+
+	      if(req.param('id')){
+
+  			var page = parseInt(req.param('id'), 10);
+
+	  			sortedAllContacts = sortedAllContacts.slice(30*(page - 1), 30*page);
+
+	  		} else {
+
+	  			sortedAllContacts = sortedAllContacts.slice(0, 30);
+
+	  		}
+
+	      return res.view({
+	      	brothers: sortedAllContacts,
+	      	totalPages: totpages
+	      })
+
+	    });
+
+  	} else if(sort === 'addrState'){
+
+  		var insLookupURI = 'https://api.insight.ly/v2.1/contacts';
+
+  		request.get({
+	      url: insLookupURI, 
+	      auth: {user: process.env.INSIGHTLY_KEY}
+	    }, function(error, response, body){
+	    	// make array of all contacts
+	      insAllContacts = JSON.parse(body);
+
+	      var totpages = Math.ceil(insAllContacts.length/30);
+
+	      if(sortDir === 'desc'){
+	      	sortedAllContacts = sorter.sortDESCbyState(insAllContacts);
+	      } else {
+	      	sortedAllContacts = sorter.sortASCbyState(insAllContacts);
+	      };
+
+	      if(req.param('id')){
+
+  			var page = parseInt(req.param('id'), 10);
+
+	  			sortedAllContacts = sortedAllContacts.slice(30*(page - 1), 30*page);
+
+	  		} else {
+
+	  			sortedAllContacts = sortedAllContacts.slice(0, 30);
+
+	  		}
+
+	      return res.view({
+	      	brothers: sortedAllContacts,
+	      	totalPages: totpages
+	      })
+
+	    });
+
+  	} else {
+
+  		// default to sort by last name
+  		var insLookupURI = 'https://api.insight.ly/v2.1/contacts';
+
+  		request.get({
+	      url: insLookupURI, 
+	      auth: {user: process.env.INSIGHTLY_KEY}
+	    }, function(error, response, body){
+	    	// make array of all contacts
+	      insAllContacts = JSON.parse(body);
+
+	      var totpages = Math.ceil(insAllContacts.length/30);
+
+	      if(sortDir === 'desc'){
+	      	sortedAllContacts = sorter.sortDESCbyKey(insAllContacts, "LAST_NAME");
+	      } else {
+	      	sortedAllContacts = sorter.sortASCbyKey(insAllContacts, "LAST_NAME");
+	      };
+
+	      if(req.param('id')){
+
+  			var page = parseInt(req.param('id'), 10);
+
+	  			sortedAllContacts = sortedAllContacts.slice(30*(page - 1), 30*page);
+
+	  		} else {
+
+	  			sortedAllContacts = sortedAllContacts.slice(0, 30);
+
+	  		}
+
+	      return res.view({
+	      	brothers: sortedAllContacts,
+	      	totalPages: totpages
 	      })
 
 	    });
