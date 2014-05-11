@@ -1,8 +1,19 @@
 <div class="container form-wide">
 
-	<div class="list-head"><h1 class="form-heading">Digital Deke List</h1></div>
+	<h1 class="form-heading list-head">Digital Deke List</h1><br />
+	<div class="show-living">By default, list only displays living affiliates. To show all, check here: </div>
+	<form class="form-inline show-all-form" action="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>" method="POST" role="form">
+	  <div class="checkbox">
+	    <label>
+	      <input type="checkbox"<% if(req.session.listFilter === "showAll") { %> checked="checked"<% } %> name="showAll" value="1">
+	    </label>
+	  </div>
+	  <button type="submit" class="btn btn-sm btn-show-all-form">Refresh</button>
+	  <input type="hidden" name="changeShowFilter" value="1" />
+	  <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+	</form>
 	<ul class="pagination pull-right list-top-pag">
-	  <li <% if(!req.param('id')) { %>class="disabled"<% } %>>
+	  <li class="new-page<% if(!req.param('id')) { %> disabled<% } %>">
 	  	<% if(req.param('id')) { %><a <% if(req.param('id') === '2') { %>href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= req.param('id') - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&laquo;</a><% } else { %><a>&laquo;</a><% } %>
 	  </li>
 	  <li <% if(!req.param('id')) { %>class="active"<% } %>>
@@ -26,7 +37,7 @@
 	  <% if(!req.param('id') || req.param('id') < totalPages - 2) { %><li class="disabled"><a>...</a></li><% } %>
 	  <li <% if(req.param('id') == totalPages) { %>class="active"<% } %>>
 	  	<a href="/dekelist/show/<%= totalPages %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages %></a></li>
-	  <li <% if(req.param('id') == totalPages) { %>class="disabled"<% } %>>
+	  <li class="new-page<% if(req.param('id') == totalPages) { %> disabled<% } %>">
 	  	<% if(!(req.param('id') == totalPages)) { %><a <% if(!req.param('id')) { %>href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= parseInt(req.param('id'), 10) + 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&raquo;</a><% } else { %><a>&raquo;</a><% } %></li>
 	</ul>
 	<table class='table'>

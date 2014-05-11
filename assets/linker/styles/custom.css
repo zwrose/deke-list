@@ -302,8 +302,56 @@ a.passinfo:focus {
 }
 .list-head {
 	display: inline-block;
+	margin-bottom: 0px;
 }
 .list-top-pag {
-	margin-top: 5px;
-	margin-bottom: 15px;
+	margin-top: 0px;
+	margin-bottom: 3px;
+}
+.pagination > li > a,
+.pagination > .disabled > a {
+	background: none;
+	border: none;
+	color: #26282b;
+	padding: 6px;
+	font-size: 20px;
+	line-height: 22px
+}
+.pagination > .active > a {
+	font-weight: bolder;
+	background: none;
+	color: #26282b;
+	font-size: 22px;
+	line-height: 22px;
+}
+.pagination > li > a:hover,
+.pagination > li > a:focus {
+	background: none;
+	font-weight: bold;
+	color: #26282b;
+}
+.pagination > .new-page > a:hover,
+.pagination > .new-page > a:focus {
+	font-weight: normal;
+	text-decoration: underline;
+}
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+	background: none;
+	color: #26282b;
+	text-decoration: none;
+	font-weight: normal;
+}
+.pagination > .active > a:hover,
+.pagination > .active > a:focus {
+	background: none;
+	color: #26282b;
+}
+.show-living {
+	line-height: 24px;
+	display: inline-block;
+	padding-top: 5px;
+}
+.show-all-form {
+	display: inline-block;
 }

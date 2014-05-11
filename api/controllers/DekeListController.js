@@ -22,12 +22,33 @@ module.exports = {
     
   show: function(req, res, next){
 
+  	console.log(req.param('showAll'));
+  	console.log(req.param('changeShowFilter'));
+
   	var sort = req.param('sort');
   	var sortDir = req.param('sortDir');
 
-  	if (sort === 'firstName'){
+  	if(req.param('changeShowFilter')){
 
+  		if(req.param('showAll') === '1'){
+  			req.session.listFilter = 'showAll';
+  		} else {
+  			req.session.listFilter = 'showLiving';
+  		}
+
+  	}
+
+  	console.log(req.session);
+
+  	if(req.session.listFilter === 'showAll') {
   		var insLookupURI = 'https://api.insight.ly/v2.1/contacts';
+  		console.log('showing all contacts')
+  	} else {
+  		var insLookupURI = 'https://api.insight.ly/v2.1/contacts?tag=Living';
+  		console.log('showing living contacts')
+  	}
+
+  	if (sort === 'firstName'){
 
   		request.get({
 	      url: insLookupURI, 
@@ -65,8 +86,6 @@ module.exports = {
 
   	} else if(sort === 'gradYear'){
 
-  		var insLookupURI = 'https://api.insight.ly/v2.1/contacts';
-
   		request.get({
 	      url: insLookupURI, 
 	      auth: {user: process.env.INSIGHTLY_KEY}
@@ -103,8 +122,6 @@ module.exports = {
 
   	} else if(sort === 'addrCity'){
 
-  		var insLookupURI = 'https://api.insight.ly/v2.1/contacts';
-
   		request.get({
 	      url: insLookupURI, 
 	      auth: {user: process.env.INSIGHTLY_KEY}
@@ -140,8 +157,6 @@ module.exports = {
 	    });
 
   	} else if(sort === 'addrState'){
-
-  		var insLookupURI = 'https://api.insight.ly/v2.1/contacts';
 
   		request.get({
 	      url: insLookupURI, 
@@ -180,7 +195,6 @@ module.exports = {
   	} else {
 
   		// default to sort by last name
-  		var insLookupURI = 'https://api.insight.ly/v2.1/contacts';
 
   		request.get({
 	      url: insLookupURI, 
@@ -217,28 +231,6 @@ module.exports = {
 	    });
 
   	}
-
-  	// get all contacts from insightly
-    // var insLookupURI = 'https://api.insight.ly/v2.1/contacts';
-
-    // request.get({
-    //   url: insLookupURI, 
-    //   auth: {user: process.env.INSIGHTLY_KEY}
-    // }, function(error, response, body){
-    // 	// make array of all contacts
-    //   insAllContacts = JSON.parse(body);
-
-    //   if(req.param('id') === 'down'){
-    //   	sortedAllContacts = sorter.sortDESCbyKey(insAllContacts, 'LAST_NAME');
-    //   } else {
-    //   	sortedAllContacts = sorter.sortASCbyKey(insAllContacts, 'LAST_NAME');
-    //   };
-
-    //   return res.view({
-    //   	brothers: sortedAllContacts
-    //   })
-
-    // });
 
   },
 
