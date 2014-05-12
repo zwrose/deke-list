@@ -85,7 +85,12 @@
 
     <%- body %>
 
-
+    <!-- Below is markup for blockUI loading popup -->
+    <div id="loadingMsg" style="display:none;">
+      <img class="load-crest" src="/images/Crest.png">
+      <div>Please standby while we gather all the needed bits.</div>
+      <img class="load-bar" src="/images/ajax-loader.gif">
+    </div>
 
     <!--
         Client-side Templates
@@ -142,6 +147,7 @@
     <script src="/linker/js/sails.io.js"></script>
     <script src="/linker/js/app.js"></script>
     <script src="/linker/js/bootstrap.js"></script>
+    <script src="/linker/js/blockui.js"></script>
     <script src="/linker/js/custom.js"></script>
     <!--SCRIPTS END-->
   </body>

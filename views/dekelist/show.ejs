@@ -1,9 +1,9 @@
 <div class="container form-wide">
 
 	<h1 class="form-heading list-head">Digital Deke List</h1><br />
-	<div class="show-living">By default, list only displays living affiliates. To show all, check here: </div>
+	<div class="show-living">By default, this list only displays living affiliates.</div><div class="show-living">To show all, keep this box checked: </div>
 	<form class="form-inline show-all-form" action="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>" method="POST" role="form">
-	  <div class="checkbox">
+	  <div class="checkbox ck-show-all-form">
 	    <label>
 	      <input type="checkbox"<% if(req.session.listFilter === "showAll") { %> checked="checked"<% } %> name="showAll" value="1">
 	    </label>
@@ -12,41 +12,43 @@
 	  <input type="hidden" name="changeShowFilter" value="1" />
 	  <input type="hidden" name="_csrf" value="<%= _csrf %>" />
 	</form>
+	<!-- top pagination -->
 	<ul class="pagination pull-right list-top-pag">
 	  <li class="new-page<% if(!req.param('id')) { %> disabled<% } %>">
-	  	<% if(req.param('id')) { %><a <% if(req.param('id') === '2') { %>href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= req.param('id') - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&laquo;</a><% } else { %><a>&laquo;</a><% } %>
+	  	<% if(req.param('id')) { %><a class="load-trigger" <% if(req.param('id') === '2') { %>href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= req.param('id') - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&laquo;</a><% } else { %><a>&laquo;</a><% } %>
 	  </li>
 	  <li <% if(!req.param('id')) { %>class="active"<% } %>>
-	  	<a href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">1</a></li>
+	  	<a class="load-trigger" href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">1</a></li>
 	  <% if(req.param('id') > 3) { %><li class="disabled"><a>...</a></li><% } %>
 	  <li <% if(req.param('id') === '2') { %>class="active"<% } %>>
-	  	<% if(!req.param('id') || req.param('id') < 4) { %><a href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">2</a><% } else if(req.param('id') > totalPages - 2) { %>
-	  	<a href="/dekelist/show/<%= totalPages - 3 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 3 %></a><% } else { %>
-	  	<a href="/dekelist/show/<%= req.param('id') - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= req.param('id') - 1 %></a><% } %>
+	  	<% if(!req.param('id') || req.param('id') < 4) { %><a class="load-trigger" href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">2</a><% } else if(req.param('id') > totalPages - 2) { %>
+	  	<a class="load-trigger" href="/dekelist/show/<%= totalPages - 3 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 3 %></a><% } else { %>
+	  	<a class="load-trigger" href="/dekelist/show/<%= req.param('id') - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= req.param('id') - 1 %></a><% } %>
 	  </li>
 	  <li  <% if(req.param('id') && req.param('id') >= 3 && req.param('id') <= totalPages - 2) { %>class="active"<% } %>>
-	  	<% if(!req.param('id') || req.param('id') < 4) { %><a href="/dekelist/show/3<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">3</a><% } else if(req.param('id') > totalPages - 2) { %>
-	  	<a href="/dekelist/show/<%= totalPages - 2 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 2 %></a><% } else { %>
-	  	<a href="/dekelist/show/<%= req.param('id') %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= req.param('id') %></a><% } %>
+	  	<% if(!req.param('id') || req.param('id') < 4) { %><a class="load-trigger" href="/dekelist/show/3<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">3</a><% } else if(req.param('id') > totalPages - 2) { %>
+	  	<a class="load-trigger" href="/dekelist/show/<%= totalPages - 2 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 2 %></a><% } else { %>
+	  	<a class="load-trigger" href="/dekelist/show/<%= req.param('id') %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= req.param('id') %></a><% } %>
 	  </li>
 	  <li <% if(req.param('id') == totalPages - 1) { %>class="active"<% } %>>
-	  	<% if(!req.param('id') || req.param('id') < 4) { %><a href="/dekelist/show/4<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">4</a><% } else if(req.param('id') > totalPages - 2) { %>
-	  	<a href="/dekelist/show/<%= totalPages - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 1 %></a><% } else { %>
-	  	<a href="/dekelist/show/<%= parseInt(req.param('id'), 10) + 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= parseInt(req.param('id'), 10) + 1 %></a><% } %>
+	  	<% if(!req.param('id') || req.param('id') < 4) { %><a class="load-trigger" href="/dekelist/show/4<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">4</a><% } else if(req.param('id') > totalPages - 2) { %>
+	  	<a class="load-trigger" href="/dekelist/show/<%= totalPages - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 1 %></a><% } else { %>
+	  	<a class="load-trigger" href="/dekelist/show/<%= parseInt(req.param('id'), 10) + 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= parseInt(req.param('id'), 10) + 1 %></a><% } %>
 	  </li>
 	  <% if(!req.param('id') || req.param('id') < totalPages - 2) { %><li class="disabled"><a>...</a></li><% } %>
 	  <li <% if(req.param('id') == totalPages) { %>class="active"<% } %>>
-	  	<a href="/dekelist/show/<%= totalPages %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages %></a></li>
+	  	<a class="load-trigger" href="/dekelist/show/<%= totalPages %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages %></a></li>
 	  <li class="new-page<% if(req.param('id') == totalPages) { %> disabled<% } %>">
-	  	<% if(!(req.param('id') == totalPages)) { %><a <% if(!req.param('id')) { %>href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= parseInt(req.param('id'), 10) + 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&raquo;</a><% } else { %><a>&raquo;</a><% } %></li>
+	  	<% if(!(req.param('id') == totalPages)) { %><a class="load-trigger" <% if(!req.param('id')) { %>href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= parseInt(req.param('id'), 10) + 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&raquo;</a><% } else { %><a>&raquo;</a><% } %></li>
 	</ul>
-	<table class='table'>
+	<!-- end top pagination -->
+	<table class='table deke-list-table'>
 		<tr>
-			<th><% if(req.query.sort === 'firstName' && req.query.sortDir === 'asc') { %><a href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=desc">First Name</a><% } else { %><a href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=asc">First Name</a><% } %></th>
-			<th><% if(req.query.sort === 'lastName' && req.query.sortDir === 'asc') { %><a href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=desc">Last Name</a><% } else { %><a href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=asc">Last Name</a><% } %></th>
-			<th><% if(req.query.sort === 'gradYear' && req.query.sortDir === 'asc') { %><a href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=desc">Grad Year</a><% } else { %><a href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=asc">Grad Year</a><% } %></th>
-			<th><% if(req.query.sort === 'addrCity' && req.query.sortDir === 'asc') { %><a href="<%= req._parsedUrl.pathname %>?sort=addrCity&sortDir=desc">Current City</a><% } else { %><a href="<%= req._parsedUrl.pathname %>?sort=addrCity&sortDir=asc">Current City</a><% } %></th>
-			<th><% if(req.query.sort === 'addrState' && req.query.sortDir === 'asc') { %><a href="<%= req._parsedUrl.pathname %>?sort=addrState&sortDir=desc">Current State</a><% } else { %><a href="<%= req._parsedUrl.pathname %>?sort=addrState&sortDir=asc">Current State</a><% } %></th>
+			<th class="dekelist-header"><% if(req.query.sort === 'firstName' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=desc">First Name <span class="name-drop">&#9650</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=asc">First Name <% if(req.query.sort === 'firstName') { %><span class="name-drop">&#9660</span><% } %></a><% } %></th>
+			<th class="dekelist-header"><% if(req.query.sort === 'lastName' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=desc">Last Name <span class="name-drop">&#9650</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=asc">Last Name <% if(req.query.sort === 'lastName') { %><span class="name-drop">&#9660</span><% } %></a><% } %></th>
+			<th class="dekelist-header"><% if(req.query.sort === 'gradYear' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=desc">Grad Year <span class="name-drop">&#9650</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=asc">Grad Year <% if(req.query.sort === 'gradYear') { %><span class="name-drop">&#9660</span><% } %></a><% } %></th>
+			<th class="dekelist-header"><% if(req.query.sort === 'addrCity' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=addrCity&sortDir=desc">Current City <span class="name-drop">&#9650</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=addrCity&sortDir=asc">Current City <% if(req.query.sort === 'addrCity') { %><span class="name-drop">&#9660</span><% } %></a><% } %></th>
+			<th class="dekelist-header"><% if(req.query.sort === 'addrState' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=addrState&sortDir=desc">Current State <span class="name-drop">&#9650</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=addrState&sortDir=asc">Current State <% if(req.query.sort === 'addrState') { %><span class="name-drop">&#9660</span><% } %></a><% } %></th>
 		</tr>
 
 
@@ -61,5 +63,35 @@
 
 		<% }) %>
 	</table>
-
+	<hr class="table-bottom"/>
+	<!-- bottom pagination -->
+	<ul class="pagination pull-right list-top-pag">
+	  <li class="new-page<% if(!req.param('id')) { %> disabled<% } %>">
+	  	<% if(req.param('id')) { %><a class="load-trigger" <% if(req.param('id') === '2') { %>href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= req.param('id') - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&laquo;</a><% } else { %><a>&laquo;</a><% } %>
+	  </li>
+	  <li <% if(!req.param('id')) { %>class="active"<% } %>>
+	  	<a class="load-trigger" href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">1</a></li>
+	  <% if(req.param('id') > 3) { %><li class="disabled"><a>...</a></li><% } %>
+	  <li <% if(req.param('id') === '2') { %>class="active"<% } %>>
+	  	<% if(!req.param('id') || req.param('id') < 4) { %><a class="load-trigger" href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">2</a><% } else if(req.param('id') > totalPages - 2) { %>
+	  	<a class="load-trigger" href="/dekelist/show/<%= totalPages - 3 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 3 %></a><% } else { %>
+	  	<a class="load-trigger" href="/dekelist/show/<%= req.param('id') - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= req.param('id') - 1 %></a><% } %>
+	  </li>
+	  <li  <% if(req.param('id') && req.param('id') >= 3 && req.param('id') <= totalPages - 2) { %>class="active"<% } %>>
+	  	<% if(!req.param('id') || req.param('id') < 4) { %><a class="load-trigger" href="/dekelist/show/3<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">3</a><% } else if(req.param('id') > totalPages - 2) { %>
+	  	<a class="load-trigger" href="/dekelist/show/<%= totalPages - 2 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 2 %></a><% } else { %>
+	  	<a class="load-trigger" href="/dekelist/show/<%= req.param('id') %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= req.param('id') %></a><% } %>
+	  </li>
+	  <li <% if(req.param('id') == totalPages - 1) { %>class="active"<% } %>>
+	  	<% if(!req.param('id') || req.param('id') < 4) { %><a class="load-trigger" href="/dekelist/show/4<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">4</a><% } else if(req.param('id') > totalPages - 2) { %>
+	  	<a class="load-trigger" href="/dekelist/show/<%= totalPages - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 1 %></a><% } else { %>
+	  	<a class="load-trigger" href="/dekelist/show/<%= parseInt(req.param('id'), 10) + 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= parseInt(req.param('id'), 10) + 1 %></a><% } %>
+	  </li>
+	  <% if(!req.param('id') || req.param('id') < totalPages - 2) { %><li class="disabled"><a>...</a></li><% } %>
+	  <li <% if(req.param('id') == totalPages) { %>class="active"<% } %>>
+	  	<a class="load-trigger" href="/dekelist/show/<%= totalPages %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages %></a></li>
+	  <li class="new-page<% if(req.param('id') == totalPages) { %> disabled<% } %>">
+	  	<% if(!(req.param('id') == totalPages)) { %><a class="load-trigger" <% if(!req.param('id')) { %>href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= parseInt(req.param('id'), 10) + 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&raquo;</a><% } else { %><a>&raquo;</a><% } %></li>
+	</ul>
+	<!-- end bottom pagination -->
 </div>

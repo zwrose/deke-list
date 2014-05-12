@@ -355,3 +355,73 @@ a.passinfo:focus {
 .show-all-form {
 	display: inline-block;
 }
+.btn-show-all-form {
+	padding: 1px 5px;
+	margin-left: 2px;
+}
+.ck-show-all-form {
+	margin-left: 2px;
+}
+.table-bottom {
+	margin-top: 0px;
+	margin-bottom: 5px;
+	border-color: #dddddd;
+}
+.deke-list-table {
+	margin-bottom: 0px;
+}
+.load-crest {
+	width: 250px;
+}
+@media (max-width: 991px) {
+	.load-crest {
+		width: 100px;
+	}
+	.load-bar {
+		width: 100px;
+	}
+}
+/*start form-inline anti media code*/
+.form-inline .form-group {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.form-inline .form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+.form-inline .input-group > .form-control {
+  width: 100%;
+}
+.form-inline .control-label {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.form-inline .radio,
+.form-inline .checkbox {
+  display: inline-block;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  vertical-align: middle;
+}
+.form-inline .radio input[type="radio"],
+.form-inline .checkbox input[type="checkbox"] {
+  float: none;
+  margin-left: 0;
+}
+.form-inline .has-feedback .form-control-feedback {
+  top: 0;
+}
+/*end form-inline anti media code*/
+@media(min-width: 992px) {
+	.dekelist-header > a {
+		font-size: 16px;
+	}
+}
+.dekelist-header > a {
+	font-style: italic;
+	color: #26282b;
+}

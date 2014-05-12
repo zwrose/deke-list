@@ -22,9 +22,6 @@ module.exports = {
     
   show: function(req, res, next){
 
-  	console.log(req.param('showAll'));
-  	console.log(req.param('changeShowFilter'));
-
   	var sort = req.param('sort');
   	var sortDir = req.param('sortDir');
 
@@ -37,8 +34,6 @@ module.exports = {
   		}
 
   	}
-
-  	console.log(req.session);
 
   	if(req.session.listFilter === 'showAll') {
   		var insLookupURI = 'https://api.insight.ly/v2.1/contacts';

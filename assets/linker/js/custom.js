@@ -15,3 +15,26 @@ $(".passinfo").qtip({
     classes: 'qtip-light'
   }
 })
+
+// jquery for loading screens
+// unblock when ajax activity stops 
+$(document).ajaxStop($.unblockUI); 
+
+$(document).ready(function() { 
+  $('.load-trigger').click(function() { 
+    $.blockUI({
+      message: $('#loadingMsg'),
+      css: {
+        border: 'none',
+        backgroundColor: '#fff',
+        left: '25%',
+        width: '50%',
+        top: '20%',
+        padding: '10px',
+      },
+      overlayCSS: {
+        backgroundColor: '#fff'
+      },
+    }); 
+  }); 
+}); 
