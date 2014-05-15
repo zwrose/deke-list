@@ -5,6 +5,7 @@ Work list (in no particular order):
 + Individual feature front end
 + Auto email if there are api call errors
 + custom 404 etc. handlers
++ add blog functionality
 + add Mentoring and Jobs portal
 + add Find Sigma Taus map tool
 + Fine tune Deke List City and State Sort Functions
