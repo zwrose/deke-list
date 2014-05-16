@@ -15,6 +15,8 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
+var moment = require('moment');
+
 module.exports = {
   
   new: function(req, res, next){
@@ -23,9 +25,32 @@ module.exports = {
   
   create: function(req, res, next){
     
+    var articleObj = {
+      title: req.param('articleTitle'),
+      articleBody: req.param('articleBody')
+    }
+    articleObj.author = req.session.User;
+    if(req.param('publish') === 'live') {
+      articleObj.published = true;
+    }
     
+    Blog.create(articleObj, function articleCreated(err, article){
+      
+      if(err) return next(err);
+      article.createdAt = moment(article.createdAt).format('MMMM Do, YYYY');
+      
+      res.redirect('/')
+      
+    });
+    
+  },
+    
+  index: function(req, res, next) {
+    
+    res.view('home/index');
     
   }
+    
 
   
 };

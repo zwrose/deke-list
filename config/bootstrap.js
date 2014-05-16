@@ -21,8 +21,6 @@ module.exports.bootstrap = function (cb) {
 	  url: insLookupLivingURI, 
 	  auth: {user: process.env.INSIGHTLY_KEY}
 	}, function(error, response, body){
-
-	  countriesPull = JSON.parse(body);
     
     try {
       countriesPull = JSON.parse(body);
