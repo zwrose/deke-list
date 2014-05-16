@@ -55,10 +55,6 @@ module.exports = {
         } catch(e) {
           console.error("Parsing error: ", e);
           console.log(body);
-          req.session.flash = {
-            err: {syntax: e}
-          }
-          return res.redirect('user/show/' + req.session.User.id);
         }
 
 	      var totpages = Math.ceil(insAllContacts.length/30);
@@ -100,10 +96,6 @@ module.exports = {
         } catch(e) {
           console.error("Parsing error: ", e);
           console.log(body);
-          req.session.flash = {
-            err: {syntax: e}
-          }
-          return res.redirect('user/show/' + req.session.User.id);
         }
 
 	      var totpages = Math.ceil(insAllContacts.length/30);
@@ -145,10 +137,6 @@ module.exports = {
         } catch(e) {
           console.error("Parsing error: ", e);
           console.log(body);
-          req.session.flash = {
-            err: {syntax: e}
-          }
-          return res.redirect('user/show/' + req.session.User.id);
         }
 
 	      var totpages = Math.ceil(insAllContacts.length/30);
@@ -190,10 +178,6 @@ module.exports = {
         } catch(e) {
           console.error("Parsing error: ", e);
           console.log(body);
-          req.session.flash = {
-            err: {syntax: e}
-          }
-          return res.redirect('user/show/' + req.session.User.id);
         }
 
 	      var totpages = Math.ceil(insAllContacts.length/30);
@@ -237,10 +221,6 @@ module.exports = {
         } catch(e) {
           console.error("Parsing error: ", e);
           console.log(body);
-          req.session.flash = {
-            err: {syntax: e}
-          }
-          return res.redirect('user/show/' + req.session.User.id);
         }
 	      
 
