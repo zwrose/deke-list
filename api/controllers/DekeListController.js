@@ -196,6 +196,7 @@ module.exports = {
 	      auth: {user: process.env.INSIGHTLY_KEY}
 	    }, function(error, response, body){
 	    	// make array of all contacts
+        console.log(body);
 	      insAllContacts = JSON.parse(body);
 
 	      var totpages = Math.ceil(insAllContacts.length/30);
