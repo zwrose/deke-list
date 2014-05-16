@@ -196,8 +196,17 @@ module.exports = {
 	      auth: {user: process.env.INSIGHTLY_KEY}
 	    }, function(error, response, body){
 	    	// make array of all contacts
-        console.log(body);
-	      insAllContacts = JSON.parse(body);
+        try {
+          insAllContacts = JSON.parse(body);
+        } catch(e) {
+          console.error("Parsing error: ", e);
+          console.log(body);
+          req.session.flash = {
+            err: {syntax: e}
+          }
+          return res.redirect('user/show/' + req.session.User.id);
+        }
+	      
 
 	      var totpages = Math.ceil(insAllContacts.length/30);
 
