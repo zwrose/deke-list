@@ -21,7 +21,7 @@
 		</div>
 		<div class="form-group">
 			<label for="articleBody">Article Text:</label>
-      <textarea class="form-control" rows="15" id="articleBody" name="articleBody"></textarea>
+      <textarea class="form-control" id="articleBody" name="articleBody"></textarea>
 		</div>
     <div class="form-group">
       <label class="radio-inline">
@@ -40,3 +40,10 @@
 		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
 	</form>
 </div>
+<script src="/ckeditor/ckeditor.js"></script>
+<script>
+  // text editor
+  CKEDITOR.replace('articleBody', {
+    height: 400
+  });
+</script>
