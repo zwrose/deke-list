@@ -23,6 +23,13 @@ module.exports.bootstrap = function (cb) {
 	}, function(error, response, body){
 
 	  countriesPull = JSON.parse(body);
+    
+    try {
+      countriesPull = JSON.parse(body);
+    } catch(e) {
+      console.error("Parsing error: ", e);
+      console.log(body);
+    }
 
 	  var insCountries = [];
 
