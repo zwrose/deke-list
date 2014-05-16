@@ -1,3 +1,11 @@
+<div class="container form-wide index-header-out">
+  <div class="jumbotron index-header-in">
+    <h1 class="text-center">In the (digital) bonds.</h1>
+    <h4 class="text-center">Welcome to astadke.org, the online home of the Association of Sigma Tau Alumni of Delta Kappa Epsilon.</h4> 
+      <h4 class="text-center">See what's happening at the house, keep in touch with ASTADKE and other alumni, show your support, and more.</h4>
+      <h4 class="text-center">Check out the blog below for the latest news, explore the site from the menu above, or click here to (re)connect!</h4>
+  </div>
+</div>
 <div class="container form-wide">
   <div class="row">
     <div class="col-sm-9">
@@ -12,12 +20,18 @@
           <div class="">
             <div><%- article.articleBody %></div>
           </div>
-          <hr />
+          <% if(articles.indexOf(article) !== (articles.length - 1)){ %>
+            <hr />
+          <% } %>
         <% } %>
       <% }) %>
     </div>
-    <div class="col-sm-3 sidebar sticky">
+    <div class="col-sm-3 sidebar">
       sidebar  
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12">
+      <hr />
     </div>
   </div>
 </div>

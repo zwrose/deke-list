@@ -1,6 +1,6 @@
 <div class="container form-wide">
-	<form action="/blog/create" method="POST">
-		<h1 class="form-heading">New Blog Article</h1>
+  <form action="/blog/update/<%= article.id %>" method="POST">
+		<h1 class="form-heading">Edit Blog Article</h1>
 
 		<% if(flash && flash.err) { %>
 			<% console.log(flash.err) %>
@@ -17,27 +17,28 @@
 		
 		<div class="form-group">
 			<label for="articleTitle">Article Title</label>
-			<input type="text" id="articleTitle" class="form-control" placeholder="enter an article title" name="articleTitle">
+			<input type="text" id="articleTitle" class="form-control" value="<%= article.title %>" name="articleTitle">
 		</div>
 		<div class="form-group">
 			<label for="articleBody">Article Text:</label>
-      <textarea class="form-control" id="articleBody" name="articleBody"></textarea>
+      <textarea class="form-control" id="articleBody" name="articleBody"><%= article.articleBody %></textarea>
 		</div>
     <div class="form-group">
       <label class="radio-inline">
-        <input type="radio" name="publish" value="live" checked> Publish Now
+        <input type="radio" name="publish" value="live" checked> <% if(article.published){ %>Keep Published<% } else { %>Publish Now<% } %>
       </label>
       <label class="radio-inline">
-        <input type="radio" name="publish" value="draft"> Save as Draft
+        <input type="radio" name="publish" value="draft"> <% if(article.published){ %>Unpublish<% } else { %>Keep Saved as Draft<% } %>
       </label>
     </div>
 		<div class="form-group col-md-2">
-			<input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit Article"/>
+			<input type="submit" class="btn btn-lg btn-primary btn-block" value="Update Article"/>
 		</div>
 		<div class="form-group col-md-1 form-cancel-div">
 			<a class="form-cancel" href="/blog/admin">Cancel</a>
 		</div>
 		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+    <% if(!article.published){ %><input type="hidden" name="notAlreadyPub" value="true" /><% } %>
 	</form>
 </div>
 <script src="/ckeditor/ckeditor.js"></script>

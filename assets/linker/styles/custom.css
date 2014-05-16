@@ -157,7 +157,7 @@ a.navbar-brand {
 	background: -webkit-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* Opera 11.10+ */
 	background: -ms-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* IE10+ */
-	background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* W3C */
+	background: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%,rgba(255,255,255,0.9) 100%), url(/images/Crest.png) no-repeat center top/contain; /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
 }
 .dropdown-header {
@@ -414,4 +414,14 @@ a.passinfo:focus {
 .sidebar {
   background-color: #f3f3f3;
   border-radius: 10px;
+}
+.admin-edit-post {
+  font-size: 16px;
+  padding-left: 5px;
+}
+.index-header-out {
+  padding: 0px;
+}
+.index-header-in {
+  padding: 0px;
 }

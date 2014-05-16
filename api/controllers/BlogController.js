@@ -32,7 +32,7 @@ module.exports = {
     articleObj.author = req.session.User;
     if(req.param('publish') === 'live') {
       articleObj.published = true;
-      articleObj.pubDate = moment().format('MMMM Do, YYYY');
+      articleObj.pubDate = moment().format('MMMM Do, YYYY, h:mm a');
     }
     
     Blog.create(articleObj, function articleCreated(err, article){
@@ -47,7 +47,9 @@ module.exports = {
     
   index: function(req, res, next) {
     
-    Blog.count().exec(function(err, num){
+    Blog.find().where({published: true}).exec(function(err, pubdArticles){
+      
+      var num = pubdArticles.length;
       
       if(err) return next(err);
       
@@ -66,6 +68,7 @@ module.exports = {
       }
       
       Blog.find()
+      .where({published: true})
       .sort('pubDate desc')
       .paginate({page: page})
       .exec(function(err, articles){
@@ -80,11 +83,68 @@ module.exports = {
       
     });
     
-    
-    
-    
-  }
-    
+  },
 
+    show: function(req, res, next){
+      
+      Blog.findOne(req.param('id'), function foundArticle(err, article){
+        
+        if(err) {console.log(err); return next(err);}
+        
+        if(article.published){
+          res.view({
+            article: article
+          });
+        } else {
+          res.redirect('/');
+        }
+        
+      });
+      
+    },
+      
+    edit: function(req, res, next){
+      
+      Blog.findOne(req.param('id'), function foundArticle(err, article){
+        
+        if(err) {console.log(err); return next(err);}
+        
+        res.view({
+          article: article
+        });
+        
+      });
+      
+    },
+    
+    update: function(req, res, next){
+
+      var articleObj = {
+        title: req.param('articleTitle'),
+        articleBody: req.param('articleBody')
+      }
+      if(req.param('notAlreadyPub') && req.param('notAlreadyPub') === 'true'){
+        if(req.param('publish') === 'live'){
+          articleObj.published = true;
+          articleObj.pubDate = moment().format('MMMM Do, YYYY, h:mm a');
+          articleObj.author = req.session.User;
+        }
+      }
+      
+      if(req.param('publish') === 'draft'){
+        articleObj.published = false;
+      }
+      
+      Blog.update(req.param('id'), articleObj, function articleUpdated(err){
+
+        if(err){
+          console.log(err);
+          return res.redirect('/blog/edit/'+req.param('id'));
+        }
+
+        res.redirect('/blog/show/'+req.param('id'));
+      });
+      
+    },
   
 };
