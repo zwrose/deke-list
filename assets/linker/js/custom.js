@@ -26,14 +26,15 @@ $(document).ready(function() {
       message: $('#loadingMsg'),
       css: {
         border: 'none',
-        backgroundColor: '#fff',
+        backgroundColor: 'none',
         left: '25%',
         width: '50%',
         top: '20%',
         padding: '10px',
       },
       overlayCSS: {
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        opacity: '0.9'
       },
     }); 
   }); 
