@@ -1,0 +1,23 @@
+<div class="container form-wide">
+  <div class="row">
+    <div class="col-sm-9">
+      <% _.each(articles, function(article) { %>
+        <% if(article.published){ %>
+          <div class="">
+            <h3 ><a href="/blog/show/<%= article.id %>"><%= article.title %></a></h3>
+          </div>
+          <div class="">
+            <h5>By: <%= article.author.firstName %>, Published on <%= article.pubDate %></h5>
+          </div>
+          <div class="">
+            <div><%- article.articleBody %></div>
+          </div>
+          <hr />
+        <% } %>
+      <% }) %>
+    </div>
+    <div class="col-sm-3 sidebar sticky">
+      sidebar  
+    </div>
+  </div>
+</div>

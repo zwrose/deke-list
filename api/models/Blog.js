@@ -22,6 +22,10 @@ module.exports = {
       required: true
     },
     
+    pubDate: {
+      type: 'string'
+    },
+    
     published: {
       type: 'boolean',
       defaultsTo: false

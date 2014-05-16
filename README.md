@@ -12,6 +12,8 @@ Work list (in no particular order):
 + add DekeNetworking Opt in
 + DekeNetworking Opt in auto-email to DKE International?
 + Footer
++ deke-list search
+
 
 
 Completed

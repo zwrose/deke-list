@@ -32,12 +32,12 @@ module.exports = {
     articleObj.author = req.session.User;
     if(req.param('publish') === 'live') {
       articleObj.published = true;
+      articleObj.pubDate = moment().format('MMMM Do, YYYY');
     }
     
     Blog.create(articleObj, function articleCreated(err, article){
       
-      if(err) return next(err);
-      article.createdAt = moment(article.createdAt).format('MMMM Do, YYYY');
+      if(err) {console.log(err); return next(err);}
       
       res.redirect('/')
       
@@ -47,7 +47,41 @@ module.exports = {
     
   index: function(req, res, next) {
     
-    res.view('home/index');
+    Blog.count().exec(function(err, num){
+      
+      if(err) return next(err);
+      
+      if(req.param('id')){
+        page = req.param('id');
+      } else {
+        page = 1;
+      }
+      
+      totalPages = Math.ceil(num/10);
+      
+      if(page >= totalPages){
+        lastPage = true;
+      } else {
+        lastPage = false;
+      }
+      
+      Blog.find()
+      .sort('pubDate desc')
+      .paginate({page: page})
+      .exec(function(err, articles){
+        
+        if(err) return next(err);
+        
+        res.view({
+          articles: articles,
+          lastPage: lastPage
+        })
+      });
+      
+    });
+    
+    
+    
     
   }
     
