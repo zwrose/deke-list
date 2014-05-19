@@ -9,7 +9,7 @@
  */
 
  module.exports = {
-  appName: 'ASTADKE Secure',
+  appName: 'ASTADKE Online',
 };
 
 module.exports.bootstrap = function (cb) {

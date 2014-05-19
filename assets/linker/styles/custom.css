@@ -152,13 +152,7 @@ a.navbar-brand {
 	margin-top: 8px;
 }
 .jumbotron {
-	background: -moz-linear-gradient(top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.8)), color-stop(100%,rgba(255,255,255,0.8))), url(/images/Crest.png) no-repeat center top/contain; /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/Crest.png) no-repeat center top/contain; /* IE10+ */
-	background: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%,rgba(255,255,255,0.9) 100%), url(/images/Crest.png) no-repeat center top/contain; /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+	background: none;
 }
 .dropdown-header {
 	font-size: 14px;
@@ -420,8 +414,18 @@ a.passinfo:focus {
   padding-left: 5px;
 }
 .index-header-out {
-  padding: 0px;
+  background: -moz-linear-gradient(top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.8) 100%), url(/images/dkeFlag.png) no-repeat center center/cover; /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0.8)), color-stop(100%,rgba(255,255,255,0.8))), url(/images/dkeFlag.png) no-repeat center top/cover; /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/dkeFlag.png) no-repeat center center/cover; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/dkeFlag.png) no-repeat center center/cover; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/dkeFlag.png) no-repeat center center/cover; /* IE10+ */
+	background: linear-gradient(to bottom, rgba(255,255,255,0.7) 0%,rgba(255,255,255,0.7) 100%), url(/images/dkeFlag.png) no-repeat center center/cover; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+  border: 30px solid #fff
 }
 .index-header-in {
   padding: 0px;
+}
+.white-shadow {
+  text-shadow: 0px 0px 15px rgba(255, 255, 255, 1), 0px 0px 30px rgba(255,255,255,1), 0px 0px 50px rgba(255,255,255,1), 0px 0px 180px rgba(255,255,255,1);
 }
