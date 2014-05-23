@@ -1,0 +1,50 @@
+<div class="container form-wide">
+	<h3>Blog Administration</h3>
+	<table class='table deke-list-table'>
+		<tr>
+			<th>Article Title (click to view post)</th>
+			<th>Author</th>
+			<th>Date</th>
+			<th></th>
+      <th></th>
+			<th></th>
+			<th></th>
+		</tr>
+		
+
+		<% _.each(articles, function(article) { %>
+		<tr data-id="<%= article.id %>" data-model="blog">
+			<td><a href="/blog/show/<%= article.id %>" ><%= article.title %></a></td>
+			<td><%= article.author.firstName %> <%= article.author.lastName %></td>
+			<td><%= article.pubDate %></td>
+			<td>
+        <% if(article.published){ %>
+          <span class="pubd">Published</span>
+          </td><td>
+          <form class="form-inline show-all-form" action="/blog/pubChange/<%= article.id %>" method="POST" role="form">
+            <button type="submit" class="btn btn-sm btn-show-all-form">Unpublish</button>
+            <input type="hidden" name="pubToggle" value="unPub" />
+            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+          </form>
+        <% }else{ %>
+          <span class="unpubd">Unpublished</span>
+        </td><td>
+          <form class="form-inline show-all-form" action="/blog/pubChange/<%= article.id %>" method="POST" role="form">
+            <button type="submit" class="btn btn-sm btn-show-all-form">Publish</button>
+            <input type="hidden" name="pubToggle" value="Pub" />
+            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+          </form>
+        <% } %>
+      
+      </td>
+			<td><a href="/blog/edit/<%= article.id %>" class="btn btn-sm btn-primary btn-show-all-form">Edit Post</a></td>
+			<td><form action="/blog/destroy/<%= article.id %>" method="POST">
+				<input type="hidden" name="_method" value="delete"/>
+				<input type="submit" class="btn btn-sm btn-danger btn-show-all-form" value="Delete Post"/>
+				<input type="hidden" name="_csrf" value="<%= _csrf %>" />
+			</form></td>
+		</tr> 
+
+		<% }) %>
+	</table>
+</div>
