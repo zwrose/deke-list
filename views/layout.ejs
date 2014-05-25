@@ -16,52 +16,74 @@
   </head>
 
   <body>
+    <div id="wrap">
 
-    <!-- Fixed navbar to get you started; from http://getbootstrap.com/examples/navbar-fixed-top/-->
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/"><img class="img-responsive" src="/images/ASTADKELogo.svg"></a>
-        </div>
-        <div class="clearup">
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/blog#articles">The Blog</a></li>
-            <li><a href="#donate">Donate</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connect</a>
-              <ul class="dropdown-menu">
-                <li><a class="load-trigger" href="/dekelist/show">Digital Deke List</a></li>
-                <li><a href="#map">Find Sigma Taus</a></li>
-                <li><a href="#network">Networking Portal</a></li>
-              </ul>
-            </li>
-            <% if(!req.session.User) { %>
-              <li><a href="/login">Log In</a></li>
-            <% } else { %>
+      <!-- Fixed navbar to get you started; from http://getbootstrap.com/examples/navbar-fixed-top/-->
+      <div class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img class="img-responsive" src="/images/ASTADKELogo.svg"></a>
+          </div>
+          <div class="clearup">
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/blog#articles">The Blog</a></li>
+              <li><a href="#donate">Donate</a></li>
               <li class="dropdown">
-              <a href="#" class="dropdown-toggle flip" data-toggle="dropdown">Hi, <%= req.session.User.firstName %> <span class="name-drop">&#9660</span></a>
-              <ul class="dropdown-menu flip">
-                <li><a href="/user/show/<%= req.session.User.id %>">View Profile</a></li>
-                <li><a href="/user/edit/<%= req.session.User.id %>">Edit Profile</a></li>
-                <li><a href="/logout">Log Out</a></li>
-              </ul>
-            </li>
-            <% } %>
-          </ul>
-        </div><!--/.nav-collapse -->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connect</a>
+                <ul class="dropdown-menu">
+                  <li><a class="load-trigger" href="/dekelist/show">Digital Deke List</a></li>
+                  <li><a href="#map">Find Sigma Taus</a></li>
+                  <li><a href="#network">Networking Portal</a></li>
+                </ul>
+              </li>
+              <% if(!req.session.User) { %>
+                <li><a href="/login">Log In</a></li>
+              <% } else { %>
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle flip" data-toggle="dropdown">Hi, <%= req.session.User.firstName %> <span class="name-drop">&#9660</span></a>
+                <ul class="dropdown-menu flip">
+                  <li><a href="/user/show/<%= req.session.User.id %>">View Profile</a></li>
+                  <li><a href="/user/edit/<%= req.session.User.id %>">Edit Profile</a></li>
+                  <li><a href="/logout">Log Out</a></li>
+                </ul>
+              </li>
+              <% } %>
+            </ul>
+          </div><!--/.nav-collapse -->
+          </div>
         </div>
       </div>
+
+      <%- body %>
+
+    </div><!-- end wrap -->
+    
+    <!-- Below is page footer -->
+    <div id="footer">
+      <div class="container footer">
+        <% if(!req.session.User || !req.session.User.admin){ %>
+        <div class="text-center">
+          <div>
+            <a href="https://github.com/zwrose/deke-list">Source</a> | <a href="/login">Login</a>
+          </div>
+        </div>
+        <% }else if(req.session.User && req.session.User.admin){ %>
+        <div class="text-center">
+          <div>
+            <a href="/blog/admin">Blog Admin</a> | <a href="https://github.com/zwrose/deke-list">Source</a> | <a href="/logout">Logout</a>
+          </div>
+        </div>
+        <% } %>
+      </div>
     </div>
-
-    <%- body %>
-
+    
     <!-- Below is markup for blockUI loading popup -->
     <div id="loadingMsg" style="display:none;">
       <div class="load-msg">
