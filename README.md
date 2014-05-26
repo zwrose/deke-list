@@ -11,6 +11,7 @@ v1 work list (in no particular order):
 + Import blog posts
 
 post-v1 work list:
++ Sigma Tau Stories
 + add Mentoring and Jobs portal
 + add Find Sigma Taus map tool
 + deke-list search

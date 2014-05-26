@@ -4,6 +4,14 @@ body {
   /*min-height: 4000px;*/
   background: url(/images/vichy-yellow.jpg);
 }
+a {
+  color: #012B7F;
+}
+a:hover,
+a:focus {
+  color: #0547C9;
+  text-decoration: none;
+}
 .navbar {
 /*	font-family: 'Droid Serif', serif;*/
 	height: 100px;
@@ -411,6 +419,7 @@ a.passinfo:focus {
 .sidebar {
   background-color: #f3f3f3;
   border-radius: 10px;
+  padding: 15px;
 }
 .admin-edit-post {
   font-size: 16px;
@@ -478,4 +487,37 @@ body {
 .logo-image {
   display: inline-block;
   height: 70px;
+}
+.sidebar-header {
+  margin: 0px;
+}
+.sidebar-text {
+  padding-top: 10px;
+  font-size: 16px;
+}
+.article-title {
+  margin: 0px;
+}
+.article-byline {
+  font-style: italic;
+  margin: 3px 0 0;
+}
+.article-body {
+  font-size: 16px;
+}
+.article-break {
+  margin: 8px 0 8px;
+}
+.goto-comments {
+  font-style: italic;
+  padding-bottom: 30px;
+}
+.article-end {
+  border-color: transparent;
+}
+.blog-end {
+  margin-bottom: 0px;
+}
+.show-article-body {
+  margin-bottom: 20px;
 }
