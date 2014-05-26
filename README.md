@@ -1,5 +1,5 @@
 # ASTADKE Online
-The secure, online place for Dekes to update their contact info, as well as look up contact info of their fellow brothers
+The secure, online place for Sigma Tau Dekes to update their contact info, as well as look up contact info of their fellow brothers
 
 v1 work list (in no particular order):
 + Blog front end (including pagination)
@@ -7,9 +7,8 @@ v1 work list (in no particular order):
 + custom 404 etc. handlers
 + check out all flash errors, make sure they work as expected
 + Replace Deke List State and City with Phone and Email (non-sortable)
-+ add DekeNetworking Opt in
-+ DekeNetworking Opt in auto-email to DKE International?
 + Donate page
++ Import blog posts
 
 post-v1 work list:
 + add Mentoring and Jobs portal

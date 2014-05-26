@@ -44,7 +44,15 @@ module.exports.routes = {
 
   'get /signup': 'UserController.new',
 
-  'post /signup': 'UserController.create'
+  'post /signup': 'UserController.create',
+  
+  '/donate': {
+    view: 'home/donate'
+  },
+  
+  '/thankyou': {
+    view: 'home/thankyou'
+  },
 
   /*
   // But what if you want your home page to display
