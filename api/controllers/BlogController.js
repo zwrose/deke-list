@@ -191,7 +191,7 @@ module.exports = {
           page = 1;
         }
 
-        totalPages = Math.ceil(num/50);
+        totalPages = Math.ceil(num/20);
 
         if(page >= totalPages){
           lastPage = true;
@@ -201,7 +201,7 @@ module.exports = {
 
         Blog.find()
         .sort('pubDate desc')
-        .paginate({page: page})
+        .paginate({page: page, limit: 20})
         .exec(function(err, articles){
 
           if(err) return next(err);

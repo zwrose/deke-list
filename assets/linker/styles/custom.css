@@ -521,3 +521,20 @@ body {
 .show-article-body {
   margin-bottom: 20px;
 }
+.blog-header {
+  margin: 0 0 15px;
+  font-weight: bold;
+  font-style: italic;
+}
+.pager {
+  margin-bottom: 0;
+}
+.blog-admin-end {
+  margin-top: 0;
+  margin-bottom: 10px;
+  border-color: #DDDDDD;
+}
+.pager li > a:hover,
+.pager li > a:focus {
+  background-color: #fff;
+}

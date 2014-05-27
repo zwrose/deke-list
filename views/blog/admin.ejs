@@ -47,4 +47,10 @@
 
 		<% }) %>
 	</table>
+  <hr class="blog-admin-end"/>
+  <a class="btn btn-success add-article" href="/blog/new">+ Create New Article</a>
+  <ul class="pager">
+    <li class="previous<% if(lastPage) { %> hide<% } %>"><a <% if(!req.param('id') || req.param('id') < 2) { %>href="/blog/admin/2"<% } else { %>href="/blog/admin/<%= req.param('id') + 1 %>"<% } %>>&larr; Older Articles</a></li>
+    <li class="next<% if(!req.param('id') || req.param('id') < 2) { %> hide<% } %>"><a <% if(req.param('id') && req.param('id') <= 2) { %>href="/blog/admin"<% } else { %>href="/blog/admin/<%= req.param('id') - 1 %>"<% } %>>Newer Articles &rarr;</a></li>
+  </ul>
 </div>

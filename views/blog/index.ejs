@@ -8,6 +8,18 @@
 </div>
 <div id="articles" class="container form-wide">
   <div class="row">
+    <h1 class="blog-header text-center visible-xs">The ASTADKE Blog</h1>
+    <div class="col-md-4 hidden-xs">
+      <hr />
+    </div>
+    <div class="col-md-4 hidden-xs">
+      <h1 class="blog-header text-center">The ASTADKE Blog</h1>
+    </div>
+    <div class="col-md-4 hidden-xs">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
     <div class="col-sm-9">
       <% _.each(articles, function(article) { %>
         <% if(article.published){ %>
@@ -33,6 +45,10 @@
     <div class="clearfix"></div>
     <div class="col-md-12">
       <hr class="blog-end" />
+      <ul class="pager">
+        <li class="previous<% if(lastPage) { %> hide<% } %>"><a <% if(!req.param('id') || req.param('id') < 2) { %>href="/blog/index/2"<% } else { %>href="/blog/index/<%= req.param('id') + 1 %>"<% } %>>&larr; Older Articles</a></li>
+        <li class="next<% if(!req.param('id') || req.param('id') < 2) { %> hide<% } %>"><a <% if(req.param('id') && req.param('id') <= 2) { %>href="/blog"<% } else { %>href="/blog/index/<%= req.param('id') - 1 %>"<% } %>>Newer Articles &rarr;</a></li>
+      </ul>
     </div>
   </div>
 </div>
