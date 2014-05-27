@@ -63,7 +63,8 @@ module.exports = function (grunt) {
     // *->    put other dependencies here   <-*
     'linker/js/bootstrap.js',
     'linker/js/blockui.js',
-    'linker/js/quill.js',
+    'linker/js/headroom.js',
+    'linker/js/jQuery.headroom.js',
     // All of the rest of your app scripts imported here
     'linker/**/*.js'
   ];

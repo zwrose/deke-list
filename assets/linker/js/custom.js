@@ -39,3 +39,8 @@ $(document).ready(function() {
     }); 
   }); 
 }); 
+// for headroom.js
+$(".navbar-fixed-top").headroom({
+  offset: 50,
+  tolerance: 0
+});

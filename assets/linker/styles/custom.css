@@ -3,7 +3,19 @@
 body {
   /*min-height: 4000px;*/
   background: url(/images/vichy-yellow.jpg);
+  padding-top: 120px;
 }
+/* for headroom.js */
+.headroom {
+  position: fixed;top: 0;left: 0;right: 0;transition: all .2s ease-in-out;
+}
+.headroom--unpinned {
+  top: -100px;
+}
+.headroom--pinned {
+  top: 0;
+}
+/* end for headroom.js */
 a {
   color: #012B7F;
 }
@@ -31,6 +43,20 @@ a:focus {
 .navbar-collapse {
 	border-top: none;
 	box-shadow: none;
+}
+.astadke-logo {
+  display: inline-block;
+  font-family: 'Droid Serif', serif;
+  font-weight: bold;
+  font-size: 48px;
+  margin: 0px;
+  color: #26282b;
+	text-shadow: 0px 0px 15px rgba(255, 255, 255, 1), 0px 0px 30px rgba(255,255,255,1), 0px 0px 50px rgba(255,255,255,1), 0px 0px 180px rgba(255,255,255,1);
+  vertical-align: middle;
+}
+.logo-image {
+  display: inline-block;
+  height: 70px;
 }
 /* .navbar-brand > img {
 	height: 50px;
@@ -116,7 +142,11 @@ a:focus {
 	padding: 30px 15px;
 	} */
   .astadke-logo {
-    font-size: 40px !important;
+    font-size: 32px !important;
+  }
+  .logo-image {
+    height: 50px;
+    margin-top: 10px;
   }
 	.clearup {
 		margin-right: -15px;
@@ -474,20 +504,6 @@ body {
   padding: 0 0 40px;
 }
 /* End Sticky footer styles -------------------------------------------------- */
-.astadke-logo {
-  display: inline-block;
-  font-family: 'Droid Serif', serif;
-  font-weight: bold;
-  font-size: 48px;
-  margin: 0px;
-  color: #26282b;
-	text-shadow: 0px 0px 15px rgba(255, 255, 255, 1), 0px 0px 30px rgba(255,255,255,1), 0px 0px 50px rgba(255,255,255,1), 0px 0px 180px rgba(255,255,255,1);
-  vertical-align: middle;
-}
-.logo-image {
-  display: inline-block;
-  height: 70px;
-}
 .sidebar-header {
   margin: 0px;
 }
