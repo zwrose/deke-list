@@ -31,6 +31,15 @@ module.exports.policies = {
   },
   dekelist: {
   	'show': ["flash", "isAuthenticated"]
+  },
+  blog: {
+    'admin': ["flash", "isAuthenticated", "admin"],
+    'new': ["flash", "isAuthenticated", "admin"],
+    'create': ["flash", "isAuthenticated", "admin"],
+    'edit': ["flash", "isAuthenticated", "admin"],
+    'update': ["flash", "isAuthenticated", "admin"],
+    'pubChange': ["flash", "isAuthenticated", "admin"],
+    'destroy': ["flash", "isAuthenticated", "admin"],
   }
 
   /*

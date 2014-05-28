@@ -11,7 +11,7 @@
 					<% if(flash.err[error].length > 1) { _.each(flash.err[error], function(subError) {%>
 						<div><%- subError.message %> - <%= error %></div>
 					<% })} else { %>
-						<div><%- flash.err[error][0].message %> - <%= error %></div>
+						<div><%- flash.err[error].message %> - <%= error %></div>
 					<% } %>
 				<% }) %>
 			</div>

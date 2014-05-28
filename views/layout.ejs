@@ -10,8 +10,10 @@
     <!-- End Fonts -->
     <!--STYLES-->
     <link rel="stylesheet" href="/linker/styles/jquery.qtip.css">
+    <link rel="stylesheet" href="/linker/styles/bootstrap-social.css">
     <link rel="stylesheet" href="/linker/styles/bootstrap.css">
     <link rel="stylesheet" href="/linker/styles/custom.css">
+    <link rel="stylesheet" href="/linker/styles/font-awesome.css">
     <!--STYLES END-->
   </head>
 
@@ -34,7 +36,7 @@
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <li><a href="/blog">The Blog</a></li>
-              <li><a href="#donate">Donate</a></li>
+              <li><a href="/donate">Donate</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connect</a>
                 <ul class="dropdown-menu">
@@ -49,7 +51,7 @@
                 <li><a href="/login">Log In</a></li>
               <% } else { %>
                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle flip" data-toggle="dropdown">Hi, <%= req.session.User.firstName %> <span class="name-drop">&#9660</span></a>
+                <a href="#" class="dropdown-toggle flip" data-toggle="dropdown">Hi, <%= req.session.User.firstName %> <span class="name-drop">&#9660;</span></a>
                 <ul class="dropdown-menu flip">
                   <li><a href="/user/show/<%= req.session.User.id %>">View Profile</a></li>
                   <li><a href="/user/edit/<%= req.session.User.id %>">Edit Profile</a></li>
@@ -70,16 +72,22 @@
     <!-- Below is page footer -->
     <div id="footer">
       <div class="container footer">
-        <% if(!req.session.User || !req.session.User.admin){ %>
+        <% if (!req.session.User) { %>
         <div class="text-center">
           <div>
-            <a href="https://github.com/zwrose/deke-list">Source</a> | <a href="/login">Login</a>
+            <a href="https://github.com/zwrose/deke-list">Site Source</a> | <a href="/login">Login</a>
           </div>
         </div>
-        <% }else if(req.session.User && req.session.User.admin){ %>
+        <% } else if(req.session.User && req.session.User.admin) { %>
         <div class="text-center">
           <div>
-            <a href="/blog/admin">Blog Admin</a> | <a href="https://github.com/zwrose/deke-list">Source</a> | <a href="/logout">Logout</a>
+            <a href="/blog/admin">Blog Admin</a> | <a href="https://github.com/zwrose/deke-list">Site Source</a> | <a href="/logout">Logout</a>
+          </div>
+        </div>
+        <% } else { %>
+        <div class="text-center">
+          <div>
+            <a href="https://github.com/zwrose/deke-list">Site Source</a> | <a href="/logout">Logout</a>
           </div>
         </div>
         <% } %>

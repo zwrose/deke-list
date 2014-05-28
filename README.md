@@ -2,12 +2,9 @@
 The secure, online place for Sigma Tau Dekes to update their contact info, as well as look up contact info of their fellow brothers
 
 v1 work list (in no particular order):
-+ Blog front end (including pagination)
-+ footer front end and social links
 + custom 404 etc. handlers
 + check out all flash errors, make sure they work as expected
 + Replace Deke List State and City with Phone and Email (non-sortable)
-+ Donate page
 + Import blog posts
 
 post-v1 work list:
@@ -17,6 +14,10 @@ post-v1 work list:
 + deke-list search
 
 completed
++ Donate and thank you pages
++ ensure appropriate authentication policies in place
++ footer front end and social links
++ Blog front end (including pagination)
 + site-wide front end (nav, fonts, etc)
 + add blog functionality
 + Footer

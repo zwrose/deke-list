@@ -258,5 +258,22 @@ module.exports = {
       }
       
     },
+      
+    destroy: function(req, res, next){
+
+      Blog.findOne(req.param('id'), function foundArticle(err, article){
+        if(err) return next(err);
+
+        if(!article) return next('Article doesn\'t exist.');
+
+        Blog.destroy(req.param('id'), function articleDestroyed(err){
+          if(err) return next(err);
+
+        });
+
+        res.redirect('/blog/admin');
+
+      });
+    },
   
 };
