@@ -4,7 +4,7 @@ The secure, online place for Sigma Tau Dekes to update their contact info, as we
 v1 work list (in no particular order):
 + custom 404 etc. handlers
 + check out all flash errors, make sure they work as expected
-+ Import blog posts
++ import blog posts
 + clean up code for release (remove debugging loggers, add logs where appropriate, etc.)
 + delete dummy contacts
 
