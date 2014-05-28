@@ -789,7 +789,6 @@ module.exports = {
           }
 
           if(noPersonal){
-            console.log('Adding Personal')
             insLastNameMatch[0].CONTACTINFOS.push({
               TYPE: 'EMAIL',
               LABEL: 'PERSONAL',

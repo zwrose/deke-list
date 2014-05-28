@@ -1,15 +1,28 @@
 module.exports = {
 
+//   Field must be a string!!
 	sortASCbyKey: function(array, key) {
     return array.sort(function(a, b) {
-        var x = a[key]; var y = b[key];
-        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+      var x = a[key]; var y = b[key];
+      if(typeof(x) === 'string'){
+        x = x.toUpperCase();
+      }
+      if(typeof(y) === 'string'){
+        y = y.toUpperCase();
+      }
+      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
 	},
 	sortDESCbyKey: function(array, key) {
     return array.sort(function(a, b) {
-        var x = a[key]; var y = b[key];
-        return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+      var x = a[key]; var y = b[key];
+      if(typeof(x) === 'string'){
+        x = x.toUpperCase();
+      }
+      if(typeof(y) === 'string'){
+        y = y.toUpperCase();
+      }
+      return ((x > y) ? -1 : ((x < y) ? 1 : 0));
     });
 	},
     sortASCbyGrad: function(array) {

@@ -4,16 +4,19 @@ The secure, online place for Sigma Tau Dekes to update their contact info, as we
 v1 work list (in no particular order):
 + custom 404 etc. handlers
 + check out all flash errors, make sure they work as expected
-+ Replace Deke List State and City with Phone and Email (non-sortable)
 + Import blog posts
++ clean up code for release (remove debugging loggers, add logs where appropriate, etc.)
++ delete dummy contacts
 
 post-v1 work list:
 + Sigma Tau Stories
 + add Mentoring and Jobs portal
 + add Find Sigma Taus map tool
 + deke-list search
++ implement unit testing?
 
 completed
++ Replace Deke List State and City with Phone and Email (non-sortable)
 + Donate and thank you pages
 + ensure appropriate authentication policies in place
 + footer front end and social links

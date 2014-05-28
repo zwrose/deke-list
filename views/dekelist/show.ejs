@@ -1,5 +1,4 @@
 <div class="container form-wide">
-
 	<h1 class="form-heading list-head">Digital Deke List</h1><br />
 	<div class="show-living">By default, this list only displays living affiliates.</div><div class="show-living">To show all, keep this box checked: </div>
 	<form class="form-inline show-all-form" action="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>" method="POST" role="form">
@@ -44,11 +43,11 @@
 	<!-- end top pagination -->
 	<table class='table deke-list-table'>
 		<tr>
-			<th class="dekelist-header"><% if(req.query.sort === 'firstName' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=desc">First Name <span class="name-drop">&#9650</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=asc">First Name <% if(req.query.sort === 'firstName') { %><span class="name-drop">&#9660</span><% } %></a><% } %></th>
-			<th class="dekelist-header"><% if(req.query.sort === 'lastName' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=desc">Last Name <span class="name-drop">&#9650</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=asc">Last Name <% if(req.query.sort === 'lastName') { %><span class="name-drop">&#9660</span><% } %></a><% } %></th>
-			<th class="dekelist-header"><% if(req.query.sort === 'gradYear' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=desc">Grad Year <span class="name-drop">&#9650</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=asc">Grad Year <% if(req.query.sort === 'gradYear') { %><span class="name-drop">&#9660</span><% } %></a><% } %></th>
-			<th class="dekelist-header"><% if(req.query.sort === 'addrCity' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=addrCity&sortDir=desc">Current City <span class="name-drop">&#9650</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=addrCity&sortDir=asc">Current City <% if(req.query.sort === 'addrCity') { %><span class="name-drop">&#9660</span><% } %></a><% } %></th>
-			<th class="dekelist-header"><% if(req.query.sort === 'addrState' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=addrState&sortDir=desc">Current State <span class="name-drop">&#9650</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=addrState&sortDir=asc">Current State <% if(req.query.sort === 'addrState') { %><span class="name-drop">&#9660</span><% } %></a><% } %></th>
+			<th class="dekelist-header"><% if(req.query.sort === 'firstName' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=desc">First Name <span class="name-drop">&#9650;</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=asc">First Name <% if(req.query.sort === 'firstName') { %><span class="name-drop">&#9660;</span><% } %></a><% } %></th>
+			<th class="dekelist-header"><% if(req._parsedUrl.query === null || (req.query.sort === 'lastName' && req.query.sortDir === 'asc')) { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=desc">Last Name <span class="name-drop">&#9650;</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=asc">Last Name <% if(req.query.sort === 'lastName') { %><span class="name-drop">&#9660;</span><% } %></a><% } %></th>
+			<th class="dekelist-header"><% if(req.query.sort === 'gradYear' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=desc">Grad Year <span class="name-drop">&#9650;</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=asc">Grad Year <% if(req.query.sort === 'gradYear') { %><span class="name-drop">&#9660;</span><% } %></a><% } %></th>
+			<th class="dekelist-header">Email</th>
+			<th class="dekelist-header">Phone</th>
 		</tr>
 
 
@@ -57,8 +56,20 @@
 			<td><%= brother.FIRST_NAME %></td>
 			<td><%= brother.LAST_NAME %></td>
 			<td><% if(brother.CUSTOMFIELDS[1]) { %><%= brother.CUSTOMFIELDS[1].FIELD_VALUE %><% } else { %>none listed <% } %></td>
-			<td><% if(brother.ADDRESSES[0]) { %><%= brother.ADDRESSES[0].CITY %><% } else { %>none listed <% } %></td>
-			<td><% if(brother.ADDRESSES[0]) { %><%= brother.ADDRESSES[0].STATE %><% } else { %>none listed <% } %></td>
+			<td><%
+        var priEmail = brother.CONTACTINFOS.filter(function(obj){
+          return obj.LABEL === "PERSONAL" || obj.LABEL === "Personal";
+        });
+                                                                                                  
+        if(priEmail[0]) { %><%= priEmail[0].DETAIL %><% } else { %>none listed <% } %>
+      </td>
+			<td><%
+        var priPhone = brother.CONTACTINFOS.filter(function(obj){
+          return obj.LABEL === "HOME" || obj.LABEL === "Home";
+        });
+  
+        if(priPhone[0]) { %><%= priPhone[0].DETAIL %><% } else { %>none listed <% } %>
+      </td>
 		</tr> 
 
 		<% }) %>
