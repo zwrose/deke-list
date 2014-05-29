@@ -2,6 +2,8 @@
 The secure, online place for Sigma Tau Dekes to update their contact info, as well as look up contact info of their fellow brothers
 
 v1 work list (in no particular order):
++ add flickr upload instructions
++ fix blog post sorting
 + import blog posts
 + clean up code for release (remove debugging loggers, add logs where appropriate, etc.)
 + delete dummy contacts
