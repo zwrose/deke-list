@@ -11,6 +11,7 @@
  * @param {Array|Object|String} errors
  *      optional errors
  */
+var nodemailer = require("nodemailer");
 
 module.exports[500] = function serverErrorOccurred(errors, req, res) {
 
@@ -54,6 +55,26 @@ module.exports[500] = function serverErrorOccurred(errors, req, res) {
   if (sails.config.environment === 'development') {
     result.errors = errorsToDisplay;
   }
+  
+  // email astadke with the errors
+  // setup e-mail data with unicode symbols
+  var mailOptions = {
+    from: "ASTADKE Online Error Reporting <astadke@gmail.com>", // sender address
+    to: "astadke@gmail.com", // list of receivers
+    subject: "ASTADKE Online 500 Error Report", // Subject line
+    text: "ASTADKE Online 500 Error Report:\n\n" +
+      errorsToDisplay
+  };
+
+  // send mail with defined transport object
+  sails.config.smtpTransport.sendMail(mailOptions, function(error, response){
+    if(error){
+      console.log(error);
+    }else{
+      console.log("Message sent: " + response.message);
+    }
+
+  });
 
   // If the user-agent wants JSON, respond with JSON
   if (req.wantsJSON) {

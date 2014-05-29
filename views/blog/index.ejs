@@ -21,6 +21,13 @@
   </div>
   <div class="row">
     <div class="col-sm-9">
+      <% if(flash && flash.err) { %>
+        <div class="alert alert-danger">
+      <% Object.keys(flash.err).forEach(function(error) { %>
+        <div><%- flash.err[error].message %></div>
+      <% }) %>
+      </div>
+      <% } %>
       <% _.each(articles, function(article) { %>
         <% if(article.published){ %>
           <h3 class="article-title"><a href="/blog/show/<%= article.id %>"><%= article.title %></a></h3>

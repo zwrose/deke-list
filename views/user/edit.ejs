@@ -9,23 +9,18 @@
 		<% } %>
 
 		<% if(flash && flash.err) { %>
-			<% console.log(flash.err) %>
 			<div class="alert alert-danger">
-				<% Object.keys(flash.err).forEach(function(error) { %>
-					<% if(flash.err[error].length > 1) { _.each(flash.err[error], function(subError) {%>
-						<div><%- subError.message %> - <%= error %></div>
-					<% })} else { %>
-						<div><%- flash.err[error][0].message %> - <%= error %></div>
-					<% } %>
-				<% }) %>
-			</div>
+		<% Object.keys(flash.err).forEach(function(error) { %>
+			<div><%- flash.err[error].message %></div>
+		<% }) %>
+		</div>
 		<% } %>
 
 		<h3 class="form-subheading">Account Information</h3>
 		<div class="form-description">Use these fields only if you wish to edit your login email or change your password.</div>
 		
 		<div class="form-group col-md-3">
-			<label for="loginEmail">Username:</label>
+			<label for="loginEmail">Username (email address):</label>
 			<input type="text" id="loginEmail" class="form-control" value="<%= user.email %>" name="loginEmail">
 		</div>
 		<div class="form-group col-md-3">
@@ -75,7 +70,7 @@
 					<input type="text" id="gradYear" class="form-control" placeholder="Grad Year" value="<%= insightly.gradYear %>" name="gradYear">
 				</div>
 				<div class="form-group col-md-5">
-					<label for="prefFirstName">Preferred Name:</label>
+					<label for="prefFirstName">Preferred First Name:</label>
 					<input type="text" id="prefFirstName" class="form-control" placeholder="Preferred First Name" value="<%= user.firstName %>" name="prefFirstName">
 				</div>
 				<div class="col-md-12"><hr class="form-sep" /></div>

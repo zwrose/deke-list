@@ -1,10 +1,22 @@
 <div class="container form-wide">
 	<h1 class="form-heading">Blog Administration Console</h1>
+  
+  <% if(flash && flash.successMsg) { %>
+		<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><%- flash.successMsg[0].message %></div>
+	<% } %>
+  
+  <% if(flash && flash.err) { %>
+			<div class="alert alert-danger">
+		<% Object.keys(flash.err).forEach(function(error) { %>
+			<div><%- flash.err[error].message %></div>
+		<% }) %>
+		</div>
+		<% } %>
 	<table class='table deke-list-table'>
 		<tr>
-			<th>Article Title (click to view post)</th>
+			<th>Article Title (click to view article)</th>
 			<th>Author</th>
-			<th>Date (posts are sorted newest to oldest)</th>
+			<th>Date (articles are sorted newest to oldest)</th>
 			<th></th>
       <th></th>
 			<th></th>
@@ -37,10 +49,10 @@
         <% } %>
       
       </td>
-			<td><a href="/blog/edit/<%= article.id %>" class="btn btn-sm btn-primary btn-show-all-form">Edit Post</a></td>
+			<td><a href="/blog/edit/<%= article.id %>" class="btn btn-sm btn-primary btn-show-all-form">Edit Article</a></td>
 			<td><form action="/blog/destroy/<%= article.id %>" method="POST">
 				<input type="hidden" name="_method" value="delete"/>
-				<input type="submit" class="btn btn-sm btn-danger btn-show-all-form" value="Delete Post"/>
+				<input type="submit" class="btn btn-sm btn-danger btn-show-all-form" value="Delete Article"/>
 				<input type="hidden" name="_csrf" value="<%= _csrf %>" />
 			</form></td>
 		</tr> 

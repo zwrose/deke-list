@@ -41,6 +41,17 @@ module.exports = {
   
   create: function(req, res, next){
     
+    if(!req.param('articleTitle')) {
+      
+      var noTitleError = [{name: 'noTitle', message: 'You forgot to add an article title! Please enter one before continuing.'}]
+      req.session.flash = {
+        err: noTitleError	
+      }
+      res.redirect('/blog/new');
+      return;
+    }
+      
+    
     // precalculate date and time for publishing
     if(DST()) {
       var pubTimeNow = moment().zone("-04:00").format('MMMM Do, YYYY, h:mm a [EDT]');
@@ -114,6 +125,15 @@ module.exports = {
         
         if(err) {console.log(err); return next(err);}
         
+        if(!article){
+          var noArticleError = [{name: 'noArticle', message: 'We couldn\'t find the article you were looking for. Sorry about that!'}]
+          req.session.flash = {
+            err: noArticleError	
+          }
+          res.redirect('/blog');
+          return;
+        }
+        
         if(article.published){
           res.view({
             article: article
@@ -132,6 +152,15 @@ module.exports = {
         
         if(err) {console.log(err); return next(err);}
         
+        if(!article){
+          var noArticleError = [{name: 'noArticle', message: 'We couldn\'t find the article you were looking for. Sorry about that!'}]
+          req.session.flash = {
+            err: noArticleError	
+          }
+          res.redirect('/blog/admin');
+          return;
+        }
+        
         res.view({
           article: article
         });
@@ -141,6 +170,16 @@ module.exports = {
     },
     
     update: function(req, res, next){
+      
+      if(!req.param('articleTitle')) {
+      
+        var noTitleError = [{name: 'noTitle', message: 'You need to have an article title! Please enter one before continuing.'}]
+        req.session.flash = {
+          err: noTitleError	
+        }
+        res.redirect('/blog/edit/' + req.param('id'));
+        return;
+      }
       
       // precalculate date and time for publishing
       if(DST()) {
@@ -268,10 +307,16 @@ module.exports = {
 
         Blog.destroy(req.param('id'), function articleDestroyed(err){
           if(err) return next(err);
+          
+          var goodDelete = [{name: 'goodDelete', message: 'Article deleted successfully.'}]
+          req.session.flash = {
+            successMsg: goodDelete
+          }
+          res.redirect('/blog/admin');
 
         });
 
-        res.redirect('/blog/admin');
+        
 
       });
     },

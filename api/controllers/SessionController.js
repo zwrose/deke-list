@@ -51,7 +51,7 @@ module.exports = {
 
 			// If no user is found...
 			if (!user) {
-				var noAccountError = [{name: 'noAccount', message: 'The email address ' + emailSub + ' was not found.'}]
+				var noAccountError = [{name: 'noAccount', message: 'The email address ' + emailSub + ' was not found. Please enter a different email address or create an account using the link below.'}]
 				req.session.flash = {
 					err: noAccountError	
 				}
@@ -65,7 +65,7 @@ module.exports = {
 
 				// If the password from the form doesn't match the password from the database...
 				if (!valid) {
-					var invalidCredentials = [{name: 'invalidCredentials', message: 'Invalid username and password combination.'}]
+					var invalidCredentials = [{name: 'invalidCredentials', message: 'Invalid email address and password combination.'}]
 					req.session.flash = {
 						err: invalidCredentials
 					}

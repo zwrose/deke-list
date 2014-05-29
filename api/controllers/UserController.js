@@ -9,6 +9,7 @@ var bcrypt = require('bcrypt');
 var request = require('request');
 var moment = require('moment');
 var nodemailer = require("nodemailer");
+var fs = require('fs');
 
 module.exports = {
 	
@@ -21,7 +22,31 @@ module.exports = {
     if (req.param('passphrase') !== process.env.SIGMATAU_PASSPHRASE){
       var wrongPassphrase = [{name: 'wrongPassphrase', message: 'Please enter the correct passphrase!'}]
       req.session.flash = {
-          err: {login: wrongPassphrase}
+          err: wrongPassphrase
+      }
+      return res.redirect('user/new');
+    }
+    
+    if (!req.param('firstName')){
+      var missingFirstName = [{name: 'missingFirstName', message: 'Please enter your first name! All information on this form is required.'}]
+      req.session.flash = {
+          err: missingFirstName
+      }
+      return res.redirect('user/new');
+    }
+    
+    if (!req.param('lastName')){
+      var missingLastName = [{name: 'missingLastName', message: 'Please enter your last name! All information on this form is required.'}]
+      req.session.flash = {
+          err: missingLastName
+      }
+      return res.redirect('user/new');
+    }
+    
+    if (!req.param('gradYear')){
+      var missingGradYear = [{name: 'missingGradYear', message: 'Please enter your grad year! All information on this form is required.'}]
+      req.session.flash = {
+          err: missingGradYear
       }
       return res.redirect('user/new');
     }
@@ -38,7 +63,7 @@ module.exports = {
     if (userObj.password != req.param('confirmation')) {
       var pwMismatch = [{name: 'pwMismatch', message: 'Passwords did not match - please retry!'}]
       req.session.flash = {
-  				err: {login: pwMismatch}
+  				err: pwMismatch
   		}
   		return res.redirect('user/new');
     }
@@ -48,9 +73,7 @@ module.exports = {
   		
   		if(err){
   			
-  			req.session.flash = {
-  				err: err.ValidationError
-  			}
+  			console.log(err);
 
   			return res.redirect('user/new');
   		}
@@ -447,7 +470,39 @@ module.exports = {
   },
 
   update: function(req, res, next){
-
+    
+    if (!req.param('loginEmail')){
+      var missingEmail = [{name: 'missingEmail', message: 'Please enter your email! Email, Preferred First Name, Last Name, and Grad Year are required fields.'}]
+      req.session.flash = {
+          err: missingEmail
+      }
+      return res.redirect('user/edit/' + req.param('id'));
+    }
+    
+    if (!req.param('prefFirstName')){
+      var missingFirstName = [{name: 'missingFirstName', message: 'Please enter your preferred first name! Email, Preferred First Name, Last Name, and Grad Year are required fields.'}]
+      req.session.flash = {
+          err: missingFirstName
+      }
+      return res.redirect('user/edit/' + req.param('id'));
+    }
+    
+    if (!req.param('lastName')){
+      var missingLastName = [{name: 'missingLastName', message: 'Please enter your last name! Email, Preferred First Name, Last Name, and Grad Year are required fields.'}]
+      req.session.flash = {
+          err: missingLastName
+      }
+      return res.redirect('user/edit/' + req.param('id'));
+    }
+    
+    if (!req.param('gradYear')){
+      var missingGradYear = [{name: 'missingGradYear', message: 'Please enter your grad year! Email, Preferred First Name, Last Name, and Grad Year are required fields.'}]
+      req.session.flash = {
+          err: missingGradYear
+      }
+      return res.redirect('user/edit/' + req.param('id'));
+    }
+    
     var userObj = {
       email: req.param('loginEmail'),
       password: req.param('newPassword'),
@@ -503,7 +558,7 @@ module.exports = {
       if(!user) {
       	var noUser = [{name: 'noUser', message: 'User does not exist.'}]
 				req.session.flash = {
-					err: {userError: noUser}
+					err: noUser
 				}
 				return res.redirect('/user/edit/'+req.param('id'));
       }
@@ -512,7 +567,7 @@ module.exports = {
 
 				var badOldPass = [{name: 'badOldPass', message: 'Old password was incorrect - password not updated'}]
 				req.session.flash = {
-					err: {login: badOldPass}
+					err: badOldPass
 				}
 				return res.redirect('/user/edit/'+req.param('id'));
 
@@ -522,7 +577,7 @@ module.exports = {
 	    if (userObj.password != req.param('confirmation')) {
 	      var pwMismatch = [{name: 'pwMismatch', message: 'Passwords did not match - please retry!'}]
 	      req.session.flash = {
-	  			err: {login: pwMismatch}
+	  			err: pwMismatch
 	  		}
 	  		return res.redirect('/user/edit/'+req.param('id'));
 	    }
@@ -627,52 +682,53 @@ module.exports = {
             }
           }
 
-          // console.log(infosArr);
-
           // create any new contact info objects to get to the standard 6
           for(var i=0; i<infosArr.length; i++){
             var conType = infosArr[i];
             if(conType === 'phone-home'){
               insContactEdit.CONTACTINFOS.push({
+                CONTACT_INFO_ID: 0,
                 TYPE: 'PHONE',
                 LABEL: 'HOME',
                 DETAIL: insUpdateObj.phoneOne
               })
             } else if(conType === 'phone-work'){
               insContactEdit.CONTACTINFOS.push({
+                CONTACT_INFO_ID: 0,
                 TYPE: 'PHONE',
                 LABEL: 'WORK',
                 DETAIL: insUpdateObj.phoneTwo
               })
             } else if(conType === 'phone-mobile'){
               insContactEdit.CONTACTINFOS.push({
+                CONTACT_INFO_ID: 0,
                 TYPE: 'PHONE',
                 LABEL: 'MOBILE',
                 DETAIL: insUpdateObj.phoneThree
               })
             } else if(conType === 'email-personal'){
               insContactEdit.CONTACTINFOS.push({
+                CONTACT_INFO_ID: 0,
                 TYPE: 'EMAIL',
                 LABEL: 'PERSONAL',
                 DETAIL: insUpdateObj.emailOne
               })
             } else if(conType === 'email-work'){
               insContactEdit.CONTACTINFOS.push({
+                CONTACT_INFO_ID: 0,
                 TYPE: 'EMAIL',
                 LABEL: 'WORK',
                 DETAIL: insUpdateObj.emailTwo
               })
             } else if(conType === 'email-other'){
               insContactEdit.CONTACTINFOS.push({
+                CONTACT_INFO_ID: 0,
                 TYPE: 'EMAIL',
                 LABEL: 'OTHER',
                 DETAIL: insUpdateObj.emailThree
               })
             }
           }
-
-          // console.log('Object to put:')
-          // console.log(insContactEdit);
 
           request.put({
             url: 'https://api.insight.ly/v2.1/contacts', 
@@ -683,16 +739,13 @@ module.exports = {
             if(response.statusCode === (400 || 403 || 404)){
               var updateError = [{name: 'updateError', message: 'Something went wrong with saving your data - we are looking into it!'}]
               req.session.flash = {
-                err: {updageMsg: updateError}
+                err: updateError
               }
               console.log(response.statusCode);
               // console.log(response);
               // console.log(body);
               return res.redirect('/user/edit/'+req.param('id'));
             }
-
-            // console.log('Body of put:');
-            // console.log(body);
 
             User.update(req.param('id'), userObj, function userUpdated(err){
               if(err){
