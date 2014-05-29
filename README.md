@@ -2,11 +2,7 @@
 The secure, online place for Sigma Tau Dekes to update their contact info, as well as look up contact info of their fellow brothers
 
 v1 work list (in no particular order):
-+ add flickr upload instructions
-+ fix blog post sorting
-+ import blog posts
-+ clean up code for release (remove debugging loggers, add logs where appropriate, etc.)
-+ delete dummy contacts
++ beta test with BOD
 
 post-v1 work list:
 + Sigma Tau Stories
@@ -16,6 +12,10 @@ post-v1 work list:
 + implement unit testing?
 
 completed
++ clean up code for release (remove debugging loggers, add logs where appropriate, etc.)
++ import blog posts
++ add flickr upload instructions
++ fix blog post sorting
 + check out all flash errors, make sure they work as expected
 + custom 404 etc. handlers
 + Replace Deke List State and City with Phone and Email (non-sortable)

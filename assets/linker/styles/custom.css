@@ -527,8 +527,10 @@ body {
   margin: 8px 0 8px;
 }
 .goto-comments {
+  display: block;
   font-style: italic;
-  padding-bottom: 30px;
+  margin-bottom: 30px;
+  margin-top: 5px;
 }
 .article-end {
   border-color: transparent;

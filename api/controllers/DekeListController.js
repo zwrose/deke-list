@@ -37,10 +37,8 @@ module.exports = {
 
   	if(req.session.listFilter === 'showAll') {
   		var insLookupURI = 'https://api.insight.ly/v2.1/contacts';
-  		console.log('showing all contacts')
   	} else {
   		var insLookupURI = 'https://api.insight.ly/v2.1/contacts?tag=Living';
-  		console.log('showing living contacts')
   	}
 
   	if (sort === 'firstName'){

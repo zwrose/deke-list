@@ -34,7 +34,7 @@
           <h5 class="article-byline">Posted by <%= article.author.firstName %>, on <%= article.pubDate %></h5>
           <hr class="article-break" />
           <div class="article-body"><%- article.articleBody %></div>
-          <a class="goto-comments" href="/blog/show/<%= article.id %>">Leave a comment on the article page &rarr;</a>
+          <a class="goto-comments" href="/blog/show/<%= article.id %>#comments">Leave a comment on the article page &rarr;</a>
           <% if(articles.indexOf(article) !== (articles.length - 1)){ %>
             <hr class="article-end" />
           <% } %>

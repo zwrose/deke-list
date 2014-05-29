@@ -1,7 +1,7 @@
 /**
  * UserController.js 
  *
- * @description ::
+ * @description :: 
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
@@ -157,7 +157,6 @@ module.exports = {
           }
 
           if(noPersonal){
-            console.log('Adding Personal')
             insContactsEmail[0].CONTACTINFOS.push({
               TYPE: 'EMAIL',
               LABEL: 'PERSONAL',
@@ -177,8 +176,6 @@ module.exports = {
             json: true,
             body: insContactsEmail[0]
           }, function(error, response, body){
-            console.log(response.statusCode);
-            // console.log(body);
 
             user.save(function(err){
               if(err) return next(err);
@@ -242,7 +239,7 @@ module.exports = {
           auth: {user: process.env.INSIGHTLY_KEY}
         }, function(error, response, body){
           insContactEdit = JSON.parse(body);
-          // console.log(insContactEdit)
+          
           // make insightly obj ready for use in view
           var insUserObj = {
             salutation: insContactEdit.SALUTATION,
@@ -364,7 +361,7 @@ module.exports = {
           auth: {user: process.env.INSIGHTLY_KEY}
         }, function(error, response, body){
           insContactEdit = JSON.parse(body);
-          // console.log(insContactEdit)
+
           // make insightly obj ready for use in view
           var insUserObj = {
             salutation: insContactEdit.SALUTATION,
@@ -517,7 +514,7 @@ module.exports = {
       if (req.body.hasOwnProperty(formParam)) {
         if((req.body[formParam] === '' || req.body[formParam] === 'none listed') && !(formParam === 'oldPassword' || formParam === 'newPassword' || formParam === 'confirmation')){
           if(emailCheck.test(formParam)){
-            // console.log(formParam);
+
             req.body[formParam] = 'no.email.listed@donotsend.com';
           } else{
             req.body[formParam] = 'none listed';
@@ -590,7 +587,6 @@ module.exports = {
           auth: {user: process.env.INSIGHTLY_KEY}
           }, function(error, response, body){
           insContactEdit = JSON.parse(body);
-          // console.log(insContactEdit)
 
           if(insContactEdit.CUSTOMFIELDS.length === 3){
             insContactEdit.CUSTOMFIELDS[2].FIELD_VALUE = moment().format("MMMM Do YYYY");
@@ -741,9 +737,7 @@ module.exports = {
               req.session.flash = {
                 err: updateError
               }
-              console.log(response.statusCode);
-              // console.log(response);
-              // console.log(body);
+
               return res.redirect('/user/edit/'+req.param('id'));
             }
 
@@ -861,8 +855,6 @@ module.exports = {
             json: true,
             body: insLastNameMatch[0]
           }, function(error, response, body){
-            console.log(response.statusCode);
-            // console.log(body);
 
             user.save(function(err){
               if(err) return next(err);
@@ -935,7 +927,6 @@ module.exports = {
         }
 
         if(noPersonal){
-          console.log('Adding Personal')
           insContactJoin.CONTACTINFOS.push({
             TYPE: 'EMAIL',
             LABEL: 'PERSONAL',
@@ -955,8 +946,6 @@ module.exports = {
           json: true,
           body: insContactJoin
         }, function(error, response, body){
-          console.log(response.statusCode);
-          // console.log(body);
 
           req.session.flash = {
             firstLogin: true
@@ -1002,7 +991,7 @@ module.exports = {
         if (req.body.hasOwnProperty(formParam)) {
           if((req.body[formParam] === '' || req.body[formParam] === 'none listed') && !(formParam === 'oldPassword' || formParam === 'newPassword' || formParam === 'confirmation')){
             if(emailCheck.test(formParam)){
-              // console.log(formParam);
+
               req.body[formParam] = 'no.email.listed@donotsend.com';
             } else{
               req.body[formParam] = 'none listed';
@@ -1102,8 +1091,6 @@ module.exports = {
         json: true,
         body: newIns
       }, function(error, response, body){
-        console.log(response.statusCode);
-        // console.log(body);
 
         user.insightlyID = body.CONTACT_ID;
         user.firstName = req.param('prefFirstName');
