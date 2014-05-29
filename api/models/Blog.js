@@ -26,6 +26,10 @@ module.exports = {
       type: 'string'
     },
     
+    pubDateSort: {
+      type: 'integer'
+    },
+    
     published: {
       type: 'boolean',
       defaultsTo: false

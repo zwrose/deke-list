@@ -596,3 +596,32 @@ body {
   font-style: italic;
   margin-bottom: 0;
 }
+.article-title-field {
+  margin-bottom: 5px;
+}
+.panel {
+  border: none;
+  box-shadow: none;
+}
+.panel-group {
+  margin-bottom: 5px;
+}
+.panel-default > .panel-heading {
+  border: none;
+  background: none;
+}
+.panel-title {
+  font-size: 14px;
+}
+.panel-heading {
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-style: italic;
+}
+.panel-group .panel-heading + .panel-collapse .panel-body {
+  border: none;
+}
+.panel-body {
+  padding: 0 20px;
+}

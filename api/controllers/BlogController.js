@@ -67,6 +67,7 @@ module.exports = {
     if(req.param('publish') === 'live') {
       articleObj.published = true;
       articleObj.pubDate = pubTimeNow;
+      articleObj.pubDateSort = Date.now();
     }
     
     Blog.create(articleObj, function articleCreated(err, article){
@@ -103,7 +104,7 @@ module.exports = {
       
       Blog.find()
       .where({published: true})
-      .sort('pubDate desc')
+      .sort('pubDateSort desc')
       .paginate({page: page})
       .exec(function(err, articles){
         
@@ -196,6 +197,7 @@ module.exports = {
         if(req.param('publish') === 'live'){
           articleObj.published = true;
           articleObj.pubDate = pubTimeNow;
+          articleObj.pubDateSort = Date.now();
           articleObj.author = req.session.User;
         }
       }
@@ -239,7 +241,7 @@ module.exports = {
         }
 
         Blog.find()
-        .sort('pubDate desc')
+        .sort('pubDateSort desc')
         .paginate({page: page, limit: 20})
         .exec(function(err, articles){
 
@@ -266,7 +268,7 @@ module.exports = {
       
       if(req.param('pubToggle') === 'Pub'){
         
-        Blog.update(req.param('id'), {published: true, pubDate: pubTimeNow}, function articleUpdated(err){
+        Blog.update(req.param('id'), {published: true, pubDate: pubTimeNow, pubDateSort: Date.now()}, function articleUpdated(err){
 
           if(err){
             var pubError = [{name: 'pubError', message: 'Something went wrong while updating the publishing status!'}]
