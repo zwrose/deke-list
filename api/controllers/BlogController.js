@@ -96,7 +96,9 @@ module.exports = {
       
       totalPages = Math.ceil(num/10);
       
-      if(page >= totalPages){
+      if(page > totalPages){
+        res.redirect('/blog/index/' + totalPages);
+      } else if(page == totalPages){
         lastPage = true;
       } else {
         lastPage = false;
