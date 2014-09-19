@@ -5,6 +5,8 @@ v1 work list (in no particular order):
 + beta test with BOD
 
 post-v1 work list:
++ Add /support-astadke route for donation link
++ Add checkbox for MIT recognition
 + Sigma Tau Stories
 + add Mentoring and Jobs portal
 + add Find Sigma Taus map tool
