@@ -94,7 +94,7 @@ module.exports = {
         page = 1;
       }
       
-      totalPages = Math.ceil(num/10);
+      totalPages = Math.ceil(num/5);
       
       if(page > totalPages){
         res.redirect('/blog/index/' + totalPages);
@@ -107,7 +107,7 @@ module.exports = {
       Blog.find()
       .where({published: true})
       .sort('pubDateSort desc')
-      .paginate({page: page})
+      .paginate({page: page, limit: 5})
       .exec(function(err, articles){
         
         if(err) return next(err);
