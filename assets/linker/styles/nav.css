@@ -1,0 +1,84 @@
+/* sauce: fofwebdesign.co.uk/freebies-for-websites/css/multi-rwd-drop-down-menu-js-swiftclick.htm */
+/* Released: 1st April 2014 - Beverley Hooton @ Focus on Function Web Design */
+/* Updated: 15th July 2014 - css to correct 'position:fixed' bug in Safari */
+/* Updated: 21st August 2014 - css tap-activated sub-menu improvement for touchscreen */
+/* Updated: 19th March 2015 - css sub-menu activation simplified [id$="-sub"] - thanks SeanW */
+/*html, body { margin:0; padding:0; height:100%; position:relative; background:#222; font:16px/1.75em Verdana, Arial, Helvetica, sans-serif }*/
+body { overflow-x:hidden; -webkit-animation:androidbugfix infinite 1s } /* http://timpietrusky.com/advanced-checkbox-hack */
+@-webkit-keyframes androidbugfix { from {padding:0} to {padding:0} } /* http://timpietrusky.com/advanced-checkbox-hack */
+#header { position:relative; top:0; left:0; right:0; height:3.75em; background:#222; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26); }
+#header label { padding:0 0.125em; font:2.875em/1.4375em Arial }
+#menu label { padding:0 0.25em; font:3.125em/1.375em Arial }
+#menu .sub-nav .toggle { padding:0 0.3125em; font:2em/2em Arial; top:0 }
+#header label:hover, #menu label:hover { color:#ccc }
+#main-nav-check, #menu .sub-nav-check { position:absolute; top:-9999px; left:-9999px }
+.toggle { position:absolute; right:0.15em; cursor:pointer; color:#fff }
+.container { background:#f5f5f5; min-height:100%; padding:0; margin:0 }
+#menu, #menu .sub-nav { position:absolute; top:0; bottom:0; width:13.75em; background:#222; z-index:9999; left:-13.75em }
+.container, #menu, #menu .sub-nav {   
+	-webkit-transform:translate(0,0); -ms-transform:translate(0,0); transform:translate(0,0);
+	-webkit-transition:-webkit-transform .25s ease; transition:transform .25s ease;
+	}
+#menu ul { background:#222; line-height:2.75em; text-decoration:none; padding:0; list-style:none; margin:4.0625em 0 0 0; /*border-top:1px solid #444*/ }
+#menu li { /*border-bottom:1px solid #444;*/ margin:0 }
+#menu li a { display:block; /*font-size:0.875em;*/ padding-left:1.5em; color:#fff; text-decoration:none }
+#menu li a:hover, #menu .toggle-sub:hover { background:#333 }
+#menu .sub-nav { margin-top:-1px }
+#menu .sub-heading { margin-top:4.0625em; padding-left:1.3125em; color:#999 }
+#menu .sub-heading:before { content:""; display:block; height:1px; width:13.75em; margin-left:-1.3125em; background:#444 }
+#menu .toggle-sub { font:bold 1em/2.75em Arial; color:#fff; background:#222; float:right; margin-top:-2.75em; width:2.25em; /*border-left:1px solid #444;*/ cursor:pointer; text-align:center }
+.container, #menu, #menu .sub-nav, .close-all { -webkit-transform:translate3d(0,0,0) } /* http://davidwalsh.name/translate3d */
+
+/* #### - corrects 'unfixing' bug in Safari - uncomment if you have position:fixed elements inside .container - #### */
+/* @media screen and (-webkit-min-device-pixel-ratio:0) { .container { -webkit-transform:none !important } } */
+
+/* #### - extra css for js enhancement - #### */
+#menu .close-all { display:none }
+.js #menu .close-all { display:inline }
+.js #menu .toggle { top:0; z-index:9999 }
+.js #menu .sub-nav .toggle { left:0.15em; width:1em }
+
+/* #### - define ids of animated container, menu and sub-menus here - #### */
+#main-nav-check:checked ~ .container,
+#main-nav-check:checked ~ #menu,
+#menu .sub-nav-check:checked ~ [id$="-sub"] /* matches all elements with id ending "-sub" */ { 
+	-webkit-transform:translate(13.75em,0); -ms-transform:translate(13.75em,0); transform:translate(13.75em,0); font-size: 100% 
+	}
+
+
+@media ( min-width:60rem ) { /* #### - switch to desktop menu at 960px (960/16=60 - 16px being default browser font-size) - #### */
+
+	/* #### - extra css for js enhancement - #### */
+	.js #menu .close-all { display:none }
+
+	.container, #menu, #menu .sub-nav { -webkit-transform:translate(0,0) !important; -ms-transform:translate(0,0) !important; transform:translate(0,0) !important }
+	#menu label, #menu .sub-nav, #menu .sub-heading, #header label { display:none }
+	#menu { left:auto; bottom:auto; height:0; width:100% }
+	#menu .toggle-sub { display:inline-block; margin-top:-3.05em; margin-right:0.25em; /*border-left:0;*/ -webkit-transform:rotate(90deg); -ms-transform:rotate(90deg); transform:rotate(90deg) }
+	#menu .toggle-sub, #menu .toggle-sub:hover { background:transparent }
+	#menu ul ul .toggle-sub { margin-top:-2.75em; margin-right:0; /*border-left:1px solid #444;*/ -webkit-transform:rotate(0deg); -ms-transform:rotate(0deg); transform:rotate(0deg) }
+	#menu ul li:hover > label { color:#ccc }
+	#menu > ul { float:right; /*position:relative;*/ z-index:1; height: 3.75em;/*top:0.4285em; right:1em;*/ margin-top:0; display:inline-table; /*border-left:1px solid #444;*/ /*border-right:0;*/ /*font-size:0.875em*/ }
+	#menu ul:after { content:""; clear:both; display:block }
+	#menu ul li { float:left; position:relative; text-align:left; /*border-right:1px solid #444*/ }
+	#menu ul li a { padding:0.5em 3.75em 0.5em 1.5em }
+	#menu ul li a:only-child { padding-right:1.5em }
+	#menu ul li:hover > a { background:#333; -webkit-transition:background-color .25s ease; transition:background-color .25s ease }
+	#menu ul li:hover > ul { display:block }
+	#menu ul ul { position:absolute; left:0; margin-left:-1px }
+	#menu ul ul li { float:inherit; width:13.75em; /*border-left:1px solid #444*/ }
+	#menu ul ul li a { padding:0 1.5em }
+	#menu ul ul li a:after { right:0.375em; margin-top:-1.6875em; -webkit-transform:none; -ms-transform:none; transform:none }
+	#menu ul .sub-nav { top:auto; bottom:auto; left:auto; width:auto; margin-top:0; -webkit-transform:none !important; -ms-transform:none !important; transform:none !important }	
+	#menu ul ul .sub-nav { float:left; top:0; left:13.75em; margin-left:0; margin-top:-1px }
+	#menu ul .fly-left ul li { float:none }
+	#menu ul .fly-left ul { left:-13.75em; margin-left:-2px }
+	#menu ul .fly-left .toggle-sub { right:auto; left:0.5em; left:0.375em; padding-bottom:1px; /*border-right:1px solid #444;*/ -webkit-transform:rotate(-180deg); -ms-transform:rotate(-180deg); transform:rotate(-180deg) }
+
+}
+ 
+
+.page-content { padding:1em 2em; max-width:64em; margin:auto }
+.page-content:after { display:block; content:""; height:1px } /* fixes bottom padding issue in IE10 */
+code { display:block; background:#ebebeb; /*font-size:0.875em;*/ padding:1em 2em; overflow-x:scroll; white-space:nowrap }
+blockquote { font-style:italic }

@@ -5,73 +5,64 @@
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <!-- End Fonts -->
+    <!-- Latest compiled and minified CSS -->
+
     <!--STYLES-->
+    <link rel="stylesheet" href="/linker/styles/normalize.css">
     <link rel="stylesheet" href="/linker/styles/jquery.qtip.css">
-    <link rel="stylesheet" href="/linker/styles/bootstrap-social.css">
-    <link rel="stylesheet" href="/linker/styles/bootstrap.css">
     <link rel="stylesheet" href="/linker/styles/custom.css">
-    <link rel="stylesheet" href="/linker/styles/font-awesome.css">
+    <link rel="stylesheet" href="/linker/styles/nav.css">
+    <link rel="stylesheet" href="/linker/styles/skeleton.css">
     <!--STYLES END-->
   </head>
 
   <body>
-    <div id="wrap">
+    <input type="checkbox" name="nav" id="main-nav-check"/>
+    <div id="menu"> 	
+      <label for="main-nav-check" class="toggle" onclick="" title="Close">&times;</label>
+      <ul>
+        <li><a href="/blog">News</a></li>
+        <li><a href="/donate">Donate</a></li>
+        <li><a href="#">Connect </a> <label for="conn" class="toggle-sub" onclick="">&#9658;</label>
+          <input type="checkbox" name="nav" id="conn" class="sub-nav-check"/>
+          <ul id="conn-sub" class="sub-nav">
+            <li class="sub-heading">Connect <label for="conn" class="toggle" onclick="" title="Back">&#9668;</label></li>
+            <li><a href="/dekelist/show">Digital Deke List</a></li>
+          </ul>
+        </li>
+        <% if(!req.session.User) { %>
+        <li><a href="/login">Log In</a></li>
+        <% } else { %>
+        <li><a href="#">Hi, <%= req.session.User.firstName %></a> <label for="usr" class="toggle-sub" onclick="">&#9658;</label>
+          <input type="checkbox" name="nav" id="usr" class="sub-nav-check"/>
+          <ul id="usr-sub" class="sub-nav">
+            <li class="sub-heading">Hi, <%= req.session.User.firstName %> <label for="usr" class="toggle" onclick="" title="Back">&#9668;</label></li>
+            <li><a href="/user/show/<%= req.session.User.id %>">View Profile</a></li>
+            <li><a href="/user/edit/<%= req.session.User.id %>">Edit Profile</a></li>
+            <li><a href="/logout">Log Out</a></li>
+          </ul>
+        </li>
+        <% } %>
+      </ul>
+      <label class="toggle close-all" onclick="uncheckboxes('nav')">&times;</label>
+    </div><!-- closing "#menu" -->
+    <div class="container">
+      
+      <div id="header">
+        <a href="/"><span style="position:absolute; top:1.175em; left:5em; color:#fff">ASTADKE</span></a>
 
-     
-      <div class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"><h1 class="astadke-logo">ASTADKE</h1></a>
-          </div>
-          <div class="clearup">
-          <div class="navbar-collapse collapse no-transition">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="/blog">The Blog</a></li>
-              <li><a href="/donate">Donate</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Connect</a>
-                <ul class="dropdown-menu">
-                  <li><a class="load-trigger" href="/dekelist/show">Digital Deke List</a></li>
-<!--  not yet implemented features                  
-                  <li><a href="#map">Find Sigma Taus</a></li>
-                  <li><a href="#network">Networking Portal</a></li>
--->
-                </ul>
-              </li>
-              <% if(!req.session.User) { %>
-                <li><a href="/login">Log In</a></li>
-              <% } else { %>
-                <li class="dropdown">
-                <a href="#" class="dropdown-toggle flip" data-toggle="dropdown">Hi, <%= req.session.User.firstName %> <span class="name-drop">&#9660;</span></a>
-                <ul class="dropdown-menu flip">
-                  <li><a href="/user/show/<%= req.session.User.id %>">View Profile</a></li>
-                  <li><a href="/user/edit/<%= req.session.User.id %>">Edit Profile</a></li>
-                  <li><a href="/logout">Log Out</a></li>
-                </ul>
-              </li>
-              <% } %>
-            </ul>
-          </div><!--/.nav-collapse -->
-          </div>
-        </div>
+        <label for="main-nav-check" class="toggle" onclick="" title="Menu">&#x2261;</label>
       </div>
 
       <%- body %>
 
-    </div><!-- end wrap -->
-    
+    </div><!-- closing ".container" -->
+
     <!-- Below is page footer -->
     <div id="footer">
-      <div class="container footer">
+      <div class="ccontainer footer">
         <% if (!req.session.User) { %>
         <div class="text-center">
           <div>
@@ -123,11 +114,10 @@
     <!--SCRIPTS-->
     <script src="/linker/js/jquery.js"></script>
     <script src="/linker/js/jquery.qtip.js"></script>
-    <script src="/linker/js/bootstrap.js"></script>
     <script src="/linker/js/blockui.js"></script>
-    <script src="/linker/js/headroom.js"></script>
-    <script src="/linker/js/jQuery.headroom.js"></script>
     <script src="/linker/js/custom.js"></script>
+    <script src="/linker/js/nav.js"></script>
     <!--SCRIPTS END-->
+
   </body>
 </html>

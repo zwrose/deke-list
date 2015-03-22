@@ -29,6 +29,7 @@ module.exports = function (grunt) {
    */
 
   var cssFilesToInject = [
+    'linker/styles/normalize.css',
     '/linker/styles/jquery.qtip.css',
     'linker/**/*.css'
   ];
@@ -61,7 +62,6 @@ module.exports = function (grunt) {
     'linker/js/app.js',
 
     // *->    put other dependencies here   <-*
-    'linker/js/bootstrap.js',
     'linker/js/blockui.js',
     'linker/js/headroom.js',
     'linker/js/jQuery.headroom.js',
