@@ -1,25 +1,12 @@
 <div class="ccontainer">
-  <div class="centered welcome card">
-    <h1 class="">In the (digital) bonds.</h1>
-    <h5 class="">Welcome to astadke.org, the online home of the Association of Sigma Tau Alumni of Delta Kappa Epsilon.</h5> 
-      <h5 class="">See what's happening at the house, keep in touch with ASTADKE and other alumni, show your support, and more.</h5>
-      <h5 class="">Check out the blog below for the latest news, or explore the site from the menu above!</h5>
+  <div class="centered splash">
+    <h1 style="font-weight:bold">In the (digital) bonds.</h1>
+    <h4>Welcome to astadke.org: <br>the online home of the Association of Sigma Tau Alumni of Delta Kappa Epsilon.</h4> 
+    <h4>See what's happening at the house, keep in touch with ASTADKE and other alumni,<br>show your support, and more.</h4>
+    <h4>Check out the blog below for the latest news, or explore the site from the menu above!</h4>
   </div>
 
-  <div id="articles" class="card">
-    <div class="row">
-      <div class="two columns offset-by-one centered">
-        <hr />
-      </div>
-      <div class="six columns centered">
-        <h2>ASTADKE News</h2>
-      </div>
-      <div class="two columns centered">
-        <hr />
-      </div>
-    </div>
-    <div class="row">
-      <div class="nine columns">
+  <div id="articles">
         <% if(flash && flash.err) { %>
           <div class="alert alert-danger">
         <% Object.keys(flash.err).forEach(function(error) { %>
@@ -29,50 +16,30 @@
         <% } %>
         <% _.each(articles, function(article) { %>
           <% if(article.published){ %>
+            <div class="card">
             <h3 class="article-title"><a href="/blog/show/<%= article.id %>"><%= article.title %></a></h3>
-            <h5 class="article-byline">Posted by <%= article.author.firstName %>, on <%= article.pubDate %></h5>
+            <h6 class="article-byline">Posted by <%= article.author.firstName %>, on <%= article.pubDate %></h6>
             <hr class="article-break" />
             <div class="article-body"><%- article.articleBody %></div>
             <a class="goto-comments" href="/blog/show/<%= article.id %>#comments">Leave a comment on the article page &rarr;</a>
-            <% if(articles.indexOf(article) !== (articles.length - 1)){ %>
+<!--             <% if(articles.indexOf(article) !== (articles.length - 1)){ %>
               <hr class="article-end" />
-            <% } %>
+            <% } %> -->
+            </div>
           <% } %>
         <% }) %>
       </div>
-      <div class="three columns sidebar">
-        <h3 class="sidebar-header">The latest notes and stories from ASTADKE</h3>
-        <div class="sidebar-text">
-          Have a memorable Sigma Tau Story or piece of Alumni News you wish to share?
-        </div>
-        <div class="sidebar-text">Don't hesitate to shoot an email to <a href="mailto:astadke@gmail.com" target="_blank">astadke@gmail.com</a> - we're always looking for unique content and perspectives!
-        </div>
-        <div class="sidebar-text">
-          Also, connect with ASTADKE's official social media accounts:
-        </div>
-        <div class="sidebar-text text-center">
-          <a href="https://www.facebook.com/ASTADKE" target="_blank" class="btn btn-social-icon btn-facebook">
-            <i class="fa fa-facebook"></i>
-          </a>
-          <a href="https://twitter.com/ASTADKE" target="_blank" class="btn btn-social-icon btn-twitter social-center">
-            <i class="fa fa-twitter"></i>
-          </a>
-          <a href="http://www.linkedin.com/groups?home=&gid=4016499&trk=anet_ug_hm&goback=%2Enpv_21469448_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_*1_nav*4responsive*4tab*4profile_*1" target="_blank" class="btn btn-social-icon btn-linkedin">
-            <i class="fa fa-linkedin"></i>
-          </a>
-        </div>
-        <div class="sidebar-text">
-          Then, go swap stories and reconnect with other brothers in the
-        </div>
-        <div class="sidebar-text text-center">
-          <a class="private-fbook-link" href="https://www.facebook.com/groups/DKESigmaTau/" target="_blank">DKE Sigma Tau Private Facebook Group</a>
+      <div class="card">
+        <div class="row">
+          <div class="three columns centered">
+            <a class="button centered<% if(lastPage) { %> hide<% } %>" <% if(!req.param('id') || req.param('id') < 2) { %>href="/blog/index/2"<% } else { %>href="/blog/index/<%= req.param('id') + 1 %>"<% } %>>&larr; Older Articles</a>
+          </div>
+          <div class="six columns centered">
+            Have a memorable story or piece of Alumni News you wish to share?<br>Send an email to <a href="mailto:alumni_relations@astadke.org" target="_blank">alumni_relations@astadke.org</a>!
+          </div>
+          <div class="three columns centered">
+            <a class="button centered<% if(!req.param('id') || req.param('id') < 2) { %> hide<% } %>" <% if(req.param('id') && req.param('id') <= 2) { %>href="/blog"<% } else { %>href="/blog/index/<%= req.param('id') - 1 %>"<% } %>>Newer Articles &rarr;</a>
+          </div>
         </div>
       </div>
-      <div class="twelve columns">
-        <hr />
-        <a class="button <% if(lastPage) { %> hide<% } %>" <% if(!req.param('id') || req.param('id') < 2) { %>href="/blog/index/2"<% } else { %>href="/blog/index/<%= req.param('id') + 1 %>"<% } %>>&larr; Older Articles</a>
-        <a class="button u-pull-right<% if(!req.param('id') || req.param('id') < 2) { %> hide<% } %>" <% if(req.param('id') && req.param('id') <= 2) { %>href="/blog"<% } else { %>href="/blog/index/<%= req.param('id') - 1 %>"<% } %>>Newer Articles &rarr;</a>
-      </div>
-    </div>
-  </div>
 </div>

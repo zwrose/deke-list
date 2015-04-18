@@ -30,6 +30,10 @@
           <ul id="conn-sub" class="sub-nav">
             <li class="sub-heading">Connect <label for="conn" class="toggle" onclick="" title="Back">&#9668;</label></li>
             <li><a href="/dekelist/show">Digital Deke List</a></li>
+            <li><a href="https://www.facebook.com/groups/DKESigmaTau/" target="_blank">Private Facebook Group</a></li>
+            <li><a href="https://www.linkedin.com/grp/home?gid=4016499" target="_blank">Official LinkedIn Group</a></li>
+            <li><a href="https://www.facebook.com/ASTADKE" target="_blank">Official Facebook Page</a></li>
+            <li><a href="https://twitter.com/ASTADKE" target="_blank">Official Twitter</a></li>
           </ul>
         </li>
         <% if(!req.session.User) { %>
@@ -55,9 +59,11 @@
 
         <label for="main-nav-check" class="toggle" onclick="" title="Menu">&#x2261;</label>
       </div>
-
-      <%- body %>
-
+      
+      <div class="house">
+        <%- body %>
+      </div>
+      
     </div><!-- closing ".container" -->
 
     <!-- Below is page footer -->
