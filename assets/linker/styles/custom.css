@@ -1,3 +1,71 @@
+/*  
+Sticky Footer Solution
+by Steve Hatcher
+http://stever.ca http://www.cssstickyfooter.com
+*/
+
+html, body, #fwrapper {height: 100%;}
+
+body > #fwrapper { height: auto; min-height: 100%; background:transparent}
+
+/* must be same height as the footer */
+#pagecontent { overflow: auto; padding-bottom: 2em; } 
+
+#footer {
+    position: relative;
+    margin-top: -2em; /* negative value of footer height */
+    height: 2em;
+    clear: both;
+} 
+
+/*Opera Fix*/
+body:before { /* thanks to Maleika (Kohoutec)*/
+    content: "";
+    height:100%;
+    float: left;
+    width: 0;
+    margin-top: -32767px; /* thank you Erik J */
+}
+
+/* end sticky footer */
+
+/* begin pagination css */
+.pagination {
+    text-align: center;
+}
+.pagination a {
+    background: #fff;
+    display: inline-block;
+    margin-right: 3px;
+    padding: 4px 12px;
+    text-decoration: none;
+	  line-height: 1.5em;
+	
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.pagination a:hover {
+    background-color: #012B7F;
+    color: #fff;
+}
+.pagination a:active {
+	background: #0043CC;
+}
+.pagination a.active {
+    color: #fff;
+    background-color: #012B7F;
+}
+/* end pagination */
+
+body {
+  background-color: #f5f5f5;
+  background-image: url(/images/housegradientf5f5f5comp.jpg);
+  background-repeat:no-repeat;
+  background-size:100% auto;
+  background-position:top;
+}
+
 .centered {
   text-align: center;
 }
@@ -7,18 +75,44 @@
   padding: 2.5rem;
   background-color: #fff;
 }
-.house {
-  padding-top:3rem;
-  background-color: #f5f5f5;
-  background-image: url(/images/housefade7070100cut2.jpg);
-  background-repeat:no-repeat;
-  background-size:100% auto;
-  background-position:top;
-}
+
 .hide {
   display:none !important;
 }
 
 .splash {
-  padding: 4rem 0;
+  padding-top: 2rem;
+}
+
+.welcome {
+  text-shadow:  1px 1px 3px #fff;
+}
+.logo {
+  line-height: 1.875em;
+  font-size: 2em;
+  position: absolute;
+  padding: 0 0.5em;
+  color:#fff;
+}
+a.logo:hover {
+  color: #fff;
+  background-color: #0043CC;
+}
+/* img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+} */
+.newArt {
+  margin: 1rem 0 0;
+}
+@media (min-width: 550px) {
+  .oldArt, .newArt {
+    margin: 0;
+    line-height: 48px;
+  }
+}
+img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
 }

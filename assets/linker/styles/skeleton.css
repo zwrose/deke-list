@@ -175,8 +175,8 @@ input[type="submit"],
 input[type="reset"],
 input[type="button"] {
   display: inline-block;
-  height: 38px;
-  padding: 0 30px;
+  min-height: 38px;
+  padding: 0 15px;
   color: #555;
   text-align: center;
   font-size: 11px;
@@ -185,7 +185,7 @@ input[type="button"] {
   letter-spacing: .1rem;
   text-transform: uppercase;
   text-decoration: none;
-  white-space: nowrap;
+/*   white-space: nowrap; */
   background-color: transparent;
   border-radius: 4px;
   border: 1px solid #bbb;
@@ -356,8 +356,7 @@ figure,
 table,
 p,
 ul,
-ol,
-form {
+ol {
   margin-bottom: 2.5rem; }
 
 

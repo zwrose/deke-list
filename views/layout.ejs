@@ -12,77 +12,79 @@
     <!--STYLES-->
     <link rel="stylesheet" href="/linker/styles/normalize.css">
     <link rel="stylesheet" href="/linker/styles/jquery.qtip.css">
-    <link rel="stylesheet" href="/linker/styles/custom.css">
     <link rel="stylesheet" href="/linker/styles/nav.css">
     <link rel="stylesheet" href="/linker/styles/skeleton.css">
+    <link rel="stylesheet" href="/linker/styles/custom.css">
     <!--STYLES END-->
   </head>
 
   <body>
-    <input type="checkbox" name="nav" id="main-nav-check"/>
-    <div id="menu"> 	
-      <label for="main-nav-check" class="toggle" onclick="" title="Close">&times;</label>
-      <ul>
-        <li><a href="/blog">News</a></li>
-        <li><a href="/donate">Donate</a></li>
-        <li><a href="#">Connect </a> <label for="conn" class="toggle-sub" onclick="">&#9658;</label>
-          <input type="checkbox" name="nav" id="conn" class="sub-nav-check"/>
-          <ul id="conn-sub" class="sub-nav">
-            <li class="sub-heading">Connect <label for="conn" class="toggle" onclick="" title="Back">&#9668;</label></li>
-            <li><a href="/dekelist/show">Digital Deke List</a></li>
-            <li><a href="https://www.facebook.com/groups/DKESigmaTau/" target="_blank">Private Facebook Group</a></li>
-            <li><a href="https://www.linkedin.com/grp/home?gid=4016499" target="_blank">Official LinkedIn Group</a></li>
-            <li><a href="https://www.facebook.com/ASTADKE" target="_blank">Official Facebook Page</a></li>
-            <li><a href="https://twitter.com/ASTADKE" target="_blank">Official Twitter</a></li>
+    <div id="fwrapper">
+      <div id="pagecontent">
+        <input type="checkbox" name="nav" id="main-nav-check"/>
+        <div id="menu"> 	
+          <label for="main-nav-check" class="toggle" onclick="" title="Close">&times;</label>
+          <ul>
+            <li><a href="/blog">News</a></li>
+            <li><a href="/donate">Donate</a></li>
+            <li><a href="#">Connect </a> <label for="conn" class="toggle-sub" onclick="">&#9658;</label>
+              <input type="checkbox" name="nav" id="conn" class="sub-nav-check"/>
+              <ul id="conn-sub" class="sub-nav">
+                <li class="sub-heading">Connect <label for="conn" class="toggle" onclick="" title="Back">&#9668;</label></li>
+                <li><a class="load-trigger" href="/dekelist/show">Digital Deke List</a></li>
+                <li><a href="https://www.facebook.com/groups/DKESigmaTau/" target="_blank">Private Facebook Group</a></li>
+                <li><a href="https://www.linkedin.com/grp/home?gid=4016499" target="_blank">Official LinkedIn Group</a></li>
+                <li><a href="https://www.facebook.com/ASTADKE" target="_blank">Official Facebook Page</a></li>
+                <li><a href="https://twitter.com/ASTADKE" target="_blank">Official Twitter</a></li>
+              </ul>
+            </li>
+            <% if(!req.session.User) { %>
+            <li><a href="/login">Log In</a></li>
+            <% } else { %>
+            <li><a href="#">Hi, <%= req.session.User.firstName %></a> <label for="usr" class="toggle-sub" onclick="">&#9658;</label>
+              <input type="checkbox" name="nav" id="usr" class="sub-nav-check"/>
+              <ul id="usr-sub" class="sub-nav">
+                <li class="sub-heading">Hi, <%= req.session.User.firstName %> <label for="usr" class="toggle" onclick="" title="Back">&#9668;</label></li>
+                <li><a href="/user/show/<%= req.session.User.id %>">View Profile</a></li>
+                <li><a href="/user/edit/<%= req.session.User.id %>">Edit Profile</a></li>
+                <li><a href="/logout">Log Out</a></li>
+              </ul>
+            </li>
+            <% } %>
           </ul>
-        </li>
-        <% if(!req.session.User) { %>
-        <li><a href="/login">Log In</a></li>
-        <% } else { %>
-        <li><a href="#">Hi, <%= req.session.User.firstName %></a> <label for="usr" class="toggle-sub" onclick="">&#9658;</label>
-          <input type="checkbox" name="nav" id="usr" class="sub-nav-check"/>
-          <ul id="usr-sub" class="sub-nav">
-            <li class="sub-heading">Hi, <%= req.session.User.firstName %> <label for="usr" class="toggle" onclick="" title="Back">&#9668;</label></li>
-            <li><a href="/user/show/<%= req.session.User.id %>">View Profile</a></li>
-            <li><a href="/user/edit/<%= req.session.User.id %>">Edit Profile</a></li>
-            <li><a href="/logout">Log Out</a></li>
-          </ul>
-        </li>
-        <% } %>
-      </ul>
-      <label class="toggle close-all" onclick="uncheckboxes('nav')">&times;</label>
-    </div><!-- closing "#menu" -->
-    <div class="container">
-      
-      <div id="header">
-        <a href="/"><span style="position:absolute; top:1.175em; left:5em; color:#fff">ASTADKE</span></a>
+          <label class="toggle close-all" onclick="uncheckboxes('nav')">&times;</label>
+        </div><!-- closing "#menu" -->
+        <div class="container">
 
-        <label for="main-nav-check" class="toggle" onclick="" title="Menu">&#x2261;</label>
-      </div>
-      
-      <div class="house">
-        <%- body %>
-      </div>
-      
-    </div><!-- closing ".container" -->
+          <div id="header">
+            <a class="logo" href="/">ASTADKE</a>
+
+            <label for="main-nav-check" class="toggle" onclick="" title="Menu">&#x2261;</label>
+          </div>
+
+          <%- body %>
+
+        </div><!-- closing ".container" -->
+      </div><!-- closing #pagecontent -->
+    </div><!-- closing #fwrapper -->
 
     <!-- Below is page footer -->
     <div id="footer">
-      <div class="ccontainer footer">
+      <div class="ccontainer">
         <% if (!req.session.User) { %>
-        <div class="text-center">
+        <div class="centered">
           <div>
             <a href="https://github.com/zwrose/deke-list">Site Source</a> | <a href="/login">Login</a>
           </div>
         </div>
         <% } else if(req.session.User && req.session.User.admin) { %>
-        <div class="text-center">
+        <div class="centered">
           <div>
             <a href="/blog/admin">Blog Admin</a> | <a href="https://github.com/zwrose/deke-list">Site Source</a> | <a href="/logout">Logout</a>
           </div>
         </div>
         <% } else { %>
-        <div class="text-center">
+        <div class="centered">
           <div>
             <a href="https://github.com/zwrose/deke-list">Site Source</a> | <a href="/logout">Logout</a>
           </div>
@@ -95,7 +97,7 @@
     <div id="loadingMsg" style="display:none;">
       <div class="load-msg">
         <img class="load-crest" src="/images/Crest.png">
-        <div class="load-text">Please standby while we gather all the needed bits.</div>
+        <h6 class="load-text">Please standby while we gather all the needed bits.</h6>
         <img class="load-bar" src="/images/ajax-loader.gif">
       </div>
     </div>

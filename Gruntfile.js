@@ -31,6 +31,9 @@ module.exports = function (grunt) {
   var cssFilesToInject = [
     'linker/styles/normalize.css',
     '/linker/styles/jquery.qtip.css',
+    '/linker/styles/nav.css',
+    '/linker/styles/skeleton.css',
+    '/linker/styles/custom.css',
     'linker/**/*.css'
   ];
 

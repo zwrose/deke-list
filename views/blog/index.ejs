@@ -1,9 +1,9 @@
 <div class="ccontainer">
   <div class="centered splash">
-    <h1 style="font-weight:bold">In the (digital) bonds.</h1>
-    <h4>Welcome to astadke.org: <br>the online home of the Association of Sigma Tau Alumni of Delta Kappa Epsilon.</h4> 
-    <h4>See what's happening at the house, keep in touch with ASTADKE and other alumni,<br>show your support, and more.</h4>
-    <h4>Check out the blog below for the latest news, or explore the site from the menu above!</h4>
+    <h1 style="text-shadow:1px 1px 3px #fff;font-weight:bold">In the (digital) bonds.</h1>
+    <h4 style="text-shadow:1px 1px 3px #fff">Welcome to astadke.org: <br>the online home of the Association of Sigma Tau Alumni of Delta Kappa Epsilon.</h4> 
+    <h4 style="text-shadow:1px 1px 3px #fff">See what's happening at the house, keep in touch with ASTADKE and other alumni,<br>show your support, and more.</h4>
+    <h4 style="text-shadow:1px 1px 3px #fff">Check out the blog below for the latest news, or explore the site from the menu above!</h4>
   </div>
 
   <div id="articles">
@@ -32,13 +32,13 @@
       <div class="card">
         <div class="row">
           <div class="three columns centered">
-            <a class="button centered<% if(lastPage) { %> hide<% } %>" <% if(!req.param('id') || req.param('id') < 2) { %>href="/blog/index/2"<% } else { %>href="/blog/index/<%= req.param('id') + 1 %>"<% } %>>&larr; Older Articles</a>
+            <a class="button oldArt centered<% if(lastPage) { %> hide<% } %>" <% if(!req.param('id') || req.param('id') < 2) { %>href="/blog/index/2"<% } else { %>href="/blog/index/<%= req.param('id') + 1 %>"<% } %>>View Older Articles</a>
           </div>
-          <div class="six columns centered">
+          <div class="six columns centered<% if(lastPage) { %> offset-by-three<% } %>">
             Have a memorable story or piece of Alumni News you wish to share?<br>Send an email to <a href="mailto:alumni_relations@astadke.org" target="_blank">alumni_relations@astadke.org</a>!
           </div>
           <div class="three columns centered">
-            <a class="button centered<% if(!req.param('id') || req.param('id') < 2) { %> hide<% } %>" <% if(req.param('id') && req.param('id') <= 2) { %>href="/blog"<% } else { %>href="/blog/index/<%= req.param('id') - 1 %>"<% } %>>Newer Articles &rarr;</a>
+            <a class="button newArt centered<% if(!req.param('id') || req.param('id') < 2) { %> hide<% } %>" <% if(req.param('id') && req.param('id') <= 2) { %>href="/blog"<% } else { %>href="/blog/index/<%= req.param('id') - 1 %>"<% } %>>View Newer Articles</a>
           </div>
         </div>
       </div>
