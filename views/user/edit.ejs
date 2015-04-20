@@ -1,44 +1,47 @@
-<div class="container form-wide">
+<div class="ccontainer">
+  <% if(flash && flash.firstLogin) { %>
+    <div class="info card">
+      Thanks for registering with ASTADKE Online! Since this is your first time here, please take a moment to review the information we currently have on file for you below, and add/change as necessary. When you are finished (even if you didn't make any changes), please click the "Update" button to continue!
+    </div>
+  <% } %>
+
+  <% if(flash && flash.err) { %>
+    <div class="error card">
+      <% Object.keys(flash.err).forEach(function(error) { %>
+      <div><%- flash.err[error].message %></div>
+      <% }) %>
+    </div>
+  <% } %>
+  <div class="card">
 	<form action="/user/update/<%= user.id %>" method="POST" id="sign-up-form">
-		<h1 class="form-heading">Update your Profile</h1>
-
-		<% if(flash && flash.firstLogin) { %>
-			<div class="alert alert-info">
-				Thanks for registering with ASTADKE Online! Since this is your first time here, please take a moment to review the information we currently have on file for you below, and add/change as necessary. When you are finished (even if you didn't make any changes), please click the "Update" button to continue!
-			</div>
-		<% } %>
-
-		<% if(flash && flash.err) { %>
-			<div class="alert alert-danger">
-		<% Object.keys(flash.err).forEach(function(error) { %>
-			<div><%- flash.err[error].message %></div>
-		<% }) %>
-		</div>
-		<% } %>
-
-		<h3 class="form-subheading">Account Information</h3>
-		<div class="form-description">Use these fields only if you wish to edit your login email or change your password.</div>
-		
-		<div class="form-group col-md-3">
+		<h1>Update your Profile</h1>
+    <hr>
+		<h3>Account Information</h3>
+		<h6>Use these fields only if you wish to edit your login email or change your password.</h6>
+		<div class="row">
+		<div class="three columns">
 			<label for="loginEmail">Username (email address):</label>
 			<input type="text" id="loginEmail" class="form-control" value="<%= user.email %>" name="loginEmail">
 		</div>
-		<div class="form-group col-md-3">
+		<div class="three columns">
 			<label for="oldPassword">Current Password:</label>
 			<input type="password" id="oldPassword" class="form-control" placeholder="old password" name="oldPassword">
 		</div>
-		<div class="form-group col-md-3">
+		<div class="three columns">
 			<label for="newPassword">New Password</label>
 			<input type="password" id="newPassword" class="form-control" placeholder="new password" name="newPassword">
 		</div>
-		<div class="form-group col-md-3">
+		<div class="three columns">
 			<label for="confirmPassword">Confirm New Password:</label>
 			<input type="password" id="confirmPassword" class="form-control" placeholder="confirm new password" name="confirmation">
 		</div>
+    </div>
+    
+    <hr>
 
-		<h3 class="form-heading">Contact Information</h3>
-		<div class="form-description">This is the information ASTADKE can use to stay in touch with you - primarily through the deke-alumni email list and the yearly Hottentot mailings.</div>
-		<div class="form-description">You are NOT required to complete every field.</div>
+		<h3>Contact Information</h3>
+		<h6>This is the information ASTADKE can use to stay in touch with you - primarily through the deke-alumni email list and the yearly Hottentot mailings.</h6>
+		<h6>You are NOT required to complete every field.</h6>
 
 		<% if(!insightly){ %>
 			<input type="text" class="form-control" value="<%= user.firstName %>" name="firstName">
@@ -49,101 +52,111 @@
 			<br />
 		<% } %>
 		<% if(insightly){ %>
-			<div class="col-md-6 no-pad">
-				<div class="form-group col-md-2">
-					<label for="salutation">Salutation:</label>
-					<select class="form-control" id="salutation" name="salutation">
-					<option value="Mr." selected="selected">Mr.</option>
-					<option value="Dr.">Dr.</option>
-					</select>
-				</div>
-				<div class="form-group col-md-5">
-					<label for="firstName">First Name:</label>
-					<input type="text" id="firstName" class="form-control" placeholder="First Name" value="<%= insightly.firstName %>" name="firstName">
-				</div>
-				<div class="form-group col-md-5">
-					<label for="lastName">Last Name:</label>
-					<input type="text" id="lastName" class="form-control" placeholder="Last Name" value="<%= insightly.lastName %>" name="lastName">
-				</div>
-				<div class="form-group col-md-2">
-					<label for="gradYear">Grad Year:</label>
-					<input type="text" id="gradYear" class="form-control" placeholder="Grad Year" value="<%= insightly.gradYear %>" name="gradYear">
-				</div>
-				<div class="form-group col-md-5">
-					<label for="prefFirstName">Preferred First Name:</label>
-					<input type="text" id="prefFirstName" class="form-control" placeholder="Preferred First Name" value="<%= user.firstName %>" name="prefFirstName">
-				</div>
-				<div class="col-md-12"><hr class="form-sep" /></div>
-				<div class="form-group col-md-4">
-					<label for="emailOne">Preferred Email:</label>
-					<input type="text" id="emailOne" class="form-control" placeholder="Preferred Email " value="<%= insightly.emailOne %>" name="emailOne">
-				</div>
-				<div class="form-group col-md-4">
-					<label for="emailTwo">Other Email 1:</label>
-					<input type="text" id="emailTwo" class="form-control" placeholder="Other Email 1" value="<%= insightly.emailTwo %>" name="emailTwo">
-				</div>
-				<div class="form-group col-md-4">
-					<label for="emailThree">Other Email 2:</label>
-					<input type="text" id="emailThree" class="form-control" placeholder="Other Email 2" value="<%= insightly.emailThree %>" name="emailThree">
-				</div>		
-			</div>
-
-			<div class="col-md-6 no-pad">
-				<div class="form-group col-md-12">
-					<label for="addrStreet">Street Address:</label>
-					<input type="text" id="addrStreet" class="form-control" placeholder="Street Address" value="<%= insightly.addrStreet %>" name="addrStreet">
-				</div>
-				<div class="form-group col-md-4">
-					<label for="addrCity">City:</label>
-					<input type="text" id="addrCity" class="form-control" placeholder="City" value="<%= insightly.addrCity %>" name="addrCity">
-				</div>
-				<div class="form-group col-md-2">
-					<label for="addrState">State:</label>
-					<input type="text" id="addrState" class="form-control" placeholder="State" value="<%= insightly.addrState %>" name="addrState">
-				</div>
-				<div class="form-group col-md-2">
-					<label for="addrZip">Zip:</label>
-					<input type="text" id="addrZip" class="form-control" placeholder="Zip" value="<%= insightly.addrZip %>" name="addrZip">
-				</div>
-				<div class="form-group col-md-4">
-					<label for="addrCountry">Country:</label>
-					<select id="addrCountry" class="form-control" name="addrCountry">
-						<option value="noChoice" <% if(insightly.addrCountry === null){ %>selected="selected"<% } %>>Choose a Country</option>
-						<% for(var i=0; i<countries.length; i++){ %>
-						<option <% if(insightly.addrCountry === countries[i]){ %>selected="selected"<% } %> value="<%= countries[i] %>"><%= countries[i] %></option>
-						<% } %>
-					</select>
-				</div>
-				<div class="col-md-12"><hr class="form-sep" /></div>
-				<div class="form-group col-md-4">
-					<label for="phoneOne">Preferred Phone:</label>
-					<input type="text" id="phoneOne" class="form-control" placeholder="Preferred Phone" value="<%= insightly.phoneOne %>" name="phoneOne">
-				</div>
-				<div class="form-group col-md-4">
-					<label for="phoneTwo">Other Phone 1:</label>
-					<input type="text" id="phoneTwo" class="form-control" placeholder="Other Phone 1" value="<%= insightly.phoneTwo %>" name="phoneTwo">
-				</div>
-				<div class="form-group col-md-4">
-					<label for="phoneThree">Other Phone 2:</label>
-					<input type="text" class="form-control" placeholder="Other Phone 2" value="<%= insightly.phoneThree %>" name="phoneThree">
-				</div>
-			</div>
-			<div class="col-md-12"><hr class="form-sep" /></div>
+      <div class="row">
+        <div class="six columns">
+          <div class="row">
+            <div class="two columns">
+              <label for="salutation">Salutation:</label>
+              <select id="salutation" name="salutation">
+              <option value="Mr." selected="selected">Mr.</option>
+              <option value="Dr.">Dr.</option>
+              </select>
+            </div>
+            <div class="five columns">
+              <label for="firstName">First Name:</label>
+              <input type="text" id="firstName" class="u-full-width" placeholder="First Name" value="<%= insightly.firstName %>" name="firstName">
+            </div>
+            <div class="five columns">
+              <label for="lastName">Last Name:</label>
+              <input type="text" id="lastName" class="u-full-width" placeholder="Last Name" value="<%= insightly.lastName %>" name="lastName">
+            </div>
+          </div>
+          <div class="row">
+            <div class="two columns">
+              <label for="gradYear">Class of:</label>
+              <input type="text" id="gradYear" class="u-full-width" placeholder="Grad Year" value="<%= insightly.gradYear %>" name="gradYear">
+            </div>
+            <div class="five columns">
+              <label for="prefFirstName">Preferred First Name:</label>
+              <input type="text" id="prefFirstName" class="u-full-width" placeholder="Preferred First Name" value="<%= user.firstName %>" name="prefFirstName">
+            </div>
+            <div class="five columns">
+              <label for="emailOne">Preferred Email:</label>
+              <input type="text" id="emailOne" class="u-full-width" placeholder="Preferred Email " value="<%= insightly.emailOne %>" name="emailOne">
+            </div>
+          </div>
+          <div class="row">
+            <div class="five columns offset-by-two">
+              <label for="emailTwo">Other Email 1:</label>
+              <input type="text" id="emailTwo" class="u-full-width" placeholder="Other Email 1" value="<%= insightly.emailTwo %>" name="emailTwo">
+            </div>
+            <div class="five columns">
+              <label for="emailThree">Other Email 2:</label>
+              <input type="text" id="emailThree" class="u-full-width" placeholder="Other Email 2" value="<%= insightly.emailThree %>" name="emailThree">
+            </div>
+          </div>
+        </div>
+        <div class="six columns">
+          <div class="row">
+            <div class="twelve columns">
+              <label for="addrStreet">Street Address:</label>
+              <input type="text" id="addrStreet" class="u-full-width" placeholder="Street Address" value="<%= insightly.addrStreet %>" name="addrStreet">
+            </div>
+          </div>
+          <div class="row">
+            <div class="four columns">
+              <label for="addrCity">City:</label>
+              <input type="text" id="addrCity" class="u-full-width" placeholder="City" value="<%= insightly.addrCity %>" name="addrCity">
+            </div>
+            <div class="two columns">
+              <label for="addrState">State:</label>
+              <input type="text" id="addrState" class="u-full-width" placeholder="State" value="<%= insightly.addrState %>" name="addrState">
+            </div>
+            <div class="two columns">
+              <label for="addrZip">Zip:</label>
+              <input type="text" id="addrZip" class="u-full-width" placeholder="Zip" value="<%= insightly.addrZip %>" name="addrZip">
+            </div>
+            <div class="four columns">
+              <label for="addrCountry">Country:</label>
+              <select id="addrCountry" class="u-full-width" name="addrCountry">
+                <option value="noChoice" <% if(insightly.addrCountry === null){ %>selected="selected"<% } %>>Choose a Country</option>
+                <% for(var i=0; i<countries.length; i++){ %>
+                <option <% if(insightly.addrCountry === countries[i]){ %>selected="selected"<% } %> value="<%= countries[i] %>"><%= countries[i] %></option>
+                <% } %>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="four columns">
+              <label for="phoneOne">Preferred Phone:</label>
+              <input type="text" id="phoneOne" class="u-full-width" placeholder="Preferred Phone" value="<%= insightly.phoneOne %>" name="phoneOne">
+            </div>
+            <div class="four columns">
+              <label for="phoneTwo">Other Phone 1:</label>
+              <input type="text" id="phoneTwo" class="u-full-width" placeholder="Other Phone 1" value="<%= insightly.phoneTwo %>" name="phoneTwo">
+            </div>
+            <div class="four columns">
+              <label for="phoneThree">Other Phone 2:</label>
+              <input type="text" class="u-full-width" placeholder="Other Phone 2" value="<%= insightly.phoneThree %>" name="phoneThree">
+            </div>
+          </div>
+        </div>
+      </div>
+			<hr>
 			
 			
 		<% } %>
     <% if(flash && flash.firstLogin) { %>
-			<div class="form-group col-md-2">
-        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Update"/>
+			<div>
+        <input type="submit" value="Update"/>
       </div>
 		<% } else { %>
-      <div class="form-group col-md-2">
-        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Update"/>
+      <div>
+        <input type="submit" value="Update"/>
       </div>
-      <div class="form-group col-md-1 form-cancel-div">
-        <a class="form-cancel" href="/user/show/<%= user.id %>">Cancel</a>
-      </div>
+      <a class="form-cancel" href="/user/show/<%= user.id %>">Cancel</a>
     <% } %>
 		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
 	</form>
+  </div>
 </div>

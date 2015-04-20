@@ -1,4 +1,4 @@
-<div class="container form-wide">
+<div class="ccontainer">
 
 	<% if(flash && flash.successMsg) { %>
 		<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><%- flash.successMsg[0].message %></div>
@@ -16,44 +16,58 @@
 				<% }) %>
 			</div>
 		<% } %>
+  
+  <div class="card">
 
-	<% if(insightly){ %>
+    <% if(insightly){ %>
 
-		<h1 class="form-heading"><%= user.firstName %> <%= user.lastName %>'s Profile</h1>
-		<div class="col-md-12"><hr class="form-sep" /></div>
-		<div class="no-pad col-md-12">
-			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Full name:</span> <%= insightly.salutation %> <%= insightly.firstName %> <%= insightly.lastName %></div>
-			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Preferred name:</span> <%= user.firstName %></div>
-			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Graduation year:</span> <%= insightly.gradYear %></div>
-		</div>
-		<div class="col-md-12"><hr /></div>
-		<div class="no-pad col-md-12">
-			<div class="no-pad profile-item col-md-12"><span class="profile-item-title">Address:</span> <%= insightly.addrStreet %>, <%= insightly.addrCity %>, <%= insightly.addrState %> <%= insightly.addrZip %><% if(insightly.addrCountry){ %>, <%= insightly.addrCountry %><% } %></div>
-		</div>
-		<div class="col-md-12"><hr /></div>
-		<div class="no-pad col-md-12">
-			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Preferred phone:</span> <%= insightly.phoneOne %></div>
-			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Other phone 1:</span> <%= insightly.phoneTwo %></div>
-			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Other phone 2:</span> <%= insightly.phoneThree %></div>
-		</div>
-		<div class="col-md-12"><hr /></div>
-		<div class="no-pad col-md-12">
-			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Preferred email:</span> <% if(insightly.emailOne === 'none listed'){ %><%= insightly.emailOne %><% } else{ %><a target="_blank" href="mailto:<%= insightly.emailOne %>"><%= insightly.emailOne %></a><% } %></div>
-			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Other email 1:</span> <% if(insightly.emailTwo === 'none listed'){ %><%= insightly.emailTwo %><% } else{ %><a target="_blank" href="mailto:<%= insightly.emailTwo %>"><%= insightly.emailTwo %></a><% } %></div>
-			<div class="no-pad profile-item col-md-4"><span class="profile-item-title">Other email 2:</span> <% if(insightly.emailThree === 'none listed'){ %><%= insightly.emailThree %><% } else{ %><a target="_blank" href="mailto:<%= insightly.emailThree %>"><%= insightly.emailThree %></a><% } %></div>
-		</div>
-		<div class="col-md-12"><hr /></div>
-	<% } else { %>
-		<div>Hmm...There seems to be a problem reaching back to our database. If you're seeing this message, please let us know by emailing us at <a href="mailto:astadke@gmail.com">astadke@gmail.com</a>.</div>
-		<br />
-		<div>First Name: <%= user.firstName %></div>
-		<br />
-		<div>Last Name: <%= user.lastName %></div>
-		<br />
-		<div>Email: <%= user.email %></div>
-		<br />
-		<div>Grad Year: <%= user.gradYear %></div>
-		<br />
-	<% } %>
-	<% if(req.session.User.admin || req.session.User.id === user.id){ %><a class="btn btn-lg btn-primary" href="/user/edit/<%= user.id %>">Edit Info</a><div class="under-button">Last updated: <%= insightly.updated %></div><% } %>
+    <h1><%= user.firstName %> <%= user.lastName %>'s Profile</h1>
+    <hr>
+    <div class="row">
+      <div style="margin-bottom:2rem" class="six columns">
+        <div><strong>Full name:</strong> <%= insightly.salutation %> <%= insightly.firstName %> <%= insightly.lastName %></div>
+        <div><strong>Preferred name:</strong> <%= user.firstName %></div>
+        <div><strong>Graduation year:</strong> <%= insightly.gradYear %></div>
+      </div>
+      <div style="margin-bottom:2rem" class="six columns">
+        <div><strong>Address:</strong></div>
+        <div><%= insightly.addrStreet %></div>
+        <div><%= insightly.addrCity %>, <%= insightly.addrState %> <%= insightly.addrZip %>, <% if(insightly.addrCountry){ %><%= insightly.addrCountry %><% } %></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div style="margin-bottom:2rem" class="six columns">
+        <div><strong>Preferred phone:</strong> <%= insightly.phoneOne %></div>
+        <div><strong>Other phone 1:</strong> <%= insightly.phoneTwo %></div>
+        <div><strong>Other phone 2:</strong> <%= insightly.phoneThree %></div>
+      </div>
+      <div style="margin-bottom:2rem" class="six columns">
+        <div><strong>Preferred email:</strong> <% if(insightly.emailOne === 'none listed'){ %><%= insightly.emailOne %><% } else{ %><a target="_blank" href="mailto:<%= insightly.emailOne %>"><%= insightly.emailOne %></a><% } %></div>
+        <div><strong>Other email 1:</strong> <% if(insightly.emailTwo === 'none listed'){ %><%= insightly.emailTwo %><% } else{ %><a target="_blank" href="mailto:<%= insightly.emailTwo %>"><%= insightly.emailTwo %></a><% } %></div>
+        <div><strong>Other email 2:</strong> <% if(insightly.emailThree === 'none listed'){ %><%= insightly.emailThree %><% } else{ %><a target="_blank" href="mailto:<%= insightly.emailThree %>"><%= insightly.emailThree %></a><% } %></div>
+      </div>
+    </div>
+    <hr style="margin-top:1rem">
+    <% } else { %>
+      <div>Hmm...There seems to be a problem reaching back to our database. If you're seeing this message, please let us know by emailing us at <a href="mailto:astadke@gmail.com">astadke@gmail.com</a>.</div>
+      <br>
+      <div>First Name: <%= user.firstName %></div>
+      <br>
+      <div>Last Name: <%= user.lastName %></div>
+      <br>
+      <div>Email: <%= user.email %></div>
+      <br>
+      <div>Grad Year: <%= user.gradYear %></div>
+      <br>
+    <% } %>
+    <div class="row">
+      <div class="six columns small-centered">
+        <% if(req.session.User.admin || req.session.User.id === user.id){ %><a class="button" href="/user/edit/<%= user.id %>">Edit Info</a>
+      </div>
+      <div class="six columns small-centered">
+        <div style="line-height:40px" class="big-pull-right">Last updated: <%= insightly.updated %></div><% } %>
+      </div>
+    </div>
+  </div>
 </div>
