@@ -18,7 +18,7 @@ module.exports = {
   },
 
   create: function(req, res, next){
-  	
+
     if (req.param('passphrase') !== process.env.SIGMATAU_PASSPHRASE){
       var wrongPassphrase = [{name: 'wrongPassphrase', message: 'Please enter the correct passphrase!'}]
       req.session.flash = {

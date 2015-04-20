@@ -1,33 +1,26 @@
-<div class="container">
-	<form action="/user/create" method="POST" id="sign-up-form" class="form-narrow">
-		<h2 class="form-heading">Create Your Account</h2>
-
-		<% if(flash && flash.err) { %>
-			<div class="alert alert-danger">
-		<% Object.keys(flash.err).forEach(function(error) { %>
-			<div><%- flash.err[error].message %></div>
-		<% }) %>
-		</div>
-		<% } %>
-		
-		<input type="text" class="form-control" placeholder="enter your email address" name="email">
-		<br />
-		<input type="password" class="form-control" placeholder="enter a password" name="password" id="password">
-		<br />
-		<input type="password" class="form-control" placeholder="confirm your password" name="confirmation">
-		<br />
-		<input type="text" class="form-control" placeholder="enter your first name" name="firstName">
-		<br />
-		<input type="text" class="form-control" placeholder="enter your last name" name="lastName">
-		<br />
-		<input type="text" class="form-control" placeholder="enter your graduation year" name="gradYear">
-		<br />
-		<input type="password" class="form-control" placeholder="enter the sigma tau passphrase" name="passphrase">
-		<a class="passinfo" href="#">what's this?</a>
-		<br />
-		<br />
-
-		<input type="submit" class="btn btn-lg btn-primary btn-block" value="Create Account"/>
-		<input type="hidden" name="_csrf" value="<%= _csrf %>" />
-	</form>
+<div class="ccontainer">
+  
+  <% if(flash && flash.err) { %>
+  <div class="error card four columns offset-by-four">
+    <% Object.keys(flash.err).forEach(function(error) { %>
+    <div><%- flash.err[error].message %></div>
+    <% }) %>
+  </div>
+  <% } %>
+  <div class="card four columns offset-by-four">
+    <form action="/user/create" method="POST" id="sign-up-form" class="form-narrow">
+      <h3>Create Your Account:</h3>
+      <input type="text" class="u-full-width" placeholder="enter your email address" name="email">
+      <input type="password" class="u-full-width" placeholder="enter a password" name="password" id="password">
+      <input type="password" class="u-full-width" placeholder="confirm your password" name="confirmation">
+      <input type="text" class="u-full-width" placeholder="enter your first name" name="firstName">
+      <input type="text" class="u-full-width" placeholder="enter your last name" name="lastName">
+      <input type="text" class="u-full-width" placeholder="enter your graduation year" name="gradYear">
+      <input type="password" style="margin-bottom: 0" class="u-full-width" placeholder="enter the sigma tau passphrase" name="passphrase">
+      <a style="font-size:1rem" class="passinfo">what's this?</a>
+      <br><br>
+      <input type="submit" value="Create Account"/>
+      <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+    </form>
+  </div>
 </div>

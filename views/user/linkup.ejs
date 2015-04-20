@@ -1,18 +1,18 @@
-<div class="container form-wide">
-	<h1 class="form-heading">Thank you for registering with ASTADKE Online!</h1>
-	<h4 class="form-heading linkup-desc">We want to make sure we match you to the right record in our database. Please select yourself from the list below by clicking the green button next to your name.</h4>
+<div class="ccontainer">
+  <div class="card six columns offset-by-three">
+    <h3>Thank you for registering with ASTADKE Online!</h3>
+    <h6>We want to make sure we match you to the right record in our database. Please select yourself from the list below by clicking the appropriate button.</h6>
 
-	<% _.each(matches, function(person){ %>
+    <% _.each(matches, function(person){ %>
 
-		<div class="linkup-item">
-			<form class="col-md-1" action="/user/join/<%= user.id %>" method="POST">
-				<input type="hidden" name="insightlyID" value="<%= person.CONTACT_ID %>"/>
-				<input type="submit" class="btn btn-sm btn-success" value="This is me -->"/>
-				<input type="hidden" name="_csrf" value="<%= _csrf %>" />
-			</form>
-			<span class="linkup-label col-md-4"> <%= person.FIRST_NAME %> <%= person.LAST_NAME %>, Class of <%= person.CUSTOMFIELDS[1].FIELD_VALUE %></span>
-			<br /><br />
-		</div>
+      <div class="row">
+        <form action="/user/join/<%= user.id %>" method="POST">
+          <input type="hidden" name="insightlyID" value="<%= person.CONTACT_ID %>"/>
+          <input type="submit" class="u-full-width" style="font-size:1em;text-transform:none" value="I am <%= person.FIRST_NAME %> <%= person.LAST_NAME %>, Class of <%= person.CUSTOMFIELDS[1].FIELD_VALUE %>"/>
+          <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+        </form>
+      </div>
 
-	<% }) %>
+    <% }) %>
+  </div>
 </div>

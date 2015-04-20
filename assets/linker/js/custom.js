@@ -3,7 +3,7 @@
 $(".passinfo").qtip({
 	prerender: true,
 	content: {
-		text: 'This passphrase helps us control access to our closed site. If you are a brother and have not yet received the passphrase, please email astadke@gmail.com.'
+		text: 'This passphrase helps us control access to our closed site. If you are a brother and have not yet received the passphrase, please email alumni_relations@astadke.org.'
 	},
 	position: {
     target: 'mouse',
