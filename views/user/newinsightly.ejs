@@ -29,17 +29,17 @@
           </div>
           <div class="five columns">
             <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" class="u-full-width" placeholder="First Name" name="firstName">
+            <input type="text" id="firstName" class="u-full-width" placeholder="First Name" value="<%= user.firstName %>" name="firstName">
           </div>
           <div class="five columns">
             <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" class="u-full-width" placeholder="Last Name" name="lastName">
+            <input type="text" id="lastName" class="u-full-width" placeholder="Last Name" value="<%= user.lastName %>" name="lastName">
           </div>
         </div>
         <div class="row">
           <div class="two columns">
             <label for="gradYear">Class of:</label>
-            <input type="text" id="gradYear" class="u-full-width" placeholder="YYYY" name="gradYear">
+            <input type="text" id="gradYear" class="u-full-width" placeholder="YYYY" value="<%= user.gradYear %>" name="gradYear">
           </div>
           <div class="five columns">
             <label for="prefFirstName">Preferred First Name:</label>
@@ -47,7 +47,7 @@
           </div>
           <div class="five columns">
             <label for="emailOne">Preferred Email:</label>
-            <input type="text" id="emailOne" class="u-full-width" placeholder="Preferred Email " name="emailOne">
+            <input type="text" id="emailOne" class="u-full-width" placeholder="Preferred Email" value="<%= user.email %>" name="emailOne">
           </div>
         </div>
         <div class="row">

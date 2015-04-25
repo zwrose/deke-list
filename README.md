@@ -2,8 +2,9 @@
 The secure, online place for Sigma Tau Dekes to update their contact info, as well as look up contact info of their fellow brothers
 
 v1 work list (in no particular order):
-+ Finish front end work: blog/show, blog/admin, blog/edit, blog/new, and 403/404/500 error pages; test mobile for dekelist/show, user/linkup, and user/newinsightly.
-+ Update Nodemailer config
++ Finish front end work: blog/admin, blog/new; test mobile for dekelist/show.
++ update moment
++ add recent blog posts
 + beta test with BOD
 
 post-v1 work list:

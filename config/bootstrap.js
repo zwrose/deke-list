@@ -41,13 +41,14 @@ module.exports.bootstrap = function (cb) {
 
 	// create reusable transport method (opens pool of SMTP connections)
 	var nodemailer = require('nodemailer');
-  sails.config.smtpTransport = nodemailer.createTransport("SMTP",{
-      service: "Mailgun",
-      auth: {
-          user: "webmaster@mg.astadke.org",
-          pass: process.env.ASTADKE_GMAIL
-      }
-  });
+  var NMmg = require('nodemailer-mailgun-transport');
+  var mgAuth = {
+    auth: {
+      api_key: 'key-0rwdtvvrfbhfr8i-q77yh65j1uni6tk1',
+      domain: 'mg.astadke.org'
+    }
+  }
+  sails.config.smtpTransport = nodemailer.createTransport(NMmg(mgAuth));
   // It's very important to trigger this callack method when you are finished 
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
   cb();

@@ -104,15 +104,15 @@ module.exports = {
 
         // setup e-mail data with unicode symbols
         var mailOptions = {
-            from: "ASTADKE Webmaster <astadke@gmail.com>", // sender address
+            from: "ASTADKE Alumni Relations <alumni_relations@astadke.org>", // sender address
             to: user.firstName + ' ' + user.lastName + ' <' + user.email + '>', // list of receivers
-            bcc: "astadke@gmail.com",
-            subject: "Welcome to ASTADKE Online!", // Subject line
+            bcc: "alumni_relations@astadke.org",
+            subject: "Welcome to the secure ASTADKE website!", // Subject line
             text: "Hi " + user.firstName + ",\n\n" +
-                  "Thank you for registering with ASTADKE Online! We hope you'll find the site useful for keeping up " +
+                  "Thank you for registering on the ASTADKE site! We hope you'll find the site useful for keeping up " +
                   "with everything that is happening with both the active and alumni chapters of Sigma Tau DKE. If you have any questions, " + 
-                  "or run into any issues with the site, please dont hesitate to shoot us an email: astadke@gmail.com.\n\n" + 
-                  "ITB,\n\n" + "Zach Rose '10\n" + "ASTADKE Online Webmaster"
+                  "or run into any issues with the site, please dont hesitate to shoot us an email: alumni_relations@astadke.org.\n\n" + 
+                  "ITB,\n\n" + "Zach Rose '10\n" + "ASTADKE Alumni Relations Officer"
         }
 
         // send mail with defined transport object
@@ -1093,8 +1093,9 @@ module.exports = {
       }, function(error, response, body){
 
         user.insightlyID = body.CONTACT_ID;
-        user.firstName = req.param('prefFirstName');
-
+        if(user.prefFirstName){
+          user.firstName = req.param('prefFirstName');
+        }
         req.session.User = user;
 
         user.save(function(err){
