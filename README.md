@@ -1,23 +1,20 @@
 # ASTADKE Online
-The secure, online place for Sigma Tau Dekes to update their contact info, as well as look up contact info of their fellow brothers
+The secure, online place for Sigma Tau Dekes to update their contact info, as well as look up contact info of their fellow brothers, and generally stay engaged with the alumni community.
 
-v1 work list (in no particular order):
-+ Finish front end work: blog/admin, blog/new; test mobile for dekelist/show.
+TODO:
++ finish front end work: blog/admin, blog/new
++ improve dekelist/show with card layout, add City/State
 + update moment
-+ add recent blog posts
-+ beta test with BOD
-
-post-v1 work list:
++ add and back-date recent blog post
 + Add /support-astadke route for donation link
-+ Add checkbox for MIT recognition
++ add Find Sigma Taus map tool
 + Add email notification when someone updates their account info
 + Sigma Tau Stories
 + add Mentoring and Jobs portal
-+ add Find Sigma Taus map tool
 + deke-list search
-+ implement unit testing?
 
-completed
+COMPLETE
++ beta test with BOD
 + clean up code for release (remove debugging loggers, add logs where appropriate, etc.)
 + import blog posts
 + add flickr upload instructions
