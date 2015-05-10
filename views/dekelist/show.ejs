@@ -29,58 +29,76 @@
       <% if(!(req.param('id') == totalPages)) { %><a class="load-trigger" <% if(!req.param('id')) { %>href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= parseInt(req.param('id'), 10) + 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&raquo;</a><% } else { %><a class="disabled">&raquo;</a><% } %>
     </div>
     <!-- end top pagination -->
-    <table class='u-full-width'>
-      <tr>
-        <th class="dekelist-header"><% if(req.query.sort === 'firstName' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=desc">First Name <span class="name-drop">&#9650;</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=asc">First Name <% if(req.query.sort === 'firstName') { %><span class="name-drop">&#9660;</span><% } %></a><% } %></th>
-        <th class="dekelist-header"><% if(req._parsedUrl.query === null || (req.query.sort === 'lastName' && req.query.sortDir === 'asc')) { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=desc">Last Name <span class="name-drop">&#9650;</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=asc">Last Name <% if(req.query.sort === 'lastName') { %><span class="name-drop">&#9660;</span><% } %></a><% } %></th>
-        <th class="dekelist-header"><% if(req.query.sort === 'gradYear' && req.query.sortDir === 'asc') { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=desc">Grad Year <span class="name-drop">&#9650;</span></a><% } else { %><a class="load-trigger" href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=asc">Grad Year <% if(req.query.sort === 'gradYear') { %><span class="name-drop">&#9660;</span><% } %></a><% } %></th>
-        <th class="dekelist-header">Email</th>
-        <th class="dekelist-header">Phone</th>
-      </tr>
-
+    <div class="u-cf"></div>
+    <h5>Sort by:</h5>
+    <div class="row">
+      <div class="two columns centered">
+        <% if(req.query.sort === 'firstName' && req.query.sortDir === 'asc') { %><a class="button u-full-width load-trigger" href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=desc">First Name &#9650;</a><% } else { %><a class="button u-full-width load-trigger" href="<%= req._parsedUrl.pathname %>?sort=firstName&sortDir=asc">First Name <% if(req.query.sort === 'firstName') { %>&#9660;<% } %></a><% } %>
+      </div>
+      <div class="two columns centered">
+        <% if(req._parsedUrl.query === null || (req.query.sort === 'lastName' && req.query.sortDir === 'asc')) { %><a class="button u-full-width load-trigger" href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=desc">Last Name &#9650;</a><% } else { %><a class="button u-full-width load-trigger" href="<%= req._parsedUrl.pathname %>?sort=lastName&sortDir=asc">Last Name <% if(req.query.sort === 'lastName') { %>&#9660;<% } %></a><% } %>
+      </div>
+      <div class="two columns centered">
+        <% if(req.query.sort === 'gradYear' && req.query.sortDir === 'asc') { %><a class="button u-full-width load-trigger" href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=desc">Grad Year &#9650;</a><% } else { %><a class="button u-full-width load-trigger" href="<%= req._parsedUrl.pathname %>?sort=gradYear&sortDir=asc">Grad Year <% if(req.query.sort === 'gradYear') { %>&#9660;<% } %></a><% } %>
+      </div>
+      <div class="two columns centered">
+        <% if(req.query.sort === 'city' && req.query.sortDir === 'asc') { %><a class="button u-full-width load-trigger" href="<%= req._parsedUrl.pathname %>?sort=city&sortDir=desc">Home City &#9650;</a><% } else { %><a class="button u-full-width load-trigger" href="<%= req._parsedUrl.pathname %>?sort=city&sortDir=asc">Home City <% if(req.query.sort === 'city') { %>&#9660;<% } %></a><% } %>
+      </div>
+      <div class="two columns centered">
+        <% if(req.query.sort === 'state' && req.query.sortDir === 'asc') { %><a class="button u-full-width load-trigger" href="<%= req._parsedUrl.pathname %>?sort=state&sortDir=desc">Home State &#9650;</a><% } else { %><a class="button u-full-width load-trigger" href="<%= req._parsedUrl.pathname %>?sort=state&sortDir=asc">Home State <% if(req.query.sort === 'state') { %>&#9660;<% } %></a><% } %>
+      </div>
+    </div>
+  </div>
 
       <% _.each(brothers, function(brother) { %>
-      <tr>
-        <td><%= brother.FIRST_NAME %></td>
-        <td><%= brother.LAST_NAME %></td>
-        <td><% if(brother.CUSTOMFIELDS[1]) { %><%= brother.CUSTOMFIELDS[1].FIELD_VALUE %><% } else { %>none listed <% } %></td>
-        <td><%
+      <div class="brother card">
+        <h5><%= brother.FIRST_NAME %> <%= brother.LAST_NAME %><% if(brother.CUSTOMFIELDS[1]) { %>, <i>Class of <%= brother.CUSTOMFIELDS[1].FIELD_VALUE %></i><% } else { %>, <i>unknown class year</i> <% } %></h5>
+        <div class="row">
+        <h6 class="four columns">
+          Current Locale:<% if(brother.ADDRESSES[0] && brother.ADDRESSES[0].CITY && brother.ADDRESSES[0].CITY) { %> <%= brother.ADDRESSES[0].CITY %>, <%= brother.ADDRESSES[0].STATE %><% } else { %> none listed<% } %>
+        </h6>
+        <h6 class="four columns">
+          Email: <%
           var priEmail = brother.CONTACTINFOS.filter(function(obj){
             return obj.LABEL === "PERSONAL" || obj.LABEL === "Personal";
           });
 
           if(priEmail[0]) { %><%= priEmail[0].DETAIL %><% } else { %>none listed <% } %>
-        </td>
-        <td><%
+        </h6>
+        <h6 class="four columns">
+          Phone number: <%
           var priPhone = brother.CONTACTINFOS.filter(function(obj){
             return obj.LABEL === "HOME" || obj.LABEL === "Home";
           });
 
           if(priPhone[0]) { %><%= priPhone[0].DETAIL %><% } else { %>none listed <% } %>
-        </td>
-      </tr> 
+        </h6>
+        </div>
+
+      </div> 
 
       <% }) %>
-    </table>
     <!-- bottom pagination -->
-    <div class="pagination">
-      
-      <% if(req.param('id')) { %><a class="load-trigger" <% if(req.param('id') === '2') { %>href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= req.param('id') - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&laquo;</a><% } else { %><a class="disabled">&laquo;</a><% } %>
+    <div class="card">
+      <div class="pagination">
 
-      <a class="load-trigger<% if(!req.param('id')) { %> active<% } %>" href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">1</a>
-      
-      <% if(req.param('id') > 2) { %><a class="disabled">...</a><% } %>
-      
-      <% if(!req.param('id') || req.param('id') < 3) { %><a class="load-trigger<% if(req.param('id') && req.param('id') >= 2 && req.param('id') <= totalPages - 2) { %> active<% } %>" href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">2</a><% } else if(req.param('id') > totalPages - 1) { %>
-      <a class="load-trigger<% if(req.param('id') && req.param('id') >= 2 && req.param('id') <= totalPages - 1) { %> active<% } %>" href="/dekelist/show/<%= totalPages - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 1 %></a><% } else { %>
-      <a class="load-trigger<% if(req.param('id') && req.param('id') >= 2 && req.param('id') <= totalPages - 1) { %> active<% } %>" href="/dekelist/show/<%= req.param('id') %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= req.param('id') %></a><% } %>
+        <% if(req.param('id')) { %><a class="load-trigger" <% if(req.param('id') === '2') { %>href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= req.param('id') - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&laquo;</a><% } else { %><a class="disabled">&laquo;</a><% } %>
 
-      <% if(!req.param('id') || req.param('id') < totalPages - 1) { %><a class="disabled">...</a><% } %>
-      
-      <a class="load-trigger<% if(req.param('id') == totalPages) { %> active<% } %>" href="/dekelist/show/<%= totalPages %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages %></a>
-      
-      <% if(!(req.param('id') == totalPages)) { %><a class="load-trigger" <% if(!req.param('id')) { %>href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= parseInt(req.param('id'), 10) + 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&raquo;</a><% } else { %><a class="disabled">&raquo;</a><% } %>
+        <a class="load-trigger<% if(!req.param('id')) { %> active<% } %>" href="/dekelist/show<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">1</a>
+
+        <% if(req.param('id') > 2) { %><a class="disabled">...</a><% } %>
+
+        <% if(!req.param('id') || req.param('id') < 3) { %><a class="load-trigger<% if(req.param('id') && req.param('id') >= 2 && req.param('id') <= totalPages - 2) { %> active<% } %>" href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>">2</a><% } else if(req.param('id') > totalPages - 1) { %>
+        <a class="load-trigger<% if(req.param('id') && req.param('id') >= 2 && req.param('id') <= totalPages - 1) { %> active<% } %>" href="/dekelist/show/<%= totalPages - 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages - 1 %></a><% } else { %>
+        <a class="load-trigger<% if(req.param('id') && req.param('id') >= 2 && req.param('id') <= totalPages - 1) { %> active<% } %>" href="/dekelist/show/<%= req.param('id') %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= req.param('id') %></a><% } %>
+
+        <% if(!req.param('id') || req.param('id') < totalPages - 1) { %><a class="disabled">...</a><% } %>
+
+        <a class="load-trigger<% if(req.param('id') == totalPages) { %> active<% } %>" href="/dekelist/show/<%= totalPages %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"><%= totalPages %></a>
+
+        <% if(!(req.param('id') == totalPages)) { %><a class="load-trigger" <% if(!req.param('id')) { %>href="/dekelist/show/2<% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } else { %>href="/dekelist/show/<%= parseInt(req.param('id'), 10) + 1 %><% if(req._parsedUrl.search) { %><%= req._parsedUrl.search %><% } %>"<% } %>>&raquo;</a><% } else { %><a class="disabled">&raquo;</a><% } %>
+      </div>
     </div>
     <!-- end bottom pagination -->
-  </div>
+  
 </div>

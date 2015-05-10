@@ -67,8 +67,6 @@ module.exports = {
         } else {
             var y = '';
         }
-        console.log('x is ' + x);
-        console.log('y is ' + y);
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
     },
@@ -84,8 +82,6 @@ module.exports = {
         } else {
             var y = '';
         }
-        console.log('x is ' + x);
-        console.log('y is ' + y);
         return ((x > y) ? -1 : ((x < y) ? 1 : 0));
     });
     },
@@ -101,8 +97,6 @@ module.exports = {
         } else {
             var y = '';
         }
-        console.log('x is ' + x);
-        console.log('y is ' + y);
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
     },
@@ -118,8 +112,6 @@ module.exports = {
         } else {
             var y = '';
         }
-        console.log('x is ' + x);
-        console.log('y is ' + y);
         return ((x > y) ? -1 : ((x < y) ? 1 : 0));
     });
     },
