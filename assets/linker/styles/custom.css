@@ -45,7 +45,7 @@ body:before { /* thanks to Maleika (Kohoutec)*/
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
-.pagination a:hover {
+.pagination a.load-trigger:hover {
     background-color: #012B7F;
     color: #fff;
 }
@@ -55,6 +55,12 @@ body:before { /* thanks to Maleika (Kohoutec)*/
 .pagination a.active {
     color: #fff;
     background-color: #012B7F;
+}
+@media (max-width: 549px) {
+  .small-pag-clear {
+    display: block;
+    clear: both;
+  }
 }
 /* end pagination */
 body {
