@@ -24,7 +24,7 @@ module.exports.session = {
   host: process.env.REDIS_HOST,
   port: process.env.REDIS_PORT,
   // ttl: <redis session TTL in seconds>,
-  db: process.env.REDIS_DB,
+  db: 0,
   pass: process.env.REDIS_PASS
   //
   // The following values are optional, if no options are set a redis instance running
