@@ -1,5 +1,4 @@
 // Start sails and pass it command line arguments
-require('newrelic');
 // var config = sails.util.merge(require('optimist').argv,{
 //   hooks: {
 //     sockets: false,
