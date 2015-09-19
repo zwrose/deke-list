@@ -1,68 +1,85 @@
-<div class="container form-wide">
-	<h1 class="form-heading">Blog Administration Console</h1>
-  
-  <% if(flash && flash.successMsg) { %>
-		<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><%- flash.successMsg[0].message %></div>
-	<% } %>
-  
+<div class="ccontainer">
   <% if(flash && flash.err) { %>
-			<div class="alert alert-danger">
-		<% Object.keys(flash.err).forEach(function(error) { %>
-			<div><%- flash.err[error].message %></div>
-		<% }) %>
-		</div>
-		<% } %>
-	<table class='table deke-list-table'>
-		<tr>
-			<th>Article Title (click to view article)</th>
-			<th>Author</th>
-			<th>Date (articles are sorted newest to oldest)</th>
-			<th></th>
-      <th></th>
-			<th></th>
-			<th></th>
-		</tr>
-		
+  <div class="error card">
+    <% Object.keys(flash.err).forEach(function(error) { %>
+    <div><%- flash.err[error].message %></div>
+    <% }) %>
+  </div>
+  <% } %>
+  
+  <% if(flash && flash.sucessMsg) { %>
+  <div class="success card">
+    <div><%- flash.successMsg[0].message %></div>
+  </div>
+  <% } %>
+  
+  <div class="card">
+    <h1 class="form-heading">Blog Administration Console</h1>
 
-		<% _.each(articles, function(article) { %>
-		<tr data-id="<%= article.id %>" data-model="blog">
-			<td><a href="/blog/show/<%= article.id %>" ><%= article.title %></a></td>
-			<td><%= article.author.firstName %> <%= article.author.lastName %></td>
-			<td><%= article.pubDate %></td>
-			<td>
-        <% if(article.published){ %>
-          <span class="pubd">Published</span>
+    <table class='u-full-width'>
+      <tr>
+        <th>Article Title (click to view article)</th>
+        <th>Author</th>
+        <th>Date (articles are sorted newest to oldest)</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+
+
+      <% _.each(articles, function(article) { %>
+      <tr data-id="<%= article.id %>" data-model="blog">
+        <td><a href="/blog/show/<%= article.id %>" ><%= article.title %></a></td>
+        <td><%= article.author.firstName %> <%= article.author.lastName %></td>
+        <td><%= article.pubDate %></td>
+        <td>
+          <% if(article.published){ %>
+            <span class="pubd">Published</span>
+            </td><td>
+            <form action="/blog/pubChange/<%= article.id %>" method="POST" role="form">
+              <button type="submit" >Unpublish</button>
+              <input type="hidden" name="pubToggle" value="unPub" />
+              <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+            </form>
+          <% }else{ %>
+            <span class="unpubd">Unpublished</span>
           </td><td>
-          <form class="form-inline show-all-form" action="/blog/pubChange/<%= article.id %>" method="POST" role="form">
-            <button type="submit" class="btn btn-sm btn-show-all-form">Unpublish</button>
-            <input type="hidden" name="pubToggle" value="unPub" />
-            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
-          </form>
-        <% }else{ %>
-          <span class="unpubd">Unpublished</span>
-        </td><td>
-          <form class="form-inline show-all-form" action="/blog/pubChange/<%= article.id %>" method="POST" role="form">
-            <button type="submit" class="btn btn-sm btn-show-all-form">Publish</button>
-            <input type="hidden" name="pubToggle" value="Pub" />
-            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
-          </form>
-        <% } %>
-      
-      </td>
-			<td><a href="/blog/edit/<%= article.id %>" class="btn btn-sm btn-primary btn-show-all-form">Edit Article</a></td>
-			<td><form action="/blog/destroy/<%= article.id %>" method="POST">
-				<input type="hidden" name="_method" value="delete"/>
-				<input type="submit" onclick="return confirm('Are you sure you want to delete this article? This cannot be undone.')" class="btn btn-sm btn-danger btn-show-all-form" value="Delete Article"/>
-				<input type="hidden" name="_csrf" value="<%= _csrf %>" />
-			</form></td>
-		</tr> 
+            <form action="/blog/pubChange/<%= article.id %>" method="POST" role="form">
+              <button type="submit" >Publish</button>
+              <input type="hidden" name="pubToggle" value="Pub" />
+              <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+            </form>
+          <% } %>
 
-		<% }) %>
-	</table>
-  <hr class="blog-admin-end"/>
-  <a class="btn btn-success add-article" href="/blog/new">+ Create New Article</a>
-  <ul class="pager">
-    <li class="previous<% if(lastPage) { %> hide<% } %>"><a <% if(!req.param('id') || req.param('id') < 2) { %>href="/blog/admin/2"<% } else { %>href="/blog/admin/<%= req.param('id') + 1 %>"<% } %>>&larr; Older Articles</a></li>
-    <li class="next<% if(!req.param('id') || req.param('id') < 2) { %> hide<% } %>"><a <% if(req.param('id') && req.param('id') <= 2) { %>href="/blog/admin"<% } else { %>href="/blog/admin/<%= req.param('id') - 1 %>"<% } %>>Newer Articles &rarr;</a></li>
-  </ul>
+        </td>
+        <td><a href="/blog/edit/<%= article.id %>" class="button">Edit</a></td>
+        <td><form action="/blog/destroy/<%= article.id %>" method="POST">
+          <input type="hidden" name="_method" value="delete"/>
+          <input type="submit" onclick="return confirm('Are you sure you want to delete this article? This cannot be undone.')" value="Delete"/>
+          <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+        </form></td>
+      </tr> 
+
+      <% }) %>
+    </table>
+    <a class="button" href="/blog/new">+ Create New Article</a>
+<!--     <ul class="pager">
+      <li class="previous<% if(lastPage) { %> hide<% } %>"><a <% if(!req.param('id') || req.param('id') < 2) { %>href="/blog/admin/2"<% } else { %>href="/blog/admin/<%= req.param('id') + 1 %>"<% } %>>&larr; Older Articles</a></li>
+      <li class="next<% if(!req.param('id') || req.param('id') < 2) { %> hide<% } %>"><a <% if(req.param('id') && req.param('id') <= 2) { %>href="/blog/admin"<% } else { %>href="/blog/admin/<%= req.param('id') - 1 %>"<% } %>>Newer Articles &rarr;</a></li>
+    </ul> -->
+  </div>
+  
+  <div class="card">
+    <div class="row">
+      <div class="three columns centered">
+        <a class="button oldArt centered<% if(lastPage) { %> hide<% } %>" <% if(!req.param('id') || req.param('id') < 2) { %>href="/blog/admin/2"<% } else { %>href="/blog/admin/<%= req.param('id') + 1 %>"<% } %>>View Older Articles</a>
+      </div>
+      <div class="six columns centered<% if(lastPage) { %> offset-by-three<% } %>">
+      </div>
+      <div class="three columns centered<% if(lastPage) { %> offset-by-nine<% } %>">
+        <a class="button newArt centered<% if(!req.param('id') || req.param('id') < 2) { %> hide<% } %>" <% if(req.param('id') && req.param('id') <= 2) { %>href="/blog/admin"<% } else { %>href="/blog/admin/<%= req.param('id') - 1 %>"<% } %>>View Newer Articles</a>
+      </div>
+    </div>
+  </div>
 </div>

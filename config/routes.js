@@ -49,6 +49,9 @@ module.exports.routes = {
   '/donate': {
     view: 'home/donate'
   },
+  '/support-astadke': {
+    view: 'home/donate'
+  },
   
   '/thankyou': {
     view: 'home/thankyou'
