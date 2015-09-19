@@ -36,7 +36,7 @@ function DST(){
 module.exports = {
   
   new: function(req, res, next){
-    res.view();
+    return res.view();
   },
   
   create: function(req, res, next){
@@ -47,8 +47,7 @@ module.exports = {
       req.session.flash = {
         err: noTitleError	
       }
-      res.redirect('/blog/new');
-      return;
+      return res.redirect('/blog/new');
     }
       
     
@@ -74,7 +73,7 @@ module.exports = {
       
       if(err) {console.log(err); return next(err);}
       
-      res.redirect('/')
+      return res.redirect('/')
       
     });
     
@@ -97,7 +96,7 @@ module.exports = {
       totalPages = Math.ceil(num/5);
       
       if(page > totalPages){
-        res.redirect('/blog/index/' + totalPages);
+        return res.redirect('/blog/index/' + totalPages);
       } else if(page == totalPages){
         lastPage = true;
       } else {
@@ -112,7 +111,7 @@ module.exports = {
         
         if(err) return next(err);
         
-        res.view({
+        return res.view({
           articles: articles,
           lastPage: lastPage
         })
@@ -133,16 +132,15 @@ module.exports = {
           req.session.flash = {
             err: noArticleError	
           }
-          res.redirect('/blog');
-          return;
+          return res.redirect('/blog');
         }
         
         if(article.published){
-          res.view({
+          return res.view({
             article: article
           });
         } else {
-          res.redirect('/');
+          return res.redirect('/');
         }
         
       });
@@ -160,11 +158,10 @@ module.exports = {
           req.session.flash = {
             err: noArticleError	
           }
-          res.redirect('/blog/admin');
-          return;
+          return res.redirect('/blog/admin');
         }
         
-        res.view({
+        return res.view({
           article: article
         });
         
@@ -180,8 +177,7 @@ module.exports = {
         req.session.flash = {
           err: noTitleError	
         }
-        res.redirect('/blog/edit/' + req.param('id'));
-        return;
+        return res.redirect('/blog/edit/' + req.param('id'));
       }
       
       // precalculate date and time for publishing
@@ -215,7 +211,7 @@ module.exports = {
           return res.redirect('/blog/edit/'+req.param('id'));
         }
 
-        res.redirect('/blog/show/'+req.param('id'));
+        return res.redirect('/blog/show/'+req.param('id'));
       });
       
     },
@@ -249,7 +245,7 @@ module.exports = {
 
           if(err) return next(err);
 
-          res.view({
+          return res.view({
             articles: articles,
             lastPage: lastPage
           })
@@ -280,7 +276,7 @@ module.exports = {
             return res.redirect('/blog/admin');
           }
 
-          res.redirect('/blog/admin');
+          return res.redirect('/blog/admin');
         });
         
       } else {
@@ -295,7 +291,7 @@ module.exports = {
             return res.redirect('/blog/admin');
           }
 
-          res.redirect('/blog/admin');
+          return res.redirect('/blog/admin');
         });
         
       }
@@ -316,7 +312,7 @@ module.exports = {
           req.session.flash = {
             successMsg: goodDelete
           }
-          res.redirect('/blog/admin');
+          return res.redirect('/blog/admin');
 
         });
 

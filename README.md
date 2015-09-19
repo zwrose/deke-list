@@ -2,11 +2,7 @@
 The secure, online place for Sigma Tau Dekes to update their contact info, as well as look up contact info of their fellow brothers, and generally stay engaged with the alumni community.
 
 TODO:
-+ finish front end work: blog/admin, blog/new
-+ improve dekelist/show with card layout, add City/State
 + update moment
-+ add and back-date recent blog post
-+ Add /support-astadke route for donation link
 + add Find Sigma Taus map tool
 + Add email notification when someone updates their account info
 + Sigma Tau Stories
@@ -14,6 +10,10 @@ TODO:
 + deke-list search
 
 COMPLETE
++ finish front end work: blog/admin, blog/new
++ Add /support-astadke route for donation link
++ add and back-date recent blog post
++ improve dekelist/show with card layout, add City/State
 + beta test with BOD
 + clean up code for release (remove debugging loggers, add logs where appropriate, etc.)
 + import blog posts
