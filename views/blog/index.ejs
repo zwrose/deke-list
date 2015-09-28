@@ -32,7 +32,7 @@
   <div class="card">
     <div class="row">
       <div class="three columns centered">
-        <a class="button oldArt centered<% if(lastPage) { %> hide<% } %>" <% if(!req.param('id') || req.param('id') < 2) { %>href="/blog/index/2"<% } else { %>href="/blog/index/<%= req.param('id') + 1 %>"<% } %>>View Older Articles</a>
+        <a class="button oldArt centered<% if(lastPage) { %> hide<% } %>" <% if(!req.param('id') || req.param('id') < 2) { %>href="/blog/index/2"<% } else { %>href="/blog/index/<%= parseInt(req.param('id')) + 1 %>"<% } %>>View Older Articles</a>
       </div>
       <div class="six columns centered<% if(lastPage) { %> offset-by-three<% } %>">
         Have a memorable story or piece of Alumni News you wish to share?<br>Send an email to <a href="mailto:alumni_relations@astadke.org" target="_blank">alumni_relations@astadke.org</a>!
