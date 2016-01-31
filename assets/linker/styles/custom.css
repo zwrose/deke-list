@@ -80,6 +80,13 @@ body {
   padding: 2.5rem;
   background-color: #fff;
 }
+.stacked.card {
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  margin: 1rem 0 3rem;
+  padding: 2.5rem;
+  background-color: #fff;
+  height: 100%;
+}
 .brother.card {
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   margin: 3rem 0;
