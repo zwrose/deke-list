@@ -159,3 +159,14 @@ img {
   background-color:#DFF0D8;
   margin-bottom: 0;
 }
+.newDonate {
+    background-color:    #012b7f !important;
+    border-color:    #012b7f !important;
+    border-radius: 10px;
+    color:         #fff;
+    display:       inline-block;
+    padding:       10px 16px;
+    font:          normal 400 27px/1 "Open Sans", sans-serif;
+    text-align:    center;
+    text-shadow:   none;
+}
