@@ -57,13 +57,13 @@ module.exports.routes = {
     view: 'home/thankyou'
   },
   
-//   '/renovation': {
-//     view: 'home/campaign'
-//   },
+  '/renovation': {
+    view: 'home/campaign'
+  },
   
-//   '/campaign': {
-//     view: 'home/campaign'
-//   },
+  '/campaign': {
+    view: 'home/campaign'
+  },
 
   /*
   // But what if you want your home page to display
