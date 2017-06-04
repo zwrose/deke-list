@@ -68,6 +68,10 @@ module.exports.routes = {
   '/user/edit/*': {
     view: 'home/manualUpdate'
   },
+  
+  '/campaign/novUpdate' : {
+    view: 'home/novUpdate'
+  },
 
   /*
   // But what if you want your home page to display
