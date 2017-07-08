@@ -59,10 +59,10 @@
         </h6>
         <h6 class="four columns">
           Email: <%
+          console.log(brother.CONTACTINFOS[1]);
           var priEmail = brother.CONTACTINFOS.filter(function(obj){
-            return obj.LABEL === "PERSONAL" || obj.LABEL === "Personal";
+            return obj.TYPE === "EMAIL";
           });
-
           if(priEmail[0]) { %><%= priEmail[0].DETAIL %><% } else { %>none listed <% } %>
         </h6>
         <h6 class="four columns">

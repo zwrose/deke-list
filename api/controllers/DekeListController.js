@@ -65,7 +65,7 @@ module.exports = {
 
 	      if(req.param('id')){
 
-  			var page = parseInt(req.param('id'), 10);
+  				var page = parseInt(req.param('id'), 10);
 
 	  			sortedAllContacts = sortedAllContacts.slice(30*(page - 1), 30*page);
 
@@ -74,6 +74,8 @@ module.exports = {
 	  			sortedAllContacts = sortedAllContacts.slice(0, 30);
 
 	  		}
+	  		
+	  		
 
 	      return res.view({
 	      	brothers: sortedAllContacts,
