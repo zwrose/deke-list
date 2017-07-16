@@ -19,7 +19,7 @@
     "sails-mongo": "^0.10.4"
   },
   "engines": {
-    "node": "4.6.x",
+    "node": ">=4.8.4 <5.0.0",
     "npm": "2.15.x"
   },
   "scripts": {
