@@ -6,7 +6,7 @@
   "dependencies": {
     "bcrypt": "^0.8.0",
     "connect-redis": "~1.4.5",
-    "ejs": "^1.0.0",
+    "ejs": "~2.5.5",
     "grunt": "^0.4.5",
     "moment": "^2.8.3",
     "newrelic": "^1.12.0",
